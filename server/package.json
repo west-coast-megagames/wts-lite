@@ -1,0 +1,46 @@
+{
+  "name": "wts-lite-server",
+  "version": "0.1.0",
+  "description": "Server for the Watch the Skies, lite support application",
+  "keywords": [
+    "megagames",
+    "west",
+    "coast",
+    "Project",
+    "Nexus",
+    "Watch the skies"
+  ],
+  "homepage": "https://github.com/west-coast-megagames/wts-lite#readme",
+  "bugs": {
+    "url": "https://github.com/west-coast-megagames/wts-lite/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/west-coast-megagames/wts-lite.git"
+  },
+  "license": "ISC",
+  "author": "John T. Cleveland",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "server": "nodemon server.js"
+  },
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "compression": "^1.8.0",
+    "config": "^4.0.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "helmet": "^5.1.0",
+    "mongoose": "^8.16.0",
+    "winston": "^3.17.0",
+    "winston-mongodb": "^7.0.0"
+  },
+  "devDependencies": {
+    "concurrently": "^7.2.2",
+    "eslint": "^8.19.0",
+    "nodemon": "^3.0.1"
+  }
+}

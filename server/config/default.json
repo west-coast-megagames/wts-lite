@@ -1,0 +1,4 @@
+{
+  "jwtPrivateKey": "folly",
+  "dbName": "WTS-Lite"
+}
