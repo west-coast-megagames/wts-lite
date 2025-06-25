@@ -13,3 +13,115 @@ body {
     color-scheme: dark;
   }
 }
+
+@-webkit-keyframes hysteria {
+	 0% {
+		 fill: #841a1a;
+	}
+	 90% {
+		 fill: #d40000;
+	}
+	 92.5% {
+		 fill: #FF6600;
+	}
+	 95% {
+		 fill: #ffcc00;
+	}
+	 97.5% {
+		 fill: #FF6600;
+	}
+	 100% {
+		 fill: #ffcc00;
+	}
+}
+ @keyframes hysteria {
+	 0% {
+		 fill: #841a1a;
+	}
+	 90% {
+		 fill: #d40000;
+	}
+	 92.5% {
+		 fill: #FF6600;
+	}
+	 95% {
+		 fill: #ffcc00;
+	}
+	 97.5% {
+		 fill: #FF6600;
+	}
+	 100% {
+		 fill: #ffcc00;
+	}
+}
+ .monitor .terror-map {
+	 position: fixed;
+	 left: 0;
+	 top: 0;
+	 width: 100%;
+	 height: 100%;
+	 display: flex;
+	 justify-content: center;
+	 align-items: center;
+	 padding: 30px;
+}
+ .monitor .terror-map * {
+	 transition: all 500ms ease-in-out;
+}
+ .monitor .terror-map #worldMap {
+	 display: block;
+	 width: 100%;
+	 max-height: calc(100% - 120px);
+}
+ .monitor .terror-map #worldMap path {
+	 transition: fill 2500ms ease-in-out;
+}
+ .monitor .terror-map #worldMap .oceans {
+	 fill: #222;
+}
+ .monitor .terror-map #worldMap .landmass {
+	 fill: #333;
+}
+ .monitor .terror-map #worldMap .landmass.anxious {
+	 fill: #64b231;
+}
+ .monitor .terror-map #worldMap .landmass.alarmed {
+	 fill: #ffcc00;
+}
+ .monitor .terror-map #worldMap .landmass.agitated {
+	 fill: #FF6600;
+}
+ .monitor .terror-map #worldMap .landmass.panic {
+	 fill: #d40000;
+}
+ .monitor .terror-map #worldMap .landmass.hysteria path {
+	 fill: #841a1a;
+}
+ .monitor .terror-map #worldMap .landmass.hysteria path:nth-child(7n + 0) {
+	 -webkit-animation: hysteria 4000ms ease-in-out 2500ms infinite alternate;
+	 animation: hysteria 4000ms ease-in-out 2500ms infinite alternate;
+}
+ .monitor .terror-map #worldMap .landmass.hysteria path:nth-child(7n + 1) {
+	 -webkit-animation: hysteria 4000ms ease-in-out 2600ms infinite alternate;
+	 animation: hysteria 4000ms ease-in-out 2600ms infinite alternate;
+}
+ .monitor .terror-map #worldMap .landmass.hysteria path:nth-child(7n + 2) {
+	 -webkit-animation: hysteria 4000ms ease-in-out 2700ms infinite alternate;
+	 animation: hysteria 4000ms ease-in-out 2700ms infinite alternate;
+}
+ .monitor .terror-map #worldMap .landmass.hysteria path:nth-child(7n + 3) {
+	 -webkit-animation: hysteria 4000ms ease-in-out 2800ms infinite alternate;
+	 animation: hysteria 4000ms ease-in-out 2800ms infinite alternate;
+}
+ .monitor .terror-map #worldMap .landmass.hysteria path:nth-child(7n + 4) {
+	 -webkit-animation: hysteria 4000ms ease-in-out 2900ms infinite alternate;
+	 animation: hysteria 4000ms ease-in-out 2900ms infinite alternate;
+}
+ .monitor .terror-map #worldMap .landmass.hysteria path:nth-child(7n + 5) {
+	 -webkit-animation: hysteria 4000ms ease-in-out 3000ms infinite alternate;
+	 animation: hysteria 4000ms ease-in-out 3000ms infinite alternate;
+}
+ .monitor .terror-map #worldMap .landmass.hysteria path:nth-child(7n + 6) {
+	 -webkit-animation: hysteria 4000ms ease-in-out 3100ms infinite alternate;
+	 animation: hysteria 4000ms ease-in-out 3100ms infinite alternate;
+}
