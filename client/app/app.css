@@ -57,13 +57,13 @@ body {
  .monitor .terror-map {
 	 position: fixed;
 	 left: 0;
-	 top: 0;
+	 top: 60;
 	 width: 100%;
 	 height: 100%;
 	 display: flex;
 	 justify-content: center;
 	 align-items: center;
-	 padding: 30px;
+	 padding: 10px;
 }
  .monitor .terror-map * {
 	 transition: all 500ms ease-in-out;
@@ -71,7 +71,7 @@ body {
  .monitor .terror-map #worldMap {
 	 display: block;
 	 width: 100%;
-	 max-height: calc(100% - 120px);
+	 max-height: calc(100%);
 }
  .monitor .terror-map #worldMap path {
 	 transition: fill 2500ms ease-in-out;
