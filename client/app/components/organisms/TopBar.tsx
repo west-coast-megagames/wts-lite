@@ -1,7 +1,7 @@
-import { Box, Container, HStack } from '@chakra-ui/react'
-import { Logo } from '../logo' 
+import { Box, Container, HStack, Image } from '@chakra-ui/react'
 import { NotificationPopover, SearchPopover, SearchField, UserMenu, MobilePopover, NavbarLinks } from '../molecules'
 import { CountdownClock } from '../molecules/CountDown'
+import icon from "../../../public/images/wcm_logo.png"
 
 export const Block = () => {
   return (
@@ -12,7 +12,9 @@ export const Block = () => {
             <MobilePopover>
               <NavbarLinks />
             </MobilePopover>
-            <Logo />
+            <HStack>
+              <Image src={icon} h={30} />
+            </HStack>
             <NavbarLinks hideBelow="md" />
           </HStack>
           <CountdownClock />
