@@ -1,5 +1,6 @@
 import { Avatar, Menu, Portal } from '@chakra-ui/react'
 import { LuCircleHelp, LuLogOut, LuSettings, LuUser } from 'react-icons/lu'
+import us from "../../img/flags/us.svg"
 
 export const UserMenu = () => {
   return (
@@ -7,7 +8,7 @@ export const UserMenu = () => {
       <Menu.Trigger rounded="full">
         <Avatar.Root>
           <Avatar.Fallback />
-          <Avatar.Image src="https://i.pravatar.cc/300" />
+          <Avatar.Image src={us} />
         </Avatar.Root>
       </Menu.Trigger>
       <Portal>
