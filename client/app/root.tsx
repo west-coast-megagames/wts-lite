@@ -13,6 +13,7 @@ import { Provider } from "./components/ui/provider";
 import React from "react";
 import { DrawerContextProvider } from "./components/context/DrawerContext";
 import { ControlDrawer } from "./components/organisms/ControlDrawer";
+import { PatrickDrawer } from "./components/organisms/PatrickDrawer";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -51,6 +52,7 @@ export default function App() {
       <DrawerContextProvider>
         <Outlet />
         <ControlDrawer  />
+        <PatrickDrawer />
       </DrawerContextProvider>
     </Provider>
   )

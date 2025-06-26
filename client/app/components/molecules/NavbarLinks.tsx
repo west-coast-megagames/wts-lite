@@ -7,7 +7,7 @@ export const NavbarLinks = (props: StackProps) => {
   const { setDrawer } = useDrawerContext();
   return (
     <Stack direction={{ base: 'column', md: 'row' }} gap={{ base: '6', md: '8' }} {...props}>
-      {['Dashboard', 'Reports', "Newsroom"].map((item: string) => (
+      {['Dashboard', 'Reports', "Newsroom", 'candy'].map((item: string) => (
         <Link
           key={item}
           fontWeight="medium"
