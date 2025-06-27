@@ -1,4 +1,4 @@
-const terrorBreakpoints = [
+export const terrorBreakpoints = [
     {
         name: "Calm",
         level: 0,
@@ -36,3 +36,4 @@ const terrorBreakpoints = [
         maxValue: 9999,
     },
 ]
+

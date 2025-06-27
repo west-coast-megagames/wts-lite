@@ -66,3 +66,5 @@ export const regions = [
     type: "Ground"
    }
 ]
+
+export const regionList = regions.filter((el) => el.type === "Ground" && el.code !== "AN");
