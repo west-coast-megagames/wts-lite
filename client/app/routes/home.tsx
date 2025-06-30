@@ -1,8 +1,8 @@
-import { Block } from "~/components/organisms/TopBar";
+import { TopBar } from "~/components/organisms/TopBar";
 import type { Route } from "./+types/home";
 // import { Welcome } from "../welcome/welcome";
-import { WorldMap } from "~/components/WorldMap";
-import { Box, Flex } from "@chakra-ui/react";
+import { WorldMap } from "~/components/map/WorldMap";
+import { Flex } from "@chakra-ui/react";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -12,9 +12,8 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
-  // return <Welcome />;
   return (<div className="monitor">
-      <Block />
+      <TopBar />
       <Flex className="terror-map" paddingTop={4}>
         <WorldMap />
       </Flex>

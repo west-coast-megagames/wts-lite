@@ -3,7 +3,7 @@ import { NotificationPopover, SearchPopover, SearchField, UserMenu, MobilePopove
 import { CountdownClock } from '../molecules/CountDown'
 import icon from "../../../public/images/wcm_logo.png"
 
-export const Block = () => {
+export const TopBar = () => {
   return (
     <Box borderBottomWidth="1px" bg="bg.panel">
       <Container fluid py={{ base: '1', md: '2' }}>
