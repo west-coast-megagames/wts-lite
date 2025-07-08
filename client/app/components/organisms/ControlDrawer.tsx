@@ -15,7 +15,7 @@ export const ControlDrawer = () => {
                 <Drawer.Positioner>
                 <Drawer.Content>
                     <Drawer.Body pt="6" spaceY="3">
-                    <p>Drawer is open: {activeDrawer}</p>
+                    <Text textStyle="3xl">Terror Controls</Text>
                         {terrorTrack.map(region => (
                             <HStack justifyContent="space-between">
                                 <VStack alignItems='start' gap={0}>
