@@ -11,9 +11,8 @@ import type { Route } from "./+types/root";
 import "./app.css";
 import { Provider } from "./components/ui/provider";
 import React from "react";
-import { DrawerContextProvider } from "./components/context/DrawerContext";
 import { ControlDrawer } from "./components/organisms/ControlDrawer";
-import { TerrorContextProvider } from "./components/context/TerrorContext";
+import { TopBar } from "./components/organisms/TopBar";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -37,10 +36,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body>   
-        {children}
-        <ScrollRestoration />
-        <Scripts />
+      <body>
+        <Provider>
+          <div className="monitor">
+          <TopBar />
+          {children}
+          <ScrollRestoration />
+          <Scripts />
+          </div>
+        </Provider>  
       </body>
     </html>
   );
@@ -48,14 +52,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return (
-    <Provider>
-      <DrawerContextProvider>
-        <TerrorContextProvider>
-          <Outlet />
-          <ControlDrawer  />
-        </TerrorContextProvider>
-      </DrawerContextProvider>
-    </Provider>
+    <div>
+      <Outlet />
+      <ControlDrawer  />
+    </div>
   )
 }
 

@@ -12,11 +12,9 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
-  return (<div className="monitor">
-      <TopBar />
+  return (
       <Flex className="terror-map" paddingTop={4}>
         <WorldMap />
       </Flex>
-    </div>
     )
 }

@@ -5,11 +5,17 @@ import {
   ColorModeProvider,
   type ColorModeProviderProps,
 } from "./color-mode"
+import { DrawerContextProvider } from "../context/DrawerContext"
+import { TerrorContextProvider } from "../context/TerrorContext"
 
 export function Provider(props: ColorModeProviderProps) {
   return (
     <ChakraProvider value={defaultSystem}>
-      <ColorModeProvider {...props} />
+      <DrawerContextProvider>
+        <TerrorContextProvider>
+          <ColorModeProvider {...props} />
+        </TerrorContextProvider>
+      </DrawerContextProvider>
     </ChakraProvider>
   )
 }
