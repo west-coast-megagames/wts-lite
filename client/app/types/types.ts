@@ -13,6 +13,14 @@ export type Timestamp = {
     clock: Date
 };
 
+export type Client = {
+    id: string,
+    username: string,
+    self: boolean,
+    team: string,
+    role: string
+}
+
 /* Terror types used for the terror track */
 export type Region = {
     name: string,
