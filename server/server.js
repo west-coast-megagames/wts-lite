@@ -13,6 +13,7 @@ const server = http.createServer(app);
 logger.info('web-server established...');
 require('./middleware/log/exceptions')(); // Bootup for uncaught error handling
 require('./routes/routing')(app); // Bootup for Express routes
+require('./routes/sockets')(server); // Bootup for Socket.io server
 require('./middleware/mongoDB/db')(); // Bootup of MongoDB through Mongoose
 require('./middleware/production/prod')(app); // Production compression and middleware
 
