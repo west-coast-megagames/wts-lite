@@ -14,6 +14,7 @@ import { BsChat, BsChevronUp } from 'react-icons/bs'
 import { Tags } from '../molecules/Tags'
 import { PostDate } from '../molecules/PostTime'
 import { Comment } from '../molecules/Comment'
+import { Tooltip } from "../ui/tooltip"
 
 export const MediaFeed = () => {
   return (
@@ -61,9 +62,11 @@ export const MediaFeed = () => {
             </Stack>
             <VStack px="4" justify="center" flexShrink="0">
               <BsChevronUp />
-              <Text textStyle="sm" fontWeight="semibold">
-                {feed.upvotes}
-              </Text>
+              <Tooltip content="Upvote">              
+                <Text textStyle="sm" fontWeight="semibold">
+                  {feed.upvotes} 
+                </Text>
+              </Tooltip>
             </VStack>
           </Flex>
         ))}

@@ -6,7 +6,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
-
+//hi
 import type { Route } from "./+types/root";
 import "./app.css";
 import { Provider } from "./components/ui/provider";
@@ -39,6 +39,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body suppressHydrationWarning={true}>
         <Provider>
+          <ControlDrawer  />
           <div className="monitor">
           <TopBar />
           {children}
@@ -56,7 +57,6 @@ export default function App() {
   return (
     <div>
       <Outlet />
-      <ControlDrawer  />
     </div>
   )
 }
