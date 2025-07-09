@@ -17,11 +17,13 @@ module.exports = function(httpServer) {
         currentUsers();
 
         // Logout Client event
-        client.on('logoff', () => {
-			logger.info(`${client.username} disconnected (${client.id}), ${io.of('/').sockets.size} clients connected.`);
-			client.broadcast.emit('alert', { type: 'info', message: `${client.username} Logged out...` });
-			client.disconnect(true);
-			currentUsers();
+        client.on('logoff', (callback) => {
+            const name = `${client.handshake.auth.username} | ${client.handshake.auth.role}`
+			logger.info(`${name} sent log-off request (${client.id}), ${io.of('/').sockets.size} clients connected.`);
+            client.broadcast.emit('alert', { type: 'info', message: `${client.username} Logged out...` });
+            callback(
+                { status: 'ok', type: 'success', description: 'Log-off Successfull' }
+            )
 		});
 
         // Disconnecting Client event
