@@ -39,6 +39,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <Provider>
+          <ControlDrawer  />
           <div className="monitor">
           <TopBar />
           {children}
@@ -56,7 +57,6 @@ export default function App() {
   return (
     <div>
       <Outlet />
-      <ControlDrawer  />
     </div>
   )
 }
