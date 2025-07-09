@@ -11,15 +11,16 @@ module.exports = function(httpServer) {
 		}
     }); // Creation of websocket Server
 
-    io.on("conection", (client) => {
-        logger.info(`${client.username} connected (${client.id}), ${io.of('/').sockets.size} clients connected.`);
+    io.on("connection", (client) => {
+        // console.log(client);
+        logger.info(`${client.handshake.auth.username} connected (${client.id}), ${io.of('/').sockets.size} clients connected.`);
         currentUsers();
 
         // Logout Client event
-        client.on('logout', async () => {
+        client.on('logoff', () => {
 			logger.info(`${client.username} disconnected (${client.id}), ${io.of('/').sockets.size} clients connected.`);
-			client.emit('alert', { type: 'info', message: `${client.username} Logged out...` });
-			client.disconnect();
+			client.broadcast.emit('alert', { type: 'info', message: `${client.username} Logged out...` });
+			client.disconnect(true);
 			currentUsers();
 		});
 
@@ -29,21 +30,23 @@ module.exports = function(httpServer) {
 			console.log(reason);
 		});
 
-        client.on('disconnect', () => {
-			logger.info(`${client.username} disconnected (${client.id}), ${io.of('/').sockets.size} clients connected.`);
-			client.broadcast.emit('alert', { type: 'info', message: `${client.username} signed out Nexus...` });
+        client.on('disconnect', (reason) => {
+			logger.info(`${client.handshake.auth.username} disconnected (${client.id}) because ${reason}, ${io.of('/').sockets.size} clients connected.`);
+			client.broadcast.emit('alert', { type: 'info', message: `${client.handshake.auth.username} signed out Nexus...` });
 			currentUsers();
 		});
     });
+
+
 
     function currentUsers() {
 		const users = [];
             for (const [id, socket] of io.of('/').sockets) {
                 users.push({
                     userID: id,
-                    username: socket.username,
-                    team: socket.team,
-                    role: socket.role
+                    username: socket.handshake.auth.username,
+                    team: socket.handshake.auth.team,
+                    role: socket.handshake.auth.role
 			    });
 		    }
 		io.emit('clients', users);
