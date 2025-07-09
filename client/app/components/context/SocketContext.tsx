@@ -1,6 +1,6 @@
 import { useState, createContext, useContext, useMemo } from "react";
 import { type ReactElement } from "react";
-import { type Client } from "~/types/types";
+import { type Client, type ToasterData } from "~/types/types";
 import { io } from "socket.io-client";
 import { server } from "../../config";
 import { toaster } from "../ui/toaster";
@@ -112,11 +112,13 @@ export const SocketContextProvider = ({
     };
 
     const socketLogoff = () => {
-      socket.emit('logoff');
-      socket.disconnect();
-      socket.removeAllListeners();
-      setSocketOnline(false);
-      console.log('Logging off');
+      socket.emit('logoff', (response: ToasterData) => {
+        toaster.create({ ...response, duration: 3000 });
+        socket.disconnect();
+        socket.removeAllListeners();
+        setSocketOnline(false);
+        console.log('Logging off');
+      });
     };
 
   const value = useMemo(

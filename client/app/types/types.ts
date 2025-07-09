@@ -13,6 +13,11 @@ export type Timestamp = {
     clock: Date
 };
 
+export type ToasterData = {
+    type: "success" | "info" | "error"
+    description: string
+}
+
 export type Client = {
     userID: string,
     username: string,
