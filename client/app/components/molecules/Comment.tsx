@@ -1,6 +1,11 @@
-import { Avatar, Badge, Box, Container, Flex, HStack, Link, Stack, Text } from '@chakra-ui/react'
+import { Avatar, Badge, Box, Container, Flex, HStack, Icon, Link, Stack, Text, IconButton, VStack } from '@chakra-ui/react'
+import { useState } from 'react';
+import { BsChatHeart } from "react-icons/bs"
+
 
 export const Comment = () => {
+  const [liked, setliked] = useState<boolean>(false);
+
   return (
     <Container width="full" alignContent="start" py="8">
       <Box pos="relative">
@@ -23,7 +28,13 @@ export const Comment = () => {
             </Box>
             <HStack fontWeight="semibold" textStyle="xs" ps="2">
               <Link color="fg.muted">1d</Link>
-              <Link color="fg.muted">Like</Link>
+             <VStack key={"ghost"}>
+            <IconButton color={`${liked ? "tomato" : ""}`}
+              variant={"ghost"}
+              onClick={ () => setliked(!liked)}>
+              <BsChatHeart />
+            </IconButton>
+           </VStack>
               <Link color="fg.muted">Reply</Link>
             </HStack>
           </Stack>
@@ -60,6 +71,9 @@ export const Comment = () => {
             </Box>
             <HStack fontWeight="semibold" textStyle="xs" ps="2">
               <Link color="fg.muted">1d</Link>
+              <Icon size="md" color="tomato">
+                <BsChatHeart />
+                </Icon>
               <Link color="fg.muted">Like</Link>
               <Link color="fg.muted">Reply</Link>
             </HStack>
