@@ -14,7 +14,7 @@ export type Timestamp = {
 };
 
 export type Client = {
-    id: string,
+    userID: string,
     username: string,
     self: boolean,
     team: string,

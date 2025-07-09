@@ -4,7 +4,7 @@ import { getFlag } from '~/scripts'
 import { useSocketContext } from '../context/SocketContext'
 
 export const UserMenu = () => {
-  const { initConnection, socketOnline } = useSocketContext();
+  const { initConnection, socketOnline, socketLogoff } = useSocketContext();
   return (
     <Menu.Root positioning={{ placement: 'bottom' }}>
       <Menu.Trigger rounded="full">
@@ -29,10 +29,10 @@ export const UserMenu = () => {
               Help & Support
             </Menu.Item>
             <Menu.Separator />
-            {socketOnline && <Menu.Item value="logout">
+            {socketOnline && <Menu.Item value="logout" onClick={ () => socketLogoff() } >
               <LuLogOut /> Logout
             </Menu.Item>}
-            {!socketOnline && <Menu.Item value="login" onClick={ () => initConnection({ username: 'John', self: true, id: 'Temp', team: 'Nexus', role: 'Developer' })}>
+            {!socketOnline && <Menu.Item value="login" onClick={ () => initConnection({ username: 'John', self: true, userID: 'Temp', team: 'Nexus', role: 'Developer' })}>
               <LuLogIn /> Login
             </Menu.Item>}
           </Menu.Content>
