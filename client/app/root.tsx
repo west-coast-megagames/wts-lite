@@ -6,7 +6,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
-
+//hi
 import type { Route } from "./+types/root";
 import "./app.css";
 import { Provider } from "./components/ui/provider";
