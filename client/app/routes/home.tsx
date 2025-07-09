@@ -13,7 +13,7 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Home() {
   return (
-      <Flex className="terror-map" paddingTop={4}>
+      <Flex className="terror-map">
         <WorldMap />
       </Flex>
     )
