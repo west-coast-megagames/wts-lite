@@ -1,4 +1,4 @@
-import { Link, Stack, type StackProps } from '@chakra-ui/react'
+import { Link, Stack, Text, type StackProps } from '@chakra-ui/react'
 import { useState } from 'react'
 import { useDrawerContext } from '../context/DrawerContext';
 import { type DrawerTypes } from '~/types/types';
@@ -21,19 +21,18 @@ export const NavbarLinks = (props: StackProps) => {
   return (
     <Stack direction={{ base: 'column', md: 'row' }} gap={{ base: '6', md: '8' }} {...props}>
       {['World Map', "Newsroom", 'Dashboard'].map((item: string) => (
-        <NavLink key={item} to={getLink(item)}>
-          <Link
+        <NavLink key={item} to={getLink(item)} onClick={() => {updateCurrent(item); setDrawer(item.toLowerCase() as DrawerTypes) }}>
+          <Text
             fontWeight="medium"
             color="fg.muted"
             aria-current={item === current ? 'page' : undefined}
-            onClick={() => {updateCurrent(item); setDrawer(item.toLowerCase() as DrawerTypes) }}
             _hover={{
               _hover: { color: 'colorPalette.fg', textDecoration: 'none' },
             }}
             _currentPage={{ color: 'colorPalette.fg' }}
           >
             {item}
-          </Link>
+          </Text>
         </NavLink>
       ))}
     </Stack>
