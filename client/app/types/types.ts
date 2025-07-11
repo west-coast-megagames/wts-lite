@@ -52,7 +52,6 @@ export type Region = {
 }
 
 /* Types used by the Media subgame */
-
 export type Post = {
     _id: string,
     status: "In Progress" | "Published",
