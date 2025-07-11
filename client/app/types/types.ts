@@ -7,10 +7,27 @@ export type DrawerTypes =
     | "";
 
 /* General Types used throughout the App */
+export type User = {
+    // model: "User",
+    _id: string,
+    name: string,
+    role: string,
+    team: string,
+};
+
+export type Team = {
+    name: String,
+    shortName: String,
+    code: String,
+    roles: String[],
+    users: User[]
+};
+
 export type Timestamp = {
     turn: number,
     phase: string,
-    clock: Date
+    turnNum: number,
+    clock: string
 };
 
 export type ToasterData = {
@@ -36,29 +53,31 @@ export type Region = {
 
 /* Types used by the Media subgame */
 
-export type Article = {
-    id: string,
+export type Post = {
+    _id: string,
     status: "In Progress" | "Published",
+    author: User,
     publisher: string,
-    location: string,
+    createdAt: string,
+    // location: string,
     headline: string,
     body: string,
-    reactions: Reaction[],
-    comments: [
-        
-    ]
-    published: boolean,
+    // reactions: Reaction[],
+    comments: Comment[]
+    upvotes: number,
+    tags: string[],
 };
 
 export type Comment = {
-    user: string,
-    comment: string,
-    timestamp: {
-        turn: string,
-        phase: string,
-        turnNum: number,
-        clock: string
-    }
+    user: User,
+    body: string,
+    replies: Comment[],
+    // timestamp: {
+    //     turn: string,
+    //     phase: string,
+    //     turnNum: number,
+    //     clock: string
+    // }
 }
 
 export type Reaction = {
