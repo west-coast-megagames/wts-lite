@@ -18,13 +18,13 @@ export const TopBar = () => {
             <NavbarLinks hideBelow="md" />
           </HStack>
           <CountdownClock />
-          <HStack gap={{ base: '2', md: '4' }}>
-            <SearchField hideBelow="lg" />
+          {/* <HStack gap={{ base: '2', md: '4' }}> */}
+            {/* <SearchField hideBelow="lg" /> */}
             <HStack gap={{ base: '2', md: '3' }}>
               <SearchPopover hideFrom="lg" />
               <NotificationPopover />
               <UserMenu />
-            </HStack>
+            {/* </HStack> */}
           </HStack>
         </HStack>
       </Container>
