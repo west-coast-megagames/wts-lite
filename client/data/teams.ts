@@ -1,4 +1,6 @@
-export const teamArray = [
+import type { Team } from "~/types/types";
+
+export const teamArray: Team[] = [
   {
     name: "United States of America",
     shortName: "United States",
@@ -6,57 +8,54 @@ export const teamArray = [
     code: "USA",
     roles: [
       {
-        role: "President",
+        title: "President",
         type: "Head of State",
         userID: undefined,
       },
       {
-        role: "Vice President",
+        title: "Vice President",
         type: "Head of State",
         userID: undefined,
       },
       {
-        role: "Secretary of States",
+        title: "Secretary of States",
         type: "Diplomat",
         userID: undefined,
       },
       {
-        role: "UN Ambassador",
+        title: "UN Ambassador",
         type: "Ambassador",
         userID: undefined,
       },
       {
-        role: "Scientific Advisor",
+        title: "Scientific Advisor",
         type: "Scientist",
         userID: undefined,
       },
       {
-        role: "Commander of Strategic Forces & Space Command",
+        title: "Commander of Strategic Forces & Space Command",
         type: "Military",
         userID: undefined,
       },
       {
-        role: "Commander of the Military",
+        title: "Commander of the Military",
         type: "Military",
         userID: undefined,
       },
       {
-        role: "Senior Diplomat",
+        title: "Senior Diplomat",
         type: "Diplomat",
         userID: undefined,
-        loadFlag: "false"
       },
       {
-        role: "Senior Diplomat",
+        title: "Senior Diplomat",
         type: "Diplomat",
         userID: undefined,
-        loadFlag: "false"
       },
       {
-        role: "Head of the Joint Chiefs of Staff",
+        title: "Head of the Joint Chiefs of Staff",
         type: "Military",
         userID: undefined,
-        loadFlag: "false"
       }
     ],
     prTrack: [
@@ -79,35 +78,34 @@ export const teamArray = [
     code: "GBR",
     roles: [
       {
-        role: "Prime Minister",
+        title: "Prime Minister",
         type: "Head of State",
         userID: undefined,
       },
       {
-        role: "Secretary of State for Foreign Affairs and Commonwealth Nations",
+        title: "Secretary of State for Foreign Affairs and Commonwealth Nations",
         type: "Diplomat",
         userID: undefined,
       },
       {
-        role: "UN Ambassador",
+        title: "UN Ambassador",
         type: "Ambassador",
         userID: undefined,
       },
       {
-        role: "Scientific Advisor",
+        title: "Scientific Advisor",
         type: "Scientist",
         userID: undefined,
       },
       {
-        role: "Chief of the Defense Staff",
+        title: "Chief of the Defense Staff",
         type: "Military",
         userID: undefined,
       },
       {
-        role: "Deputy Prime Minister",
+        title: "Deputy Prime Minister",
         type: "Head of State",
         userID: undefined,
-        loadFlag: "false"
       }
     ],
     prTrack: [
@@ -130,35 +128,35 @@ export const teamArray = [
 //     code: "RSA",
 //     roles: [
 //       {
-//         role: "President",
+//         title: "President",
 //         type: "Head of State",
 //         userID: undefined,
 //       },
 //       {
-//         role: "Vice President",
+//         title: "Vice President",
 //         type: "Head of State",
 //         userID: undefined,
-//         loadFlag: "false"
+//    
 //       },
 //       {
-//         role: "Minister of International Relations and Cooperation",
+//         title: "Minister of International Relations and Cooperation",
 //         type: "Diplomat",
 //         userID: undefined,
-//         loadFlag: "false"
+//    
 //       },
 //       {
-//         role: "UN Ambassador",
+//         title: "UN Ambassador",
 //         type: "Ambassador",
 //         userID: undefined,
 //       },
 //       {
-//         role: "Scientific Advisor",
+//         title: "Scientific Advisor",
 //         type: "Scientist",
 //         userID: undefined,
-//         loadFlag: "false"
+//    
 //       },
 //       {
-//         role: "Chief of the Defense Staff",
+//         title: "Chief of the Defense Staff",
 //         type: "Military",
 //         userID: undefined,
 //       }
@@ -183,40 +181,39 @@ export const teamArray = [
     code: "RFD",
     roles: [
       {
-        role: "President",
+        title: "President",
         type: "Head of State",
         userID: undefined,
       },
       {
-        role: "Prime Minister",
+        title: "Prime Minister",
         type: "Head of State",
         userID: undefined,
       },
       {
-        role: "Minister of Foreign Affairs",
+        title: "Minister of Foreign Affairs",
         type: "Diplomat",
         userID: undefined,
       },
       {
-        role: "UN Ambassador",
+        title: "UN Ambassador",
         type: "Ambassador",
         userID: undefined,
       },
       {
-        role: "Scientific Advisor",
+        title: "Scientific Advisor",
         type: "Scientist",
         userID: undefined,
       },
       {
-        role: "Chief of the Defense Staff",
+        title: "Chief of the Defense Staff",
         type: "Military",
         userID: undefined,
       },
       {
-        role: "Senior Diplomat",
+        title: "Senior Diplomat",
         type: "Diplomat",
         userID: undefined,
-        loadFlag: "false"
       }
     ],
     prTrack: [
@@ -239,29 +236,27 @@ export const teamArray = [
     code: "JPN",
     roles: [
       {
-        role: "Prime Minister",
+        title: "Prime Minister",
         type: "Head of State",
         userID: undefined,
       },
       {
-        role: "Minister of Foreign Affairs",
+        title: "Minister of Foreign Affairs",
         type: "Diplomat",
         userID: undefined,
-        loadFlag: "false"
       },
       {
-        role: "UN Ambassador",
+        title: "UN Ambassador",
         type: "Ambassador",
         userID: undefined,
       },
       {
-        role: "Scientific Advisor",
+        title: "Scientific Advisor",
         type: "Scientist",
         userID: undefined,
-        loadFlag: "false"
       },
       {
-        role: "Commander of Self Defense Forces",
+        title: "Commander of Self Defense Forces",
         type: "Military",
         userID: undefined,
       }
@@ -286,35 +281,35 @@ export const teamArray = [
 //     code: "IRN",
 //     roles: [
 //       {
-//         role: "President",
+//         title: "President",
 //         type: "Head of State",
 //         userID: undefined,
 //       },
 //       {
-//         role: "Supreme Leader",
+//         title: "Supreme Leader",
 //         type: "Head of State",
 //         userID: undefined,
-//         loadFlag: "false"
+//    
 //       },
 //       {
-//         role: "Minister of Foreign Affairs",
+//         title: "Minister of Foreign Affairs",
 //         type: "Diplomat",
 //         userID: undefined,
-//         loadFlag: "false"
+//    
 //       },
 //       {
-//         role: "UN Ambassador",
+//         title: "UN Ambassador",
 //         type: "Ambassador",
 //         userID: undefined,
 //       },
 //       {
-//         role: "Scientific Advisor",
+//         title: "Scientific Advisor",
 //         type: "Scientist",
 //         userID: undefined,
-//         loadFlag: "false"
+//    
 //       },
 //       {
-//         role: "Armed Forces Commander",
+//         title: "Armed Forces Commander",
 //         type: "Military",
 //         userID: undefined,
 //       }
@@ -339,33 +334,32 @@ export const teamArray = [
     code: "IND",
     roles: [
       {
-        role: "President",
+        title: "President",
         type: "Head of State",
         userID: undefined,
-        loadFlag: "false"
       },
       {
-        role: "Minister of External Affairs",
+        title: "Minister of External Affairs",
         type: "Diplomat",
         userID: undefined,
       },
       {
-        role: "UN Ambassador",
+        title: "UN Ambassador",
         type: "Ambassador",
         userID: undefined,
       },
       {
-        role: "Scientific Advisor",
+        title: "Scientific Advisor",
         type: "Scientist",
         userID: undefined,
       },
       {
-        role: "Chief of the Defense Staff",
+        title: "Chief of the Defense Staff",
         type: "Military",
         userID: undefined,
       },
       {
-        role: "Prime Minister",
+        title: "Prime Minister",
         type: "Head of State",
         userID: undefined,
       }
@@ -390,35 +384,34 @@ export const teamArray = [
     code: "FRA",
     roles: [
       {
-        role: "President",
+        title: "President",
         type: "Head of State",
         userID: undefined,
       },
       {
-        role: "Minister of Foreign Affairs & International Development",
+        title: "Minister of Foreign Affairs & International Development",
         type: "Diplomat",
         userID: undefined,
       },
       {
-        role: "UN Ambassador",
+        title: "UN Ambassador",
         type: "Ambassador",
         userID: undefined,
       },
       {
-        role: "Scientific Advisor",
+        title: "Scientific Advisor",
         type: "Scientist",
         userID: undefined,
       },
       {
-        role: "Chief of the Defense Staff",
+        title: "Chief of the Defense Staff",
         type: "Military",
         userID: undefined,
       },
       {
-        role: "Prime Minister",
+        title: "Prime Minister",
         type: "Head of State",
         userID: undefined,
-        loadFlag: "false"
       }
     ],
     prTrack: [
@@ -441,35 +434,35 @@ export const teamArray = [
 //     code: "EPT",
 //     roles: [
 //       {
-//         role: "President",
+//         title: "President",
 //         type: "Head of State",
 //         userID: undefined,
 //       },
 //       {
-//         role: "Prime Minister",
+//         title: "Prime Minister",
 //         type: "Head of State",
 //         userID: undefined,
-//         loadFlag: "false"
+//    
 //       },
 //       {
-//         role: "Minister of Foreign Affairs",
+//         title: "Minister of Foreign Affairs",
 //         type: "Diplomat",
 //         userID: undefined,
-//         loadFlag: "false"
+//    
 //       },
 //       {
-//         role: "UN Ambassador",
+//         title: "UN Ambassador",
 //         type: "Ambassador",
 //         userID: undefined,
 //       },
 //       {
-//         role: "Scientific Advisor",
+//         title: "Scientific Advisor",
 //         type: "Scientist",
 //         userID: undefined,
-//         loadFlag: "false"
+//    
 //       },
 //       {
-//         role: "Chief of the Defense Staff",
+//         title: "Chief of the Defense Staff",
 //         type: "Military",
 //         userID: undefined,
 //       }
@@ -494,46 +487,44 @@ export const teamArray = [
     code: "CHN",
     roles: [
       {
-        role: "President",
+        title: "President",
         type: "Head of State",
         userID: undefined,
       },
       {
-        role: "Premier",
+        title: "Premier",
         type: "Head of State",
         userID: undefined,
       },
       {
-        role: "Minister of Foreign Affairs",
+        title: "Minister of Foreign Affairs",
         type: "Diplomat",
         userID: undefined,
       },
       {
-        role: "UN Ambassador",
+        title: "UN Ambassador",
         type: "Ambassador",
         userID: undefined,
       },
       {
-        role: "Scientific Advisor",
+        title: "Scientific Advisor",
         type: "Scientist",
         userID: undefined,
       },
       {
-        role: "Chief of the Defense Staff",
+        title: "Chief of the Defense Staff",
         type: "Military",
         userID: undefined,
       },
       {
-        role: "Senior Diplomat",
+        title: "Senior Diplomat",
         type: "Diplomat",
         userID: undefined,
-        loadFlag: "false"
       },
       {
-        role: "Commander of Second Artillery Corps",
+        title: "Commander of Second Artillery Corps",
         type: "Military",
         userID: undefined,
-        loadFlag: "false"
       }
     ],
     prTrack: [
@@ -556,35 +547,35 @@ export const teamArray = [
 //     code: "BRZ",
 //     roles: [
 //       {
-//         role: "President",
+//         title: "President",
 //         type: "Head of State",
 //         userID: undefined,
 //       },
 //       {
-//         role: "Minister of Foreign Affairs",
+//         title: "Minister of Foreign Affairs",
 //         type: "Diplomat",
 //         userID: undefined,
 //       },
 //       {
-//         role: "UN Ambassador",
+//         title: "UN Ambassador",
 //         type: "Ambassador",
 //         userID: undefined,
 //       },
 //       {
-//         role: "Scientific Advisor",
+//         title: "Scientific Advisor",
 //         type: "Scientist",
 //         userID: undefined,
 //       },
 //       {
-//         role: "Commander of the Joint General Staff",
+//         title: "Commander of the Joint General Staff",
 //         type: "Military",
 //         userID: undefined,
 //       },
 //       {
-//         role: "Deputy Prime Minister",
+//         title: "Deputy Prime Minister",
 //         type: "Head of State",
 //         userID: undefined,
-//         loadFlag: "false"
+//    
 //       }
 //     ],
 //     prTrack: [
@@ -607,29 +598,29 @@ export const teamArray = [
 //     code: "AUS",
 //     roles: [
 //       {
-//         role: "Prime Minister",
+//         title: "Prime Minister",
 //         type: "Head of State",
 //         userID: undefined,
 //       },
 //       {
-//         role: "Minister of Foreign Affairs",
+//         title: "Minister of Foreign Affairs",
 //         type: "Diplomat",
 //         userID: undefined,
-//         loadFlag: "false"
+//    
 //       },
 //       {
-//         role: "UN Ambassador",
+//         title: "UN Ambassador",
 //         type: "Ambassador",
 //         userID: undefined,
 //       },
 //       {
-//         role: "Scientific Advisor",
+//         title: "Scientific Advisor",
 //         type: "Scientist",
 //         userID: undefined,
-//         loadFlag: "false"
+//    
 //       },
 //       {
-//         role: "Chief of the Defense Staff",
+//         title: "Chief of the Defense Staff",
 //         type: "Military",
 //         userID: undefined,
 //       }
@@ -654,17 +645,17 @@ export const teamArray = [
 //     code: "FFG",
 //     roles: [
 //       {
-//         role: "Frontier Guild Leader",
+//         title: "Frontier Guild Leader",
 //         type: "Head of State",
 //         userID: undefined,
 //       },
 //       {
-//         role: "Frontier Envoy",
+//         title: "Frontier Envoy",
 //         type: "Diplomat",
 //         userID: undefined,
 //       },
 //       {
-//         role: "Frontier Logistics Officer",
+//         title: "Frontier Logistics Officer",
 //         type: "Military",
 //         userID: undefined,
 //       }
@@ -678,47 +669,37 @@ export const teamArray = [
     code: "TCN",
     roles: [
       {
-        role: "Game Controller",
+        title: "Game Controller",
         type: "Head of State",
         userID: undefined,
       },
       {
-        role: "Alliances Controller",
+        title: "Alliances Controller",
         type: "Diplomat",
         userID: undefined,
       },
       {
-        role: "Alien Controller",
+        title: "Alien Controller",
         type: "Ambassador",
         userID: undefined,
       },
       {
-        role: "Science Controller",
+        title: "Science Controller",
         type: "Scientist",
         userID: undefined,
       },
       {
-        role: "Map Controller",
+        title: "Map Controller",
         type: "Military",
         userID: undefined,
       },
       {
-        role: "Deputy Game Controller",
+        title: "Deputy Game Controller",
         type: "Head of State",
         userID: undefined,
       }
     ],
-    prTrack: [
-      0,
-      3,
-      6,
-      9,
-      12,
-      16,
-      19,
-      22,
-      25
-    ],
+    prTrack: [],
     prLevel: 5,
   },
   {
@@ -728,22 +709,25 @@ export const teamArray = [
     code: "HPW",
     roles: [
       {
-        role: "Editor",
+        title: "Editor",
         type: "Head of State",
         userID: undefined,
       },
       {
-        role: "Reporter",
+        title: "Reporter",
         type: "Diplomat",
         userID: undefined,
       },
       {
-        role: "Public Relations",
+        title: "Public Relations",
         type: "Ambassador",
         userID: undefined,
       }
     ],
+    prTrack: [],
+    prLevel: 5,
   },
+
   {
     name: "Badger News Network",
     shortName: "BNC",
@@ -751,21 +735,23 @@ export const teamArray = [
     code: "BNC",
     roles: [
       {
-        role: "Editor",
+        title: "Editor",
         type: "Head of State",
         userID: undefined,
       },
       {
-        role: "Reporter",
+        title: "Reporter",
         type: "Diplomat",
         userID: undefined,
       },
       {
-        role: "Public Relations",
+        title: "Public Relations",
         type: "Ambassador",
         userID: undefined,
       }
     ],
+    prTrack: [],
+    prLevel: 5,
   },
   {
     name: "Global News Network",
@@ -774,27 +760,31 @@ export const teamArray = [
     code: "GNN",
     roles: [
       {
-        role: "Editor",
+        title: "Editor",
         type: "Head of State",
         userID: undefined,
       },
       {
-        role: "Reporter",
+        title: "Reporter",
         type: "Diplomat",
         userID: undefined,
       },
       {
-        role: "Public Relations",
+        title: "Public Relations",
         type: "Ambassador",
         userID: undefined,
       }
     ],
+    prTrack: [],
+    prLevel: 5,
   },
   {
     name: "Non-Player Character",
     shortName: "NPC",
     type: "P",
     code: "NPC",
-    roles: []
+    roles: [],
+    prTrack: [],
+    prLevel: 5,
   }
 ]

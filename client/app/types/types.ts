@@ -20,11 +20,17 @@ export type Team = {
     name: String,
     shortName: String,
     code: String,
-    roles: String[],
-    users: User[]
-    prTrack: number[]
+    roles: Role[],
+    prTrack: number[],
     prLevel: number
+    type: 'N' | 'M' | 'P' | 'C'
 };
+
+export type Role = {
+    title: string,
+    type: string,
+    userID: string | undefined,
+}
 
 export type Timestamp = {
     turn: number,

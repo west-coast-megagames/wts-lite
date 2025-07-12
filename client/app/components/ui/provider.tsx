@@ -8,17 +8,20 @@ import {
 import { DrawerContextProvider } from "../context/DrawerContext"
 import { TerrorContextProvider } from "../context/TerrorContext"
 import { SocketContextProvider } from "../context/SocketContext"
+import { AppContextProvider } from "../context/AppContext"
 
 export function Provider(props: ColorModeProviderProps) {
   return (
     <ChakraProvider value={defaultSystem}>
-      <SocketContextProvider>
-        <DrawerContextProvider>
-          <TerrorContextProvider>
-            <ColorModeProvider {...props} />
-          </TerrorContextProvider>
-        </DrawerContextProvider>
-      </SocketContextProvider>
+      <AppContextProvider>
+        <SocketContextProvider>
+          <DrawerContextProvider>
+            <TerrorContextProvider>
+              <ColorModeProvider {...props} />
+            </TerrorContextProvider>
+          </DrawerContextProvider>
+        </SocketContextProvider>
+      </AppContextProvider>
     </ChakraProvider>
   )
 }

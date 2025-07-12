@@ -7,16 +7,12 @@ type TerrorContextProviderProps = {
   children: ReactElement | ReactElement[];
 };
 
-type DisplayModes = 'projector' | 'user'
-
 type InitialTerrorStateProps = {
-  displayMode: DisplayModes;
   terrorTrack: Region[];
   setTerror: (region: Region) => void;
 };
 
 const initialTerrorContext: InitialTerrorStateProps = {
-  displayMode: 'user',
   terrorTrack: regionList,
   setTerror: () => null,
 };
@@ -24,7 +20,6 @@ const initialTerrorContext: InitialTerrorStateProps = {
 export const TerrorContextProvider = ({
   children,
 }: TerrorContextProviderProps) => {
-  const [displayMode, setDisplayMode] = useState<DisplayModes>('user');
   const [terrorTrack, setterrorTrack] = useState<Region[]>(regionList);
   const setTerror = (payload: Region) => {
     const newTrack: Region[] = []
@@ -37,7 +32,7 @@ export const TerrorContextProvider = ({
   }
 
   const value = useMemo(
-    () => ({ displayMode, terrorTrack, setTerror }),
+    () => ({ terrorTrack, setTerror }),
     [terrorTrack]
   )
 
