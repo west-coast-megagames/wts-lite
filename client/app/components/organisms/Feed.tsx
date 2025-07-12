@@ -70,7 +70,7 @@ export const MediaFeed = () => {
                 </Collapsible.Trigger>
               </HStack>
               <Collapsible.Content>
-                {feed.comments.map(comment => <CommentFeed comment={comment} /> ) }
+                {feed.comments.map(comment => <CommentFeed key={comment.body} comment={comment} /> ) }
               </Collapsible.Content>
               </Collapsible.Root>
             </Stack>
@@ -94,13 +94,13 @@ const feeds: Post[] = [
     status: 'In Progress',
     _id: '01',
     publisher: "United States",
-    headline: 'How to setup theming system in Chakra UI',
+    headline: 'BREAKING NEWS: Even with Chakra UI, I suck at Front End development',
     body:
-      "I'm trying to customize the theme in Chakra UI but having trouble understanding how to properly extend the default theme.",
+      "I enjoy coding, and even making data driven platforms for games, but when considering scope one has to consider that I severly hate and am deficient at it...",
     author: {
       _id: '01',
-      name: 'John Doe',
-      role: "Head of State",
+      name: 'John T. Cleveland',
+      role: "Hapless Fool",
       team: 'us'
     },
     createdAt: "2025-07-06Z14:22",
@@ -108,11 +108,11 @@ const feeds: Post[] = [
       {
         user: {
           _id: '01',
-          name: 'John Doe',
+          name: 'Juan Doe',
           role: 'Random Dude',
           team: 'us'
         },
-        body: "This is a great feature request! I've been looking for something similar. The current theming system could definitely use some improvements in terms of customization options.",
+        body: "Honestly, I'm not sure you can pull it off with the seven days remaining.",
         replies: [
           {
             user: {
@@ -121,17 +121,17 @@ const feeds: Post[] = [
               role: 'Random Gal',
               team: 'ru'
             },
-            body: "Thank you for the suggestion! I'll look into it and get back to you soon.",
+            body: "Maybe you should have stayed in your comfort zone and not tried!.",
             replies: [],
           },
           {
             user: {
               _id: '02',
               name: 'Jay Quick',
-              role: 'Second Awesome',
+              role: 'Fantasy You',
               team: 'au'
             },
-            body: "I made another comment",
+            body: "I made another comment, I'm so helpful to the scaffold",
             replies: [],
           },
         ]

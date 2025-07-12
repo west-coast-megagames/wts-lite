@@ -1,4 +1,4 @@
-import { Avatar, Badge, Box, Container, Flex, HStack, Icon, Link, Stack, Text, IconButton, VStack, Collapsible } from '@chakra-ui/react'
+import { Avatar, Box, Container, Flex, HStack, Icon, Link, Stack, Text, IconButton, Collapsible } from '@chakra-ui/react'
 import { useState } from 'react';
 import { BsChat, BsChatHeart } from "react-icons/bs"
 import type { T } from '~/img/flags';
@@ -9,12 +9,13 @@ import type { Comment } from '~/types/types';
 export const CommentFeed = (props: { comment: Comment }) => {
   const { comment } = props;
   const [liked, setliked] = useState<boolean>(false);
+  const [expanded, setExpanded] = useState<boolean>(false);
 
   return (
     <Container width="full" alignContent="start" py="4">
       <Collapsible.Root>
       <Box pos="relative">
-        { comment.replies.length > 0 && <Box pos="absolute" width="2px" left="8" top="12" bottom="0" bg="border" /> }
+        { comment.replies.length > 0 && expanded && <Box pos="absolute" width="2px" left="8" top="12" bottom="0" bg="border" /> }
         <Flex gap="2" ps="4" pt="2" as="article" tabIndex={-1}>
           <Avatar.Root size="sm">
             <Avatar.Fallback name={comment.user.name} />
@@ -39,7 +40,7 @@ export const CommentFeed = (props: { comment: Comment }) => {
                 <BsChatHeart />
               </IconButton>
               <Link color="fg.muted">Reply</Link>
-              <Collapsible.Trigger  padding="3">
+              <Collapsible.Trigger onClick={() => setExpanded(!expanded)} padding="3">
               <Link color="fg.muted">
                 <HStack>
                   <BsChat />
@@ -53,7 +54,7 @@ export const CommentFeed = (props: { comment: Comment }) => {
       </Box>
       <Collapsible.Content>
         { comment.replies.map((el, i) => (
-          <Box pos="relative" pt="2">
+          <Box key={el.body} pos="relative" pt="2">
             <Box
               pos="absolute"
               width="5"
