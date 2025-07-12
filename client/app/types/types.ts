@@ -4,6 +4,7 @@ export type DrawerTypes =
     | "newsroom"
     | "dashboard"
     | "controller"
+    | "profile"
     | "";
 
 /* General Types used throughout the App */
@@ -21,6 +22,8 @@ export type Team = {
     code: String,
     roles: String[],
     users: User[]
+    prTrack: number[]
+    prLevel: number
 };
 
 export type Timestamp = {

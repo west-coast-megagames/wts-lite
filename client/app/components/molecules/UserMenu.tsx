@@ -2,9 +2,11 @@ import { Avatar, Menu, Portal } from '@chakra-ui/react'
 import { LuCircleHelp, LuLogIn, LuLogOut, LuSettings, LuUser } from 'react-icons/lu'
 import { getFlag } from '~/scripts'
 import { useSocketContext } from '../context/SocketContext'
+import { useDrawerContext } from '../context/DrawerContext'
 
 export const UserMenu = () => {
   const { initConnection, socketOnline, socketLogoff } = useSocketContext();
+  const { setDrawer } = useDrawerContext();
   return (
     <Menu.Root positioning={{ placement: 'bottom' }}>
       <Menu.Trigger rounded="full">
@@ -16,7 +18,7 @@ export const UserMenu = () => {
       <Portal>
         <Menu.Positioner>
           <Menu.Content>
-            <Menu.Item value="profile">
+            <Menu.Item value="profile" onClick={ () => setDrawer('profile') }>
               <LuUser />
               Profile
             </Menu.Item>
