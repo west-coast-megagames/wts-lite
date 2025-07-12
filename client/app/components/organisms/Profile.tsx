@@ -1,8 +1,11 @@
 import { Button, Container, Field, Input, Stack, Text } from '@chakra-ui/react'
 import { FormSection } from '../molecules/FormSection'
 import { TeamSelect } from '../molecules/TeamSelect'
+import { RoleSelect } from '../molecules/RoleSelect'
+import { useAppContext } from '../context/AppContext'
 
 export const Profile = () => {
+  const { team: currentTeam, user: currentUser, selectTeam } = useAppContext();
 
   return (
     <Container maxW="4xl">
@@ -13,12 +16,9 @@ export const Profile = () => {
               <Field.Label>Username</Field.Label>
               <Input name="name" />
             </Field.Root>
-            <Field.Root>
-              <Field.Label>Team</Field.Label>
-              <Input name="email" />
-            </Field.Root>
             <TeamSelect />
-            <Button>Save</Button>
+            {currentTeam && <RoleSelect />}
+            <Button w="full">Update Profile</Button>
           </FormSection>
         </form>
 

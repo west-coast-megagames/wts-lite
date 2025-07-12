@@ -6,12 +6,14 @@ import {
   useSelectContext,
 } from "@chakra-ui/react"
 import { teamArray } from "data/teams";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { a3TOa2Converter, getFlag } from "~/scripts";
+import { useAppContext } from "../context/AppContext";
 
 const SelectValue = () => {
   const select = useSelectContext()
   const items = select.selectedItems as Array<{ name: string; code: string }>
+  // console.log(items)
   const { name, code } = items[0]
   return (
     <Select.ValueText placeholder="Select member">
@@ -28,6 +30,11 @@ const SelectValue = () => {
 
 export const TeamSelect = () => {
     const [ team, setTeam ] = useState<string[]>(["USA"]);
+    const { team: currentTeam, selectTeam } = useAppContext();
+    useEffect(() => {
+      if (currentTeam) setTeam([currentTeam.code]);
+    }, [currentTeam]);
+
   return (
     <Select.Root
       collection={members}
@@ -35,7 +42,11 @@ export const TeamSelect = () => {
       defaultValue={team}
       value={team}
       positioning={{ sameWidth: true }}
-      onSelect={(d) => setTeam([d.value])}
+      onValueChange={(d) => {
+        // console.log(d)
+        setTeam(d.value);
+        selectTeam(d.value[0]);
+      }}
     >
       <Select.HiddenSelect />
       <Select.Label>Select Team</Select.Label>
@@ -55,7 +66,7 @@ export const TeamSelect = () => {
                 <Avatar.Image src={getFlag(a3TOa2Converter(item.code))} alt={item.name} />
                 <Avatar.Fallback name={item.name} />
               </Avatar.Root>
-              {item.name}
+              {item.shortName}
               <Select.ItemIndicator />
             </Select.Item>
           ))}

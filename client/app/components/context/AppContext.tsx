@@ -15,7 +15,7 @@ type InitialAppStateProps = {
   team: Team | undefined;
   user: User | undefined;
   view: Team | undefined;
-  selectTeam: (team: Team) => void;
+  selectTeam: (code: string) => void;
   selectUser: (user: User) => void;
   selectView: (team: Team) => void;
   selectDisplayMode: (mode: DisplayModes) => void;
@@ -40,11 +40,12 @@ export const AppContextProvider = ({
 }: AppContextProviderProps) => {
   const [displayMode, setDisplayMode] = useState<DisplayModes>('user');
   const selectDisplayMode = (mode: DisplayModes) => setDisplayMode(mode);
-  const [teams, setTeams] = useState<Team[]>([]);
+  const [teams, setTeams] = useState<Team[]>(teamArray);
   const [team, setTeam] = useState<Team | undefined>(undefined);
-  const selectTeam = (team: Team) => { 
-    setTeam(team);
-    selectView(team);
+  const selectTeam = (code: string) => {
+    const selectedTeam = teams.find(el => el.code === code)
+    setTeam(selectedTeam);
+    if (selectedTeam) selectView(selectedTeam);
   };
   const [user, setUser] = useState<User | undefined>(undefined);
   const selectUser = (user: User) => setUser(user);

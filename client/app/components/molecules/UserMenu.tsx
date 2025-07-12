@@ -1,18 +1,20 @@
 import { Avatar, Menu, Portal } from '@chakra-ui/react'
 import { LuCircleHelp, LuLogIn, LuLogOut, LuSettings, LuUser } from 'react-icons/lu'
-import { getFlag } from '~/scripts'
+import { a3TOa2Converter, getFlag } from '~/scripts'
 import { useSocketContext } from '../context/SocketContext'
 import { useDrawerContext } from '../context/DrawerContext'
+import { useAppContext } from '../context/AppContext'
 
 export const UserMenu = () => {
   const { initConnection, socketOnline, socketLogoff } = useSocketContext();
   const { setDrawer } = useDrawerContext();
+  const { team } = useAppContext();
   return (
     <Menu.Root positioning={{ placement: 'bottom' }}>
       <Menu.Trigger rounded="full">
         <Avatar.Root>
           <Avatar.Fallback />
-          <Avatar.Image src={getFlag('aa')} />
+          <Avatar.Image src={team ? getFlag(a3TOa2Converter(team?.code)) : undefined} />
         </Avatar.Root>
       </Menu.Trigger>
       <Portal>

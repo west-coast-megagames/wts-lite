@@ -12,14 +12,14 @@ export type User = {
     // model: "User",
     _id: string,
     name: string,
-    role: string,
+    role: Role,
     team: string,
 };
 
 export type Team = {
-    name: String,
-    shortName: String,
-    code: String,
+    name: string,
+    shortName: string,
+    code: string,
     roles: Role[],
     prTrack: number[],
     prLevel: number
