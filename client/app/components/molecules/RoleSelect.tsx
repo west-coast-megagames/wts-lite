@@ -43,7 +43,7 @@ const SelectValue = () => {
 
 export const RoleSelect = () => {
     const [ role, setRole ] = useState<string[]>([rolesArray[0].title]);
-    const { user: currentUser } = useAppContext();
+    const { team, user: currentUser } = useAppContext();
 
     useEffect(() => {
       if (currentUser?.role) setRole([currentUser?.role.title]);
@@ -73,7 +73,7 @@ export const RoleSelect = () => {
       </Select.Control>
       <Select.Positioner>
         <Select.Content>
-          {rolesList.items.map((item,i) => (
+          {rolesList.items.filter((role) => role.countrycode === team?.code ).map((item,i) => (
             <Select.Item item={item} key={item.title+i} justifyContent="flex-start">
               <Avatar.Root shape="rounded" size="2xs">
                 <Avatar.Image src={getIcon(item.type)} alt={item.title} />
@@ -91,51 +91,62 @@ export const RoleSelect = () => {
 
 const rolesArray = [
       {
+        countrycode: "USA",
         title: "President",
         type: "Head of State",
         userID: undefined,
       },
       {
+        countrycode: "USA",
         title: "Vice President",
         type: "Head of State",
         userID: undefined,
       },
       {
+        countrycode: "USA",
         title: "Secretary of States",
         type: "Diplomat",
         userID: undefined,
       },
       {
+        
+        countrycode: "JPN",
         title: "UN Ambassador",
         type: "Ambassador",
         userID: undefined,
       },
       {
+        countrycode: "JPN",
         title: "Scientific Advisor",
         type: "Scientist",
         userID: undefined,
       },
       {
+        countrycode: "JPN",
         title: "Commander of Strategic Forces & Space Command",
         type: "Military",
         userID: undefined,
       },
       {
+        countrycode: "JPN",
         title: "Commander of the Military",
         type: "Military",
         userID: undefined,
       },
       {
+        countrycode: "USA",
         title: "Senior Diplomat",
         type: "Diplomat",
         userID: undefined,
       },
       {
+        countrycode: "USA",
         title: "Senior Diplomat",
         type: "Diplomat",
         userID: undefined,
       },
       {
+        countrycode: "USA",
         title: "Head of the Joint Chiefs of Staff",
         type: "Military",
         userID: undefined,
