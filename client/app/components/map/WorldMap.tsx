@@ -1,6 +1,7 @@
 import { terrorBreakpoints } from "data/terror";
 import { useTerrorContext } from "../context/TerrorContext"
 
+
 export function WorldMap() {
   const { terrorTrack } = useTerrorContext();
   const breakpoints = terrorBreakpoints;
