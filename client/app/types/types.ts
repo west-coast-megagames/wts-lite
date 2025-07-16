@@ -10,10 +10,8 @@ export type DrawerTypes =
 /* General Types used throughout the App */
 export type User = {
     // model: "User",
-    _id: string,
-    name: string,
-    role: Role,
-    team: string,
+    _id?: string,
+    name?: string,
 };
 
 export type Team = {
@@ -29,7 +27,7 @@ export type Team = {
 export type Role = {
     title: string,
     type: string,
-    userID: string | undefined,
+    user?: string,
 }
 
 export type Timestamp = {
@@ -63,7 +61,7 @@ export type Region = {
 /* Types used by the Media subgame */
 export type Post = {
     _id: string,
-    status: "In Progress" | "Published",
+    status: "In Progress" | "Published" | 'New',
     author: User,
     publisher: string,
     createdAt: string,
@@ -72,7 +70,7 @@ export type Post = {
     body: string,
     // reactions: Reaction[],
     comments: Comment[]
-    upvotes: number,
+    upvotes?: number,
     tags: string[],
 };
 

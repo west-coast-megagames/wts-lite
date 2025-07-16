@@ -1,26 +1,40 @@
-import { Button, Container, Field, Input, Stack, Text } from '@chakra-ui/react'
+import { Button, Container, Field, Input, Stack, Text, useDrawer } from '@chakra-ui/react'
 import { FormSection } from '../molecules/FormSection'
 import { TeamSelect } from '../molecules/TeamSelect'
 import { RoleSelect } from '../molecules/RoleSelect'
 import { useAppContext } from '../context/AppContext'
+import { useState } from 'react'
+import type { User } from '~/types/types'
+import { useDrawerContext } from '../context/DrawerContext'
 
 export const Profile = () => {
-  const { team: currentTeam, user: currentUser, selectTeam } = useAppContext();
+  const { team: currentTeam, user: currentUser, selectUser } = useAppContext();
+  const { closeDrawer } = useDrawerContext();
+  const [updateUser, setUser] = useState<User>(currentUser ? currentUser : { name: undefined});
+
+  const handleUsername = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const update = {...updateUser, name: e.target.value};
+    console.log(e)
+    setUser(update);
+  };
+
+  const handleSubmit = () => {
+    selectUser(updateUser);
+    closeDrawer();
+  }
 
   return (
     <Container maxW="4xl">
       <Stack gap="10">
-        <form>
-          <FormSection title="Profile Information" description="Update your profile information">
-            <Field.Root>
-              <Field.Label>Username</Field.Label>
-              <Input name="name" />
-            </Field.Root>
-            <TeamSelect />
-            {currentTeam && <RoleSelect />}
-            <Button w="full">Update Profile</Button>
-          </FormSection>
-        </form>
+        <FormSection title="Profile Information" description="Update your profile information">
+          <Field.Root>
+            <Field.Label>Username</Field.Label>
+            <Input placeholder='Enter Screename' value={updateUser.name} onChange={handleUsername} />
+          </Field.Root>
+          <TeamSelect />
+          {currentTeam && <RoleSelect />}
+          <Button w="full" onClick={ () => handleSubmit() }>Update Profile</Button>
+        </FormSection>
 
         <form>
           <FormSection title="Password" description="Update your password">
@@ -46,4 +60,4 @@ export const Profile = () => {
       </Stack>
     </Container>
   )
-}
+};
