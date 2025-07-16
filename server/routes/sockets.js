@@ -1,6 +1,7 @@
 const { logger } = require("../middleware/log/winston");
 const config = require("config");
 const { Server } = require("socket.io");
+const { Post } = require("../models/post");
 
 module.exports = function(httpServer) {
     logger.info('Socket.io server initialized...');
@@ -37,6 +38,20 @@ module.exports = function(httpServer) {
 			client.broadcast.emit('alert', { type: 'info', message: `${client.handshake.auth.username} signed out Nexus...` });
 			currentUsers();
 		});
+
+        client.on('media', async (payload) => {
+            const { action, data } = payload;
+						console.log(`Attempting media route with ${action} action`);
+
+            switch(action) {
+                case ("post"): {
+                    await Post.postToDB(client, data);
+                } 
+                default: 
+                    client.emit(('alert', { type: 'Error', title: "Server Error", message: `${client.username} send invalid media request for ${action}` }))
+            }
+
+        })
     });
 
 

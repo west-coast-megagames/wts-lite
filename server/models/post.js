@@ -24,12 +24,18 @@ const PostSchema = new Schema({
 }, { timestamps: true });
 
 PostSchema.static({
-	postToDB: async (data) => { 
+	postToDB: async (client, data) => { 
 		console.log('Adding post to Database');
-		const Post = mongoose.model('post');
-		let newPost = new Post(data);
+		const Post = mongoose.model('Post');
+		let newPost = new Post({...data, });
 
-		newPost = await newPost.save();
+		newPost = await newPost.save().then((doc) => {
+			console.log(doc);
+			client.emit(('alert', { type: 'Success', message: `${client.username} updated ${doc.headline} post` }))
+        }).catch((err) => {
+			console.log(err);
+			client.emit(('alert', { type: 'Error', title: 'Server Error', message: `${err.message}` }))
+		});
 
 		console.log(newPost);
 
