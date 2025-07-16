@@ -45,10 +45,10 @@ export const RoleSelect = () => {
     const [ role, setRole ] = useState<string[]>([rolesArray[0].title]);
     const { team, user: currentUser } = useAppContext();
 
-    useEffect(() => {
-      if (currentUser?.role) setRole([currentUser?.role.title]);
+    // useEffect(() => {
+    //   if (currentUser?.role) setRole([currentUser?.role.title]);
 
-    }, [currentUser]);
+    // }, [currentUser]);
 
   return (
     <Select.Root
@@ -89,59 +89,6 @@ export const RoleSelect = () => {
   )
 }
 
-const rolesArray = [
-      {
-        countrycode: "USA",
-        title: "President",
-        type: "Head of State",
-      },
-      {
-        countrycode: "USA",
-        title: "Vice President",
-        type: "Head of State",
-      },
-      {
-        countrycode: "USA",
-        title: "Secretary of States",
-        type: "Diplomat",
-      },
-      {
-        
-        countrycode: "JPN",
-        title: "UN Ambassador",
-        type: "Ambassador",
-      },
-      {
-        countrycode: "JPN",
-        title: "Scientific Advisor",
-        type: "Scientist",
-      },
-      {
-        countrycode: "JPN",
-        title: "Commander of Strategic Forces & Space Command",
-        type: "Military",
-      },
-      {
-        countrycode: "JPN",
-        title: "Commander of the Military",
-        type: "Military",
-      },
-      {
-        countrycode: "USA",
-        title: "Senior Diplomat",
-        type: "Diplomat",
-      },
-      {
-        countrycode: "USA",
-        title: "Senior Diplomat",
-        type: "Diplomat",
-      },
-      {
-        countrycode: "USA",
-        title: "Head of the Joint Chiefs of Staff",
-        type: "Military",
-      }
-    ]
 
 const rolesList = createListCollection({
   items: rolesArray,
