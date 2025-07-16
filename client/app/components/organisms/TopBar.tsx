@@ -13,7 +13,7 @@ export const TopBar = () => {
               <NavbarLinks />
             </MobilePopover>
             <HStack>
-              <Image src={icon} h={30} />
+              <Image src={icon} h={30} hideBelow="md" />
             </HStack>
             <NavbarLinks hideBelow="md" />
           </HStack>
