@@ -2,11 +2,14 @@ import { Box, Container, HStack, Image } from '@chakra-ui/react'
 import { NotificationPopover, SearchPopover, SearchField, UserMenu, MobilePopover, NavbarLinks } from '../molecules'
 import { CountdownClock } from '../molecules/CountDown'
 import icon from "../../../public/images/wcm_logo.png"
+import { useAppContext } from '../context/AppContext'
 
 export const TopBar = () => {
+  const { displayMode } = useAppContext();
+
   return (
     <Box borderBottomWidth="1px" bg="bg.panel">
-      <Container fluid py={{ base: '1', md: '2' }}>
+      { displayMode !== 'loading' && <Container fluid py={{ base: '1', md: '2' }}>
         <HStack justify="space-between">
           <HStack gap={{ base: '4', md: '10' }}>
             <MobilePopover>
@@ -27,7 +30,7 @@ export const TopBar = () => {
             {/* </HStack> */}
           </HStack>
         </HStack>
-      </Container>
+      </Container>}
     </Box>
   )
 }
