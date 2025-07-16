@@ -43,10 +43,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <ControlDrawer  />
           <ProfileDrawer />
           <div className="monitor">
-          <TopBar />
-          {children}
-          <ScrollRestoration />
-          <Scripts />
+            <TopBar />
+            {children}
+            <ScrollRestoration />
+            <Scripts />
           </div>
           <Toaster />
         </Provider>  
