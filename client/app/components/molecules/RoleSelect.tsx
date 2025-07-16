@@ -43,7 +43,7 @@ const SelectValue = () => {
 
 export const RoleSelect = () => {
     const [ role, setRole ] = useState<string[]>([rolesArray[0].title]);
-    const { user: currentUser } = useAppContext();
+    const { team, user: currentUser } = useAppContext();
 
     useEffect(() => {
       if (currentUser?.role) setRole([currentUser?.role.title]);
@@ -73,7 +73,7 @@ export const RoleSelect = () => {
       </Select.Control>
       <Select.Positioner>
         <Select.Content>
-          {rolesList.items.map((item,i) => (
+          {rolesList.items.filter((role) => role.countrycode === team?.code ).map((item,i) => (
             <Select.Item item={item} key={item.title+i} justifyContent="flex-start">
               <Avatar.Root shape="rounded" size="2xs">
                 <Avatar.Image src={getIcon(item.type)} alt={item.title} />

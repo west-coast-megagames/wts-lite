@@ -1,4 +1,4 @@
-import { Link, Stack, Text, type StackProps } from '@chakra-ui/react'
+import { Link, Stack, Text, usePopoverContext, type StackProps } from '@chakra-ui/react'
 import { useState } from 'react'
 import { useDrawerContext } from '../context/DrawerContext';
 import { type DrawerTypes } from '~/types/types';
@@ -18,10 +18,12 @@ const getLink = (link: string) => {
 export const NavbarLinks = (props: StackProps) => {
   const [ current, updateCurrent ] = useState<string>("");
   const { setDrawer } = useDrawerContext();
+  
+
   return (
     <Stack direction={{ base: 'column', md: 'row' }} gap={{ base: '6', md: '8' }} {...props}>
       {['World Map', "Newsroom", 'Dashboard'].map((item: string) => (
-        <NavLink key={item} to={getLink(item)} onClick={() => {updateCurrent(item); setDrawer(item.toLowerCase() as DrawerTypes) }}>
+        <NavLink key={item} to={getLink(item)} onClick={() => {updateCurrent(item); setDrawer(item.toLowerCase() as DrawerTypes);}}>
           <Text
             fontWeight="medium"
             color="fg.muted"

@@ -28,10 +28,10 @@ export const UserMenu = () => {
               <LuSettings />
               Settings
             </Menu.Item>
-            <Menu.Item value="help">
+            {/* <Menu.Item value="help">
               <LuCircleHelp />
               Help & Support
-            </Menu.Item>
+            </Menu.Item> */}
             <Menu.Separator />
             {socketOnline && <Menu.Item value="logout" onClick={ () => socketLogoff() } >
               <LuLogOut /> Logout

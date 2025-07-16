@@ -39,7 +39,6 @@ export const TeamSelect = () => {
     <Select.Root
       collection={members}
       size="md"
-      defaultValue={team}
       value={team}
       positioning={{ sameWidth: true }}
       onValueChange={(d) => {
