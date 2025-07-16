@@ -11,10 +11,10 @@ import type { Route } from "./+types/root";
 import "./app.css";
 import { Provider } from "./components/ui/provider";
 import React from "react";
-import { DrawerContextProvider } from "./components/context/DrawerContext";
 import { ControlDrawer } from "./components/organisms/ControlDrawer";
-import { PatrickDrawer } from "./components/organisms/PatrickDrawer";
-import { TerrorContextProvider } from "./components/context/TerrorContext";
+import { TopBar } from "./components/organisms/TopBar";
+import { Toaster } from "./components/ui/toaster";
+import { ProfileDrawer } from "./components/organisms/ProfileDrawer";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -31,17 +31,25 @@ export const links: Route.LinksFunction = () => [
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning={true}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
       </head>
-      <body>   
-        {children}
-        <ScrollRestoration />
-        <Scripts />
+      <body suppressHydrationWarning={true}>
+        <Provider>
+          <ControlDrawer  />
+          <ProfileDrawer />
+          <div className="monitor">
+            <TopBar />
+            {children}
+            <ScrollRestoration />
+            <Scripts />
+          </div>
+          <Toaster />
+        </Provider>  
       </body>
     </html>
   );
@@ -49,15 +57,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return (
-    <Provider>
-      <DrawerContextProvider>
-        <TerrorContextProvider>
-          <Outlet />
-          <ControlDrawer  />
-        </TerrorContextProvider>
-        <PatrickDrawer />
-      </DrawerContextProvider>
-    </Provider>
+    <div>
+      <Outlet />
+    </div>
   )
 }
 

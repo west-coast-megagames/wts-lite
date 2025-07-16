@@ -1,17 +1,11 @@
 import { useState, createContext, useContext, useMemo } from "react";
 import { type ReactElement } from "react";
 import { regionList } from "../../../data/regions"
-
+import { type Region } from "~/types/types";
 
 type TerrorContextProviderProps = {
   children: ReactElement | ReactElement[];
 };
-export type Region = {
-    name: string,
-    code: string,
-    terror: number,
-    type: string
-}
 
 type InitialTerrorStateProps = {
   terrorTrack: Region[];
@@ -35,7 +29,6 @@ export const TerrorContextProvider = ({
         
         setterrorTrack(newTrack);
     })
-    
   }
 
   const value = useMemo(

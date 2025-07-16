@@ -9,13 +9,13 @@ export const ControlDrawer = () => {
     const { terrorTrack, setTerror} = useTerrorContext();
     const breakpoints = terrorBreakpoints;
     return (
-        <Drawer.Root placement="end" open={activeDrawer === "dashboard"} size='sm'>
+        <Drawer.Root placement="end" open={activeDrawer === "dashboard"} onOpenChange={ (e) => !e.open ? closeDrawer() : "" } onEscapeKeyDown={ () => closeDrawer() } size='sm'>
             <Portal>
                 <Drawer.Backdrop />
                 <Drawer.Positioner>
                 <Drawer.Content>
                     <Drawer.Body pt="6" spaceY="3">
-                    <p>Drawer is open: {activeDrawer}</p>
+                    <Text textStyle="3xl">Terror Controls</Text>
                         {terrorTrack.map(region => (
                             <HStack justifyContent="space-between">
                                 <VStack alignItems='start' gap={0}>
@@ -41,10 +41,10 @@ export const ControlDrawer = () => {
                             </HStack>
                         ))}
                     </Drawer.Body>
-                    <Drawer.CloseTrigger asChild>
+                    <Drawer.Footer>
+                         <Drawer.CloseTrigger asChild>
                         <CloseButton onClick={ () => closeDrawer() } size="lg" />
                     </Drawer.CloseTrigger>
-                    <Drawer.Footer>
                         <Button variant="outline" onClick={ () => closeDrawer() }>Cancel</Button>
                     </Drawer.Footer>
                 </Drawer.Content>

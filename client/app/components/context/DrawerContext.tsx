@@ -1,22 +1,20 @@
 import { useState, createContext, useContext, useMemo } from "react";
 import { type ReactElement } from "react";
+import { type DrawerTypes } from "~/types/types";
 
+// Local TYPE for the properties expected
 type DrawerContextProviderProps = {
   children: ReactElement | ReactElement[];
 };
-export type DrawerTypes =
-  | "reports"
-  | "newsroom"
-  | "dashboard"
-  | "controller"
-  | "";
 
+// Local TYPE for the expected State of the context
 type InitialDrawerStateProps = {
   activeDrawer: string;
   setDrawer: (payload: DrawerTypes) => void;
   closeDrawer: () => void;
 };
 
+// Initial State of the Context
 const initialDrawerContext: InitialDrawerStateProps = {
   activeDrawer: "",
   setDrawer: () => null,
