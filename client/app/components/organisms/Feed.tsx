@@ -2,11 +2,9 @@ import {
   Button,
   Container,
   Flex,
-  IconButton,
   Stack,
 } from '@chakra-ui/react'
 import { BiPlus } from 'react-icons/bi'
-import type { Post } from '~/types/types'
 import { PostCard } from '../molecules/Post/Post'
 import { useMediaContext } from '../context/MediaContext'
 import { useAppContext } from '../context/AppContext'
@@ -42,10 +40,11 @@ export const MediaFeed = () => {
         <Flex borderWidth="1px" divideX="1px" borderRadius="l3" bg="bg" justify='space-between'>
           <Button variant={'ghost'} onClick={ () => handleNewPost() }><BiPlus />Add Post</Button>
         </Flex>
-        {mediaFeed.sort((a, b) =>
-          { if (new Date(a.createdAt).getMilliseconds() < new Date(b.createdAt).getMilliseconds()) return 1
-            else return -1
-           }).map((item) => (
+        {mediaFeed.sort((a, b) => {
+          const dateA = new Date(a.createdAt).getMilliseconds();
+          const dateB = new Date(b.createdAt).getMilliseconds();
+          return dateB - dateA
+        }).map((item) => (
           <PostCard key={item._id} post={item} />
         ))}
       </Stack>

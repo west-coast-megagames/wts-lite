@@ -90,57 +90,51 @@ export const RoleSelect = () => {
 }
 
 const rolesArray = [
-      {
-        title: "President",
-        type: "Head of State",
-        userID: undefined,
-      },
-      {
-        title: "Vice President",
-        type: "Head of State",
-        userID: undefined,
-      },
-      {
-        title: "Secretary of States",
-        type: "Diplomat",
-        userID: undefined,
-      },
-      {
-        title: "UN Ambassador",
-        type: "Ambassador",
-        userID: undefined,
-      },
-      {
-        title: "Scientific Advisor",
-        type: "Scientist",
-        userID: undefined,
-      },
-      {
-        title: "Commander of Strategic Forces & Space Command",
-        type: "Military",
-        userID: undefined,
-      },
-      {
-        title: "Commander of the Military",
-        type: "Military",
-        userID: undefined,
-      },
-      {
-        title: "Senior Diplomat",
-        type: "Diplomat",
-        userID: undefined,
-      },
-      {
-        title: "Senior Diplomat",
-        type: "Diplomat",
-        userID: undefined,
-      },
-      {
-        title: "Head of the Joint Chiefs of Staff",
-        type: "Military",
-        userID: undefined,
-      }
-    ]
+  {
+    title: "Code-Guy",
+    type: "Developer"
+  },
+  {
+    title: "Controller",
+    type: "Control",
+  },
+  {
+    title: "President",
+    type: "Head of State",
+  },
+  {
+    title: "Vice President",
+    type: "Head of State",
+  },
+  {
+    title: "Secretary of States",
+    type: "Diplomat",
+  },
+  {
+    title: "UN Ambassador",
+    type: "Ambassador",
+  },
+  {
+    title: "Scientific Advisor",
+    type: "Scientist",
+  },
+  {
+    title: "Commander of Strategic Forces & Space Command",
+    type: "Military",
+  },
+  {
+    title: "Commander of the Military",
+    type: "Military",
+  },
+  {
+    title: "Senior Diplomat",
+    type: "Diplomat",
+  },
+  {
+    title: "Head of the Joint Chiefs of Staff",
+    type: "Military",
+  }
+]
 
 const rolesList = createListCollection({
   items: rolesArray,

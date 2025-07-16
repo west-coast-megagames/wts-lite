@@ -42,7 +42,7 @@ export const MediaContextProvider = ({
     const addPost = (payload: Post) => {
         console.log('Adding Post');
         console.log(payload);
-        const newFeed: Post[] = mediaFeed
+        const newFeed: Post[] = [...mediaFeed]
         newFeed.push(payload);
         setMediaFeed(newFeed);
     }
