@@ -74,7 +74,7 @@ export const AppContextProvider = ({
     console.log('Team Load Complete...')
   };
 
-  const loadRoles
+  // const loadRoles
 
   const value = useMemo(
     () => ({ teams, team, user, roles, view, displayMode, setTeams, selectTeam, selectView, selectDisplayMode, selectUser, loadTeams }),

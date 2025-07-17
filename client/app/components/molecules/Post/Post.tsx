@@ -6,12 +6,15 @@ import {
   Flex,
   HStack,
   Input,
+  IconButton,
   Spacer,
   Stack,
   Text,
   Textarea,
+  Wrap,
+  WrapItem
 } from '@chakra-ui/react'
-import { BsChat, BsPencil } from 'react-icons/bs'
+import { BsChat, BsChatHeart, BsPencil } from 'react-icons/bs'
 import { Tags } from '../Tags'
 import { PostDate } from '../PostTime'
 import { CommentFeed } from '../Comment'
@@ -58,80 +61,143 @@ export const PostCard = (props: { post: Post, mode?: 'edit'  }) => {
 	const handleDiscard = () => {
 
 	}
+	const [liked, setliked] = useState<boolean>(false);
 
 	const handleSave = () => socketEmit({ event: 'media', payload: { action: 'post', data: editedPost } })
 	
-	return (
-		<Flex borderWidth="1px" divideX="1px" borderRadius="l3" bg="bg">
-			<Stack p="6" flex="1">
-			<Collapsible.Root>
-			<HStack>
-				<HStack gap="4">
-					{ activeMode === 'view' && <Tags tags={editedPost.tags} /> }
-					{ activeMode === 'edit' && <TagInputGroup tags={editedPost.tags} onTagsChange={handleTagEdit} /> }
-				</HStack>
-				<Spacer />
-				<PostDate date={editedPost.createdAt} />
+return (
+  <Flex
+    direction={{ base: "column", md: "row" }}
+    borderWidth="1px"
+    divideX={{ base: "0", md: "1px" }}
+    borderRadius="l3"
+    bg="bg"
+  >
+    <Stack p="6" flex="1">
+      <Collapsible.Root>
+        <Stack>
+          <Stack
+            direction={{ base: "column", sm: "row" }}
+            align={{ base: "flex-start", sm: "center" }}
+            justify="space-between"
+          >
+            <HStack wrap="wrap">
+              {activeMode === "view" && <Tags tags={editedPost.tags} />}
+              {activeMode === "edit" && (
+                <TagInputGroup tags={editedPost.tags} onTagsChange={handleTagEdit} />
+              )}
+            </HStack>
+            <PostDate date={editedPost.createdAt} />
+          </Stack>
+
+          {activeMode === "view" && (
+            <Text
+              textStyle={{ base: "md", md: "lg" }}
+              fontWeight="semibold"
+              mt="2"
+            >
+              {editedPost.headline}
+            </Text>
+          )}
+
+          {activeMode === "edit" && (
+            <CharacterCountInput
+              value={editedPost.headline}
+              handleChange={handleHeadlineEdit}
+              max={100}
+            />
+          )}
+
+          <Input
+            asChild
+            disabled={activeMode === "view"}
+            value={editedPost.body}
+            onChange={handleBodyEdit}
+          >
+            <Textarea autoresize />
+          </Input>
+
+          <Stack
+            direction={{ base: "column", md: "row" }}
+            fontWeight="medium"
+            align={{ base: "flex-start", md: "center" }}
+          >
+            <HStack>
+              <Avatar.Root size="xs">
+                <Avatar.Fallback />
+                <Avatar.Image src={getFlag(a3TOa2Converter(editedPost.publisher))} />
+              </Avatar.Root>
+              <Text textStyle="sm">
+                {editedPost.author?.name}
+              </Text>
+            </HStack>
+
+            <Wrap>
+              {activeMode === "edit" && (
+                <WrapItem>
+                  <Button variant="ghost" onClick={() => handleSave()}>
+                    <BiSave /> Save
+                  </Button>
+                </WrapItem>
+              )}
+              {activeMode === "edit" && (
+                <WrapItem>
+                  <Button variant="ghost">
+                    <MdPublish /> Publish
+                  </Button>
+                </WrapItem>
+              )}
+              {activeMode === "edit" && editedPost.status === "New" && (
+                <WrapItem>
+                  <Button variant="ghost" onClick={() => setMode("view")}>
+                    <GiCardDiscard /> Discard Changes
+                  </Button>
+                </WrapItem>
+              )}
+              {activeMode === "view" && (
+                <WrapItem>
+                  <Button variant="ghost" onClick={() => setMode("edit")}>
+                    <BsPencil /> Edit
+                  </Button>
+                </WrapItem>
+              )}
+              {activeMode === "view" && (
+                <WrapItem>
+                  <Button variant="ghost" color="red">
+                    <BiTrash /> Delete
+                  </Button>
+                </WrapItem>
+              )}
+            </Wrap>
+			  <HStack>
+            <Badge variant="surface">{editedPost.status}</Badge>
+							<IconButton
+				color={`${liked ? "tomato" : ""}`}
+				variant={"ghost"}
+				onClick={ () => setliked(!liked)}
+			  >
+				<BsChatHeart />
+			  </IconButton>
+
+            <Collapsible.Trigger padding="3">
+              <HStack>
+                <BsChat />
+                {editedPost.comments.length}
+              </HStack>
+            </Collapsible.Trigger>
 			</HStack>
-				{ activeMode === 'view' && <Text textStyle="lg" fontWeight="semibold" mt="2">
-					{editedPost.headline}
-				</Text> }
-				{ activeMode === 'edit' && <CharacterCountInput value={editedPost.headline} handleChange={handleHeadlineEdit} max={100}/> }
-				<Input asChild disabled={activeMode === 'view'}value={editedPost.body} onChange={handleBodyEdit}>
-				<Textarea autoresize/>
-			</Input>
-			<HStack fontWeight="medium" mt="4">
-					<HStack>
-					<Avatar.Root size="xs">
-							<Avatar.Fallback />
-							<Avatar.Image src={getFlag(a3TOa2Converter(editedPost.publisher))} />
-					</Avatar.Root>
-					<Text textStyle="sm" hideBelow="sm">
-							{editedPost.author?.name}
-					</Text>
-					</HStack>
-					<Spacer />
-					<HStack>
-						{ activeMode === 'edit' && <Button variant='ghost' onClick={ () => handleSave() }>
-							<BiSave /> Save
-						</Button> }
-						{ activeMode === 'edit' && <Button variant='ghost'>
-							<MdPublish /> Publish
-						</Button> }
-						{ activeMode === 'edit' && editedPost.status === 'New' &&  <Button variant='ghost' onClick={() => { setMode('view') } }>
-							<GiCardDiscard /> Discard Changes
-						</Button> }
-						{ activeMode === 'view' && <Button variant='ghost' onClick={() => setMode('edit')}>
-							<BsPencil /> Edit
-						</Button> }
-						{ activeMode === 'view' && <Button variant='ghost' color='red'>
-							<BiTrash /> Delete
-						</Button> }
-					</HStack>
-					<Spacer />
-					<Badge variant="surface">
-						{editedPost.status}
-					</Badge>
-					<Collapsible.Trigger  padding="3">
-					<HStack>
-						<BsChat />
-						{editedPost.comments.length}
-					</HStack>
-					</Collapsible.Trigger>
-			</HStack>
-			<Collapsible.Content>
-					{editedPost.comments.map(comment => <CommentFeed key={comment.body} comment={comment} /> ) }
-			</Collapsible.Content>
-			</Collapsible.Root>
-			</Stack>
-			{/* <VStack px="4" justify="center" flexShrink="0">
-			<BsChevronUp />
-				<Tooltip content="Upvote">              
-						<Text textStyle="sm" fontWeight="semibold">
-						{editedPost.upvotes} 
-						</Text>
-				</Tooltip>
-			</VStack> */}
-		</Flex>
+
+          </Stack>
+		  
+			  
+          <Collapsible.Content>
+            {editedPost.comments.map((comment) => (
+              <CommentFeed key={comment.body} comment={comment} />
+            ))}
+          </Collapsible.Content>
+        </Stack>
+      </Collapsible.Root>
+    </Stack>
+  </Flex>
 	)
 }
