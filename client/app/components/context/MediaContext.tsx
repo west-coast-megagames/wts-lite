@@ -65,7 +65,7 @@ const feeds: Post[] = [
   {
     status: 'In Progress',
     _id: '01',
-    publisher: "United States",
+    publisher: "rfd",
     headline: 'BREAKING NEWS: Even with Chakra UI, I suck at Front End development',
     body:
       "I enjoy coding, and even making data driven platforms for games, but when considering scope one has to consider that I severly hate and am deficient at it...",

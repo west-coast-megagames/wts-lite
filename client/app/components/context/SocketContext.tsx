@@ -104,7 +104,6 @@ export const SocketContextProvider = ({
                 type: data.type,
                 description: data.message,
                 duration: 5000
-                
             });
         })
 

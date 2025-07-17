@@ -9,9 +9,10 @@ export type DrawerTypes =
 
 /* General Types used throughout the App */
 export type User = {
-    // model: "User",
-    _id?: string,
-    name?: string,
+    model?: "User",
+    _id: string,
+    name: string,
+    role?: Role,
 };
 
 export type Team = {
@@ -25,9 +26,11 @@ export type Team = {
 };
 
 export type Role = {
+    model?: "Role",
     title: string,
     type: string,
-    user?: string,
+    user?: User,
+    team?: Team,
 }
 
 export type Timestamp = {

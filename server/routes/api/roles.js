@@ -16,6 +16,8 @@ router.get('/', async function (req, res) {
 
 	try {
 		const role = await Role.find()
+			.populate('team')
+			.populate('user');
 		res.status(200).json(role);
 	}
 	catch (err) {

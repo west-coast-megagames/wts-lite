@@ -42,19 +42,28 @@ const SelectValue = () => {
 }
 
 export const RoleSelect = () => {
-    const [ role, setRole ] = useState<string[]>([rolesArray[0].title]);
-    const { team, user: currentUser } = useAppContext();
+    const [ role, setRole ] = useState<string[]>(['Placeholder']);
+    const [ selectList, setList ] = useState([])
+    const { team, roles, user: currentUser } = useAppContext();
 
-    // useEffect(() => {
-    //   if (currentUser?.role) setRole([currentUser?.role.title]);
+    useEffect(() => {
+      if (currentUser?.role) setRole([currentUser?.role.title]);
 
-    // }, [currentUser]);
+      const rolesList = createListCollection({
+        items: roles.filter((role) => role.team?.code === team?.code ),
+        itemToString: (item) => item.title,
+        itemToValue: (item) => item.title,
+      });
+      console.log(rolesList);
+      setList(selectList);
+
+
+    }, [currentUser]);
 
   return (
     <Select.Root
       collection={rolesList}
       size="md"
-      defaultValue={role}
       value={role}
       positioning={{ sameWidth: true }}
       onValueChange={(d) => {
@@ -73,8 +82,8 @@ export const RoleSelect = () => {
       </Select.Control>
       <Select.Positioner>
         <Select.Content>
-          {rolesList.items.filter((role) => role.countrycode === team?.code ).map((item,i) => (
-            <Select.Item item={item} key={item.title+i} justifyContent="flex-start">
+          {rolesList.items.map((item , i) => (
+            <Select.Item item={item} key={item.title + i} justifyContent="flex-start">
               <Avatar.Root shape="rounded" size="2xs">
                 <Avatar.Image src={getIcon(item.type)} alt={item.title} />
                 <Avatar.Fallback name={item.title} />
@@ -88,11 +97,3 @@ export const RoleSelect = () => {
     </Select.Root>
   )
 }
-
-
-const rolesList = createListCollection({
-  items: rolesArray,
-  itemToString: (item) => item.title,
-  itemToValue: (item) => item.title,
-});
-

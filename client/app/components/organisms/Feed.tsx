@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Container,
   Flex,
@@ -8,21 +9,30 @@ import { BiPlus } from 'react-icons/bi'
 import { PostCard } from '../molecules/Post/Post'
 import { useMediaContext } from '../context/MediaContext'
 import { useAppContext } from '../context/AppContext'
+import { toaster } from '../ui/toaster'
+import type { Post } from '~/types/types'
+import { useEffect, useState } from 'react'
 
 export const MediaFeed = () => {
   const { addPost, mediaFeed } = useMediaContext();
-  const { team, user } = useAppContext()
-  console.log(mediaFeed);
+  const { team, user } = useAppContext();
+  const [ feed, setFeed ] = useState<Post[]>([]);
+  console.log(feed);
+
+  useEffect(() => {
+    setFeed([...mediaFeed.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())])
+  }, [mediaFeed])
   
   const handleNewPost = () => {
     const now = new Date()
-    if (!team || !user) console.error('Issue with user registration')
+    if (!user) toaster.create({ type: 'error', description: `User is not registered, you must be a registered user to post to the feed...`, duration: 5000 })
+    else if (!team) toaster.create({ type: 'error', description: `${user.name} isn't assigned to a team, only team players can post to the feed`, duration: 5000 })
     else {
       console.log('Adding post');
       addPost({
         status: 'New',
-        _id: '001',
-        publisher: 'us',
+        _id: `${feed.length + 1}`,
+        publisher: team.code,
         headline: '',
         body:
           "",
@@ -40,13 +50,13 @@ export const MediaFeed = () => {
         <Flex borderWidth="1px" divideX="1px" borderRadius="l3" bg="bg" justify='space-between'>
           <Button variant={'ghost'} onClick={ () => handleNewPost() }><BiPlus />Add Post</Button>
         </Flex>
-        {mediaFeed.sort((a, b) => {
-          const dateA = new Date(a.createdAt).getMilliseconds();
-          const dateB = new Date(b.createdAt).getMilliseconds();
-          return dateB - dateA
-        }).map((item) => (
-          <PostCard key={item._id} post={item} />
-        ))}
+        <Box scrollbar="hidden" overflowY='scroll' h="80vh">
+        <Stack gap="4">
+          {feed.map((item) => (
+            <PostCard key={item._id} post={item} />
+          ))}
+        </Stack>
+        </Box>
       </Stack>
     </Container>
   )

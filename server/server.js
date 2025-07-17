@@ -18,7 +18,7 @@ require('./routes/sockets')(server); // Bootup for Socket.io server
 require('./middleware/mongoDB/db')(); // Bootup of MongoDB through Mongoose
 require('./middleware/production/prod')(app); // Production compression and middleware
 
-loadDB();
+// loadDB();
 
 const port = process.env.PORT || 5000; // Server entry point - Node Server
 server.listen(port, () => console.log(`Folly initialized on port ${port}, Server online!`));

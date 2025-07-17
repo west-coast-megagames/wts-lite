@@ -8,7 +8,7 @@ const RoleSchema = new Schema({
     title: { type: String },
     type: { type: String },
     team: { type: ObjectId, ref: 'Team' },
-    users: { type: ObjectId, ref: 'User' }
+    user: { type: ObjectId, ref: 'User' }
 }, { timestamps: true });
 
 const Role = mongoose.model('Role', RoleSchema);

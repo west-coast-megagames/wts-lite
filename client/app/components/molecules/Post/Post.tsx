@@ -16,9 +16,9 @@ import { Tags } from '../Tags'
 import { PostDate } from '../PostTime'
 import { CommentFeed } from '../Comment'
 import type { Post } from '~/types/types'
-import { getFlag } from '~/scripts'
+import { a3TOa2Converter, getFlag } from '~/scripts'
 import { useSocketContext } from '../../context/SocketContext'
-import { useState, type SyntheticEvent } from 'react'
+import { useEffect, useState, type SyntheticEvent } from 'react'
 import TagInputGroup from '../TagInput/TagInputGroup'
 import { BiSave, BiTrash } from 'react-icons/bi'
 import { MdPublish } from 'react-icons/md'
@@ -30,6 +30,10 @@ export const PostCard = (props: { post: Post, mode?: 'edit'  }) => {
 	const [activeMode, setMode] = useState<'view' | 'edit'>(mode ? mode : 'view');
 	const [editedPost, setEdit] = useState<Post>(post);
 	const { socketEmit } = useSocketContext();
+
+	useEffect(() => {
+		if (post.status === "New") setMode('edit');
+	}, [post])
 
 	const handleTagEdit = (e: SyntheticEvent, tags: string[]) => {
 		const newPost = {...editedPost};
@@ -80,7 +84,7 @@ export const PostCard = (props: { post: Post, mode?: 'edit'  }) => {
 					<HStack>
 					<Avatar.Root size="xs">
 							<Avatar.Fallback />
-							<Avatar.Image src={getFlag('us')} />
+							<Avatar.Image src={getFlag(a3TOa2Converter(editedPost.publisher))} />
 					</Avatar.Root>
 					<Text textStyle="sm" hideBelow="sm">
 							{editedPost.author?.name}

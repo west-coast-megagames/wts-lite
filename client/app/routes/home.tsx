@@ -1,8 +1,10 @@
 import { useAppContext } from "~/components/context/AppContext";
 import type { Route } from "./+types/home";
-import { Center, Spinner, Text, VStack } from "@chakra-ui/react";
-import { useEffect } from "react";
+import { Box, Center, Container, Flex, HStack, Image, Spacer, Spinner, Text, VStack } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import logo from "../img/logos/wcm_logo.png"
+import { NotificationPopover, UserMenu } from "~/components/molecules";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -12,20 +14,43 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
-  const { loadTeams, displayMode } = useAppContext();
+  const { loadTeams, displayMode, teams } = useAppContext();
+  const [ loadMessage, setMessage ] = useState<string>('Loading digital assests... so sit back and Watch the Skies.')
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (displayMode === 'loading') loadTeams();
-    else (navigate('/map'));
+    console.log(displayMode);
+    if (displayMode === 'loading') {
+      setMessage('Gathering Teams from the West Coast!')
+      loadTeams();
+    }
+    if (displayMode !== 'loading') navigate('/map');
   }, [displayMode]);
 
   return (
-    <Center bg="bg.emphasized" h="100vh">
+    <Container fluid padding={0}>
+      <VStack>
+      <Box borderBottomWidth="1px" bg="bg.panel" w="100%">
+       <Container fluid py={{ base: '1', md: '2' }}>
+        <HStack justify="space-between">
+          <HStack gap={{ base: '4', md: '10' }}>
+            <Image src={logo} h={30} hideBelow="md" />
+          </HStack>
+          <Spacer />
+          <HStack gap={{ base: '2', md: '3' }}>
+            <NotificationPopover />
+            <UserMenu />
+          </HStack>
+        </HStack>
+      </Container>
+    </Box>
+    <Center bg="bg.emphasized" h="100vh" w="100%">
       <VStack colorPalette="teal">
         <Spinner color="colorPalette.600" size='xl' />
-        <Text color="colorPalette.600">Loading... so Watch the Skies..</Text>
+        <Text color="colorPalette.600">{loadMessage}</Text>
       </VStack>
     </Center>
+    </VStack>
+    </Container>
     )
 }

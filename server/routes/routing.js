@@ -9,7 +9,8 @@ const home = require('./public/home');
 // API Routes - Using Express.js
 // Desc - API routes are the raw HTTP GET/POST/DEL access to our models
 const teams = require('./api/teams');
-const roles = require('./api/roles')
+const roles = require('./api/roles');
+const posts = require('./api/posts');
 
 logger.info('API routes initiated...');
 
@@ -23,6 +24,7 @@ module.exports = function(app) {
 
 	app.use('/api/teams', teams); // Route for inputing TEAMS
 	app.use('/api/roles', roles); // Route for inputing ROLES
+	app.use('/api/posts', posts); // Route for inputing POSTS
 
 	logger.info('Routes Primed...');
 };

@@ -9,17 +9,11 @@ const PostSchema = new Schema({
 	headline: { type: String, required: true, minlength: 1, maxlength: 100 },
 	body: { type: String, minlength: 1, maxlength: 1000 },
 	tags: [{ type: String }],
-    timestamp: {
-		turn: { type: String },
-		phase: { type: String },
-		turnNum: { type: Number },
-		clock: { type: String }
-	},
 	reactions: [{
-		user: { type: String },
+		user: { type: ObjectId, ref: 'User' },
 		emoji: { type: String }
 	}],
-	comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
+	comments: [{ type: ObjectId, ref: 'Comment' }],
 	status: { type: String, enum: ['Draft', 'Published'], default: 'Draft' }
 }, { timestamps: true });
 
@@ -27,7 +21,10 @@ PostSchema.static({
 	postToDB: async (client, data) => { 
 		console.log('Adding post to Database');
 		const Post = mongoose.model('Post');
-		let newPost = new Post({...data, });
+		let newPost = {...data, status: "Draft" };
+		delete newPost._id
+		console.log(newPost);
+		newPost = new Post({...data, status: "Draft" });
 
 		newPost = await newPost.save().then((doc) => {
 			console.log(doc);
