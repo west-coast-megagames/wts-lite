@@ -26,7 +26,8 @@ export type Team = {
 };
 
 export type Role = {
-    model?: "Role",
+    _id: string,
+    model: "Role",
     title: string,
     type: string,
     user?: User,

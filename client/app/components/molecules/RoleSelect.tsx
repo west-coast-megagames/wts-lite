@@ -2,6 +2,7 @@ import {
   Avatar,
   HStack,
   Select,
+  Text,
   createListCollection,
   useSelectContext,
   type ListCollection,
@@ -12,6 +13,7 @@ import sci from '../../img/icons/Science_Icon.svg';
 import pol from '../../img/icons/Political_Icon.svg';
 import gov from '../../img/icons/Governance.svg';
 import ops from '../../img/icons/Operational_Icon.svg';
+import type { Role } from "~/types/types";
 
 const getIcon = (type: string) => {
     switch (type) {
@@ -24,50 +26,42 @@ const getIcon = (type: string) => {
 }
 
 const SelectValue = () => {
-  const select = useSelectContext()
+  const select = useSelectContext();
   const items = select.selectedItems as Array<{ title: string, type: string }>
   console.log(items)
-  const { title, type } = items[0]
   return (
-    <Select.ValueText placeholder="Select member">
-      <HStack>
+    <Select.ValueText placeholder="Select Team Role">
+      { items.length > 0 && <HStack>
         <Avatar.Root shape="rounded" size="2xs">
-          <Avatar.Image src={getIcon(type)} alt={title} />
-          <Avatar.Fallback name={title} />
+          <Avatar.Image src={getIcon(items[0].type)} alt={items[0].title} />
+          <Avatar.Fallback name={items[0].title} />
         </Avatar.Root>
-        {title}
-      </HStack>
+        {items[0].title}
+      </HStack> }
     </Select.ValueText>
   )
 }
 
 export const RoleSelect = () => {
-    const [ role, setRole ] = useState<string[]>(['Placeholder']);
-    const [ selectList, setList ] = useState([])
-    const { team, roles, user: currentUser } = useAppContext();
+    const { team, role: currentRole, openRoles, selectRole } = useAppContext();
+    const [ role, setRole ] = useState<string[]>([]);
+    const [ selectList, setList ] = useState<ListCollection<Role>>(openRoles)
+
 
     useEffect(() => {
-      if (currentUser?.role) setRole([currentUser?.role.title]);
+      if (currentRole) setRole([currentRole._id]);
+    }, [currentRole])
 
-      const rolesList = createListCollection({
-        items: roles.filter((role) => role.team?.code === team?.code ),
-        itemToString: (item) => item.title,
-        itemToValue: (item) => item.title,
-      });
-      console.log(rolesList);
-      setList(selectList);
-
-
-    }, [currentUser]);
 
   return (
     <Select.Root
-      collection={rolesList}
-      size="md"
+      collection={selectList}
       value={role}
+      size="md"
       positioning={{ sameWidth: true }}
       onValueChange={(d) => {
         setRole(d.value);
+        selectRole(d.value[0]);
       }}
     >
       <Select.HiddenSelect />
@@ -82,7 +76,7 @@ export const RoleSelect = () => {
       </Select.Control>
       <Select.Positioner>
         <Select.Content>
-          {rolesList.items.map((item , i) => (
+          {openRoles.items.filter((role: Role) => role.team?.code === team?.code ).map((item: Role , i: number) => (
             <Select.Item item={item} key={item.title + i} justifyContent="flex-start">
               <Avatar.Root shape="rounded" size="2xs">
                 <Avatar.Image src={getIcon(item.type)} alt={item.title} />

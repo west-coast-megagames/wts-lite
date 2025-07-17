@@ -1,4 +1,4 @@
-import { Button, Container, Field, Input, Stack, Text, useDrawer } from '@chakra-ui/react'
+import { Button, Container, Field, Input, Stack, Text } from '@chakra-ui/react'
 import { FormSection } from '../molecules/FormSection'
 import { TeamSelect } from '../molecules/TeamSelect'
 import { RoleSelect } from '../molecules/RoleSelect'
@@ -10,7 +10,7 @@ import { useDrawerContext } from '../context/DrawerContext'
 export const Profile = () => {
   const { team: currentTeam, user: currentUser, selectUser } = useAppContext();
   const { closeDrawer } = useDrawerContext();
-  const [updateUser, setUser] = useState<User>(currentUser ? currentUser : { name: undefined});
+  const [updateUser, setUser] = useState<User>(currentUser ? currentUser : { _id: '', name: '' });
 
   const handleUsername = (e: React.ChangeEvent<HTMLInputElement>) => {
     const update = {...updateUser, name: e.target.value};
