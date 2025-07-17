@@ -6,6 +6,7 @@ import { useAppContext } from '../context/AppContext'
 
 export const TopBar = () => {
   const { displayMode } = useAppContext();
+  console.log(displayMode)
 
   return (
     <Box borderBottomWidth="1px" bg="bg.panel">

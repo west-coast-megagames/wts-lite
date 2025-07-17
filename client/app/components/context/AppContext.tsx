@@ -4,6 +4,7 @@ import { type Role, type Team, type User } from "~/types/types";
 import { teamArray } from "data/teams";
 import { server } from "~/config";
 import { toaster } from "../ui/toaster";
+import { useNavigate } from "react-router";
 
 type AppContextProviderProps = {
   children: ReactElement | ReactElement[];
@@ -44,6 +45,9 @@ const initialAppContext: InitialAppStateProps = {
 export const AppContextProvider = ({
   children,
 }: AppContextProviderProps) => {
+  const navigate = useNavigate();
+
+
   const [displayMode, setDisplayMode] = useState<DisplayModes>('loading');
   const selectDisplayMode = (mode: DisplayModes) => setDisplayMode(mode);
   const [teams, setTeams] = useState<Team[]>(teamArray);
@@ -78,7 +82,7 @@ export const AppContextProvider = ({
 
   const value = useMemo(
     () => ({ teams, team, user, roles, view, displayMode, setTeams, selectTeam, selectView, selectDisplayMode, selectUser, loadTeams }),
-    [teams, team, user, view, roles]
+    [teams, team, user, view, roles, displayMode]
   )
 
   return (
