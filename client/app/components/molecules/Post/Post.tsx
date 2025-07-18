@@ -7,6 +7,7 @@ import {
   HStack,
   Input,
   IconButton,
+  Link,
   Stack,
   Text,
   Textarea,
@@ -16,7 +17,6 @@ import {
 import { BsChat, BsChatHeart, BsPencil } from 'react-icons/bs'
 import { Tags } from '../Tags'
 import { PostDate } from '../PostTime'
-import { CommentFeed } from '../Comment'
 import type { Post } from '~/types/types'
 import { a3TOa2Converter, getFlag } from '~/scripts'
 import { useSocketContext } from '../../context/SocketContext'
@@ -29,12 +29,13 @@ import { CharacterCountInput } from '../CharCountInput'
 import { useAppContext } from '~/components/context/AppContext'
 import { toaster } from '~/components/ui/toaster'
 import { useMediaContext } from '~/components/context/MediaContext'
+import { Comment } from '../Comment'
 
 export const PostCard = (props: { post: Post, mode?: 'edit'  }) => {
 	const { post, mode } = props;
 	const [activeMode, setMode] = useState<'view' | 'edit'>(mode ? mode : 'view');
 	const [editedPost, setEdit] = useState<Post>(post);
-  const [liked, setliked] = useState<boolean>(false);
+  // const [liked, setliked] = useState<boolean>(false);
 	const { socketEmit } = useSocketContext();
   const { addPost } = useMediaContext();
   const { user, team } = useAppContext();
@@ -185,19 +186,16 @@ return (
             </Wrap>
 			  <HStack>
             <Badge variant="surface">{editedPost.status}</Badge>
-							<IconButton
+							{/* <IconButton
 				color={`${liked ? "tomato" : ""}`}
 				variant={"ghost"}
 				onClick={ () => setliked(!liked)}
 			  >
 				<BsChatHeart />
-			  </IconButton>
-
+			  </IconButton> */}
+              <Link color="fg.muted">Reply</Link> 
             <Collapsible.Trigger padding="3">
-              <HStack>
-                <BsChat />
-                {editedPost.comments.length}
-              </HStack>
+                <IconButton variant={"ghost"}><BsChat />{editedPost.comments.length}</IconButton>
             </Collapsible.Trigger>
 			</HStack>
 
@@ -206,7 +204,7 @@ return (
 			  
           <Collapsible.Content>
             {editedPost.comments.map((comment) => (
-              <CommentFeed key={comment.body} comment={comment} />
+              <Comment key={comment.body} comment={comment} />
             ))}
           </Collapsible.Content>
         </Stack>
