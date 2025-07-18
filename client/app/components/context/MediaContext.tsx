@@ -48,12 +48,7 @@ export const MediaContextProvider = ({
     }
 
     const addPost = (payload: Post) => {
-      const newFeed: Post[] = [...mediaFeed]
-      const i = mediaFeed.findIndex(el => el._id === payload._id);
-      console.log(`${i} - ${payload.headline}`)
-      if (i > -1) newFeed[i] = payload;
-      else newFeed.push(payload);
-      setMediaFeed(newFeed);
+      refreshFeed();
     }
 
     const deletePost = async (payload: Post) => {
@@ -64,11 +59,10 @@ export const MediaContextProvider = ({
           'Content-Type': 'application/json',
         },
       });
-      await refreshFeed();;
+      await refreshFeed();
     }
 
     const refreshFeed = async () => {
-      setMediaFeed(feeds);
       await fetch(`${ server }api/posts`).then((res) => {
           !res.ok ? toaster.create({ type: 'error', description: `Failed to load Posts`, duration: 5000}) : undefined;
           return res.json();
@@ -89,23 +83,22 @@ export const MediaContextProvider = ({
 
       const wipeFeed = async () => {
         try {
-          const response = await fetch(`${server}api/posts/deleteAll`, { // Replace with your API endpoint
+          fetch(`${server}api/posts/deleteAll`, { // Replace with your API endpoint
             method: 'PATCH',
             headers: {
               'Content-Type': 'application/json',
             },
+          }).then(res => {
+            console.log(res);
+            if (!res.ok) {
+              toaster.create({ type: 'error', description: `Failed to load Posts`, duration: 5000})
+            } else {
+
+            }
+          }).then(json => {
+            const errorData = json;
+            console.log(json);
           });
-
-          if (!response.ok) {
-            // Handle HTTP errors (e.g., 404, 500)
-            const errorData = await response.json();
-            throw new Error(errorData.message || 'Something went wrong with the request.');
-          }
-
-          const data = await response.json();
-          console.log(data);
-          toaster.create({ type: 'success', description: data });
-
         } catch (err) {
           // Handle network errors or errors thrown from the response.ok check
           console.log(err)

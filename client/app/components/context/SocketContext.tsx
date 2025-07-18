@@ -4,6 +4,7 @@ import { type Client, type ToasterData } from "~/types/types";
 import { io } from "socket.io-client";
 import { server } from "../../config";
 import { toaster } from "../ui/toaster";
+import { useMediaContext } from "./MediaContext";
 
   const URL = server;
   const socket = io(URL, { 
@@ -40,6 +41,7 @@ export const SocketContextProvider = ({
 }: SocketContextProviderProps) => {
     const [socketOnline, setSocketOnline] = useState<boolean>(false);
     const [clients, setClients] = useState<Client[]>([]);
+    const { addPost, refreshFeed } = useMediaContext();
 
     // Socket Context functions
     const socketEmit = (data: SocketEmitPayload, callback: Function = () => {}) => {
@@ -105,6 +107,13 @@ export const SocketContextProvider = ({
                 description: data.message,
                 duration: 5000
             });
+        });
+
+        socket.on('newsflash', payload => {
+          const { type, description, data } = payload;
+          toaster.create({ type, description, duration: 4000 });
+          addPost(data);
+          refreshFeed();
         })
 
         socket.connect();

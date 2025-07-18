@@ -29,6 +29,8 @@ import { useAppContext } from '~/components/context/AppContext'
 import { toaster } from '~/components/ui/toaster'
 import { Comment } from '../Comment'
 import { EditableComment } from '../EditableComment'
+import { useSocketContext } from '~/components/context/SocketContext'
+import { useMediaContext } from '~/components/context/MediaContext'
 
 export const PostCard = (props: { post: Post, mode?: 'view', onDelete: (post: Post) => void; onSave: (post: Post) => void }) => {
 	const { post, mode, onDelete, onSave } = props;
@@ -36,6 +38,8 @@ export const PostCard = (props: { post: Post, mode?: 'view', onDelete: (post: Po
 	const [editedPost, setEdit] = useState<Post>(post);
   const [ fakeComment, setFakeComment ] = useState<Comment | undefined>(); 
   const { user, team } = useAppContext();
+  const { socketEmit } = useSocketContext();
+  const { addPost, refreshFeed } = useMediaContext();
 
 	useEffect(() => {
 		if (post.status === "New") setMode('edit');
@@ -61,6 +65,20 @@ export const PostCard = (props: { post: Post, mode?: 'view', onDelete: (post: Po
 			newPost.body = e.target.value;
 		setEdit(newPost);
 	}
+
+    const handlePublish = () => {
+      const data = { ...editedPost }
+      if (user && !data.author) data.author = user?._id;
+      if (team && !data.team) data.team = team?._id;
+  
+      socketEmit({ event: 'media', payload: { action: 'publish', data } }, (response: {status: string, description: string, data: any}) => {
+        const { status, description, data } = response;
+        console.log(response)
+        toaster.create({ type: status, description });
+        addPost(data);
+        refreshFeed();
+      })
+    }
 
 	
   const handleNewComment = () => {
@@ -153,7 +171,7 @@ return (
               )}
               {activeMode === "edit" && (
                 <WrapItem>
-                  <Button variant="ghost">
+                  <Button variant="ghost" onClick={ () => handlePublish() }>
                     <MdPublish /> Publish
                   </Button>
                 </WrapItem>

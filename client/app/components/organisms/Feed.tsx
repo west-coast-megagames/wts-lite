@@ -11,7 +11,7 @@ import { useMediaContext } from '../context/MediaContext'
 import { useAppContext } from '../context/AppContext'
 import { toaster } from '../ui/toaster'
 import type { Post } from '~/types/types'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FaDumpsterFire } from 'react-icons/fa'
 import { useSocketContext } from '../context/SocketContext'
 
@@ -20,6 +20,10 @@ export const MediaFeed = () => {
   const { socketEmit } = useSocketContext();
   const { team, user } = useAppContext();
   const [ newPost, setNewPost ] = useState<Post | undefined>(undefined);
+
+  useEffect(() => {
+    refreshFeed();
+  }, [])
   
   const handleNewPost = () => {
     const now = new Date()
@@ -57,6 +61,7 @@ export const MediaFeed = () => {
       toaster.create({ type: status, description });
       if (post.status === 'New') setNewPost(undefined);
       addPost(data);
+      refreshFeed();
     })
   }
   
