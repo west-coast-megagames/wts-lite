@@ -76,13 +76,13 @@ router.post('/', async (req, res) => {
 
 	try {
 
-		let newpost = new post(req.body);
+		let newPost = new Post(req.body);
 		
 	    logger.info(`post ${req.body.name} has invalid type ${req.body.type}`);
 
-		newpost = await newPost.save();
+		newPost = await newPost.save();
 		logger.info(`post ${newPost.name} created...`);
-		res.status(200).json(newpost);
+		res.status(200).json(newPost);
 	}
 	catch (err) {
 		httpErrorHandler(res, err);

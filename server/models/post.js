@@ -7,7 +7,8 @@ const { Schema, ObjectId } = mongoose; // Destructure of Mongoose
 
 const PostSchema = new Schema({
 	model: { type: String, default: 'Post' },
-	user: { type: ObjectId, ref: 'User' },
+	author: { type: ObjectId, ref: 'User' },
+	team: { type: ObjectId, ref: 'Team' },
 	headline: { type: String, required: true, minlength: 1, maxlength: 100 },
 	body: { type: String, minlength: 1, maxlength: 1000 },
 	tags: [{ type: String }],
@@ -28,12 +29,6 @@ PostSchema.static({
 		delete newPost._id
 		console.log(newPost);
 		newPost = new Post(newPost);
-
-		let myTeam = await Team.findById(data.publisher);
-		newPost.publisher = myTeam._id;
-
-		let me = await User.findById(data.author);
-		newPost.author = me._id;
 
 		newPost = await newPost.save().then((doc) => {
 			console.log(doc);
