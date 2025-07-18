@@ -100,11 +100,11 @@ router.delete('/:id', validateObjectId, async (req, res) => {
 	const id = req.params.id;
 
 	try {
-		const post = await Post.findByIdAndRemove(id);
+		const post = await Post.findByIdAndDelete(id);
 
 		if (post != null) {
-			logger.info(`post ${Post.name} with the id ${id} was deleted!`);
-			res.status(200).json(post).send(`post ${Post.name} with the id ${id} was deleted!`);
+			logger.info(`post ${post.headline} with the id ${id} was deleted!`);
+			res.status(200).send(`post ${post.headline} with the id ${id} was deleted!`);
 		}
 		else {
 			nexusError(`No post with the id ${id} exists!`, 404);

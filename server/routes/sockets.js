@@ -56,15 +56,17 @@ module.exports = function(httpServer) {
 
                         response = await newPost.save();
 			            await response.populate('team');
-			            client.emit('alert', { type: 'success', message: `${client.username} updated ${newPost.headline} post` });
+			            // client.emit('alert', { type: 'success', message: `${client.handshake.auth.username} updated ${newPost.headline} post` });
                     }
                     catch (err) {
 			            console.log(err);
 			            client.emit('alert', { type: 'error', title: 'Server Error [media/post]', message: `${err.message}` })
-		            }
+		            };
+                    break;
                 } 
-                default: 
+                default: {
                     io.emit('alert', { type: 'error', title: "Server Error", message: `${client.username} send invalid media request for ${action}` })
+                }
             }
             callback({ status: 'success', description: `Post ${response.headline} saved`, data: response });
         })
