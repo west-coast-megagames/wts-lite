@@ -32,6 +32,7 @@ export const Comment = (props: { comment: Comment }) => {
       <Collapsible.Root>
       <Box pos="relative">
         { comment.replies.length > 0 && expanded && <Box pos="absolute" width="2px" left="8" top="12" bottom="0" bg="border" /> }
+                { fakeComment && <Box pos="absolute" width="2px" left="8" top="12" bottom="0" bg="border" /> }
         <Flex gap="2" ps="4" pt="2" as="article" tabIndex={-1}>
           <Avatar.Root size="sm">
             <Avatar.Fallback name={comment.user.name} />
@@ -65,7 +66,7 @@ export const Comment = (props: { comment: Comment }) => {
           </Stack>
         </Flex>
       </Box>
-        { fakeComment && <EditableReply reply={fakeComment} replytree={0} i={0} /> }
+        { fakeComment && <EditableReply reply={fakeComment} replytree={expanded ? comment.replies.length : 0} i={-1} /> }
       <Collapsible.Content>
         { comment.replies.map((el, i) => (
             <Reply reply={el} replytree={comment.replies.length} i={i} />
