@@ -16,7 +16,8 @@ router.get('/', async function (req, res) {
 
 	try {
 		const users = await User.find()
-			.populate('role');
+			.populate('role')
+			.populate({ path: "role", populate: { path: 'team' }})
 		res.status(200).json(users);
 	}
 	catch (err) {
@@ -71,14 +72,15 @@ router.post('/', async (req, res) => {
 	logger.info('POST Route: api/user call made...');
 
 	try {
+		console.log(req.body);
 
-		let newuser = new user(req.body);
+		let newUser = {...req.body};
+		delete newUser._id;
+		newUser = new User(newUser);
 		
-	    logger.info(`user ${req.body.name} has invalid type ${req.body.type}`);
-
-		newuser = await newUser.save();
+		newUser = await newUser.save();
 		logger.info(`user ${newUser.name} created...`);
-		res.status(200).json(newuser);
+		res.status(200).json(newUser);
 	}
 	catch (err) {
 		httpErrorHandler(res, err);

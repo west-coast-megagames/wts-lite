@@ -7,7 +7,6 @@ import {
   HStack,
   Input,
   IconButton,
-  Spacer,
   Stack,
   Text,
   Textarea,
@@ -27,12 +26,18 @@ import { BiSave, BiTrash } from 'react-icons/bi'
 import { MdPublish } from 'react-icons/md'
 import { GiCardDiscard } from 'react-icons/gi'
 import { CharacterCountInput } from '../CharCountInput'
+import { useAppContext } from '~/components/context/AppContext'
+import { toaster } from '~/components/ui/toaster'
+import { useMediaContext } from '~/components/context/MediaContext'
 
 export const PostCard = (props: { post: Post, mode?: 'edit'  }) => {
 	const { post, mode } = props;
 	const [activeMode, setMode] = useState<'view' | 'edit'>(mode ? mode : 'view');
 	const [editedPost, setEdit] = useState<Post>(post);
+  const [liked, setliked] = useState<boolean>(false);
 	const { socketEmit } = useSocketContext();
+  const { addPost } = useMediaContext();
+  const { user, team } = useAppContext();
 
 	useEffect(() => {
 		if (post.status === "New") setMode('edit');
@@ -61,9 +66,18 @@ export const PostCard = (props: { post: Post, mode?: 'edit'  }) => {
 	const handleDiscard = () => {
 
 	}
-	const [liked, setliked] = useState<boolean>(false);
 
-	const handleSave = () => socketEmit({ event: 'media', payload: { action: 'post', data: editedPost } })
+	const handleSave = () => {
+    let data = {...editedPost}
+    data.author = user?._id;
+    data.publisher = team?._id;
+
+    socketEmit({ event: 'media', payload: { action: 'post', data } }, (response: {status: string, description: string, data: any}) => {
+      const { status, description, data } = response;
+      toaster.create({ type: status, description });
+      addPost(data);
+    })
+  }
 	
 return (
   <Flex
@@ -125,7 +139,7 @@ return (
             <HStack>
               <Avatar.Root size="xs">
                 <Avatar.Fallback />
-                <Avatar.Image src={getFlag(a3TOa2Converter(editedPost.publisher))} />
+                <Avatar.Image src={getFlag(a3TOa2Converter(editedPost.publisher.code))} />
               </Avatar.Root>
               <Text textStyle="sm">
                 {editedPost.author?.name}

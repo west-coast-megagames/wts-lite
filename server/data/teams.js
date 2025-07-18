@@ -15,7 +15,7 @@ const teams = [{
         countryCode: "USA"
       },
       {
-        title: "Secretary of States",
+        title: "Secretary of State",
         type: "Diplomat",
         countryCode: "USA"
       },

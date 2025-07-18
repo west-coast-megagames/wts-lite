@@ -17,7 +17,8 @@ router.get('/', async function (req, res) {
 	try {
 		const posts = await Post.find()
 			.sort({ post: 1 })
-			.populate('roles');
+			.populate('user')
+			// .populate('comments')
 		res.status(200).json(posts);
 	}
 	catch (err) {

@@ -11,6 +11,7 @@ const home = require('./public/home');
 const teams = require('./api/teams');
 const roles = require('./api/roles');
 const posts = require('./api/posts');
+const users = require('./api/users');
 
 logger.info('API routes initiated...');
 
@@ -25,6 +26,7 @@ module.exports = function(app) {
 	app.use('/api/teams', teams); // Route for inputing TEAMS
 	app.use('/api/roles', roles); // Route for inputing ROLES
 	app.use('/api/posts', posts); // Route for inputing POSTS
+	app.use('/api/users', users); // Route for inputing users
 
 	logger.info('Routes Primed...');
 };

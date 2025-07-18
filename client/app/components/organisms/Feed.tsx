@@ -5,16 +5,17 @@ import {
   Flex,
   Stack,
 } from '@chakra-ui/react'
-import { BiPlus } from 'react-icons/bi'
+import { BiPlus, BiRefresh } from 'react-icons/bi'
 import { PostCard } from '../molecules/Post/Post'
 import { useMediaContext } from '../context/MediaContext'
 import { useAppContext } from '../context/AppContext'
 import { toaster } from '../ui/toaster'
 import type { Post } from '~/types/types'
 import { useEffect, useState } from 'react'
+import { FaDumpsterFire } from 'react-icons/fa'
 
 export const MediaFeed = () => {
-  const { addPost, mediaFeed } = useMediaContext();
+  const { addPost, refreshFeed, wipeFeed, mediaFeed } = useMediaContext();
   const { team, user } = useAppContext();
   const [ feed, setFeed ] = useState<Post[]>([]);
   console.log(feed);
@@ -32,7 +33,7 @@ export const MediaFeed = () => {
       addPost({
         status: 'New',
         _id: `${feed.length + 1}`,
-        publisher: team.code,
+        publisher: { code: team.code },
         headline: '',
         body:
           "",
@@ -49,6 +50,8 @@ export const MediaFeed = () => {
       <Stack gap="4">
         <Flex borderWidth="1px" divideX="1px" borderRadius="l3" bg="bg" justify='space-between'>
           <Button variant={'ghost'} onClick={ () => handleNewPost() }><BiPlus />Add Post</Button>
+          <Button variant={'ghost'} onClick={ () => refreshFeed() }><BiRefresh />Refresh Feed</Button>
+          <Button variant={'ghost'} onClick={ () => wipeFeed() }><FaDumpsterFire />Destroy Posts</Button>
         </Flex>
         <Box scrollbar="hidden" overflowY='scroll' h="80vh">
         <Stack gap="4">

@@ -18,7 +18,7 @@ type InitialSocketStateProps = {
   socketOnline: boolean;
   clients: Client[];
   initConnection: (client: Client) => void;
-  socketEmit: (data: SocketEmitPayload) => void;
+  socketEmit: (data: SocketEmitPayload, callback: Function) => void;
   socketLogoff: () => void;
 };
 
@@ -42,8 +42,8 @@ export const SocketContextProvider = ({
     const [clients, setClients] = useState<Client[]>([]);
 
     // Socket Context functions
-    const socketEmit = (data: SocketEmitPayload) => {
-        socket.emit(data.event, data.payload);
+    const socketEmit = (data: SocketEmitPayload, callback: Function = () => {}) => {
+        socket.emit(data.event, data.payload, callback);
     };
 
     const initConnection = (user: Client) => {

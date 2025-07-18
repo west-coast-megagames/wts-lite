@@ -16,6 +16,7 @@ export type User = {
 };
 
 export type Team = {
+    _id: string,
     name: string,
     shortName: string,
     code: string,
@@ -66,8 +67,8 @@ export type Region = {
 export type Post = {
     _id: string,
     status: "In Progress" | "Published" | 'New',
-    author: User,
-    publisher: string,
+    author: User | string,
+    publisher: Team | string,
     createdAt: string,
     // location: string,
     headline: string,
