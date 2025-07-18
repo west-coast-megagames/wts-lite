@@ -40,35 +40,50 @@ module.exports = function(httpServer) {
 		});
 
         client.on('media', async (payload, callback) => {
-            const { action, data } = payload;
+            const { action, data: payloadData } = payload;
+            const { username } = client.handshake.auth;
 			console.log(`Attempting media route with ${action} action`);
-            let response
+            let data
+            let description
 
             switch(action) {
                 case ("post"): {
                     try {
                         console.log('Adding post to Database');
                        
-                        let newPost = {...data, status: "Draft" };
+                        let newPost = {...payloadData, status: "Draft" };
                         delete newPost._id;
                         console.log(newPost);
                         newPost = new Post(newPost);
 
-                        response = await newPost.save();
-			            await response.populate('team');
-			            // client.emit('alert', { type: 'success', message: `${client.handshake.auth.username} updated ${newPost.headline} post` });
+                        data = await newPost.save();
+			            await data.populate('team');
+                        description = `Post ${data.headline} saved`;
+			            client.broadcast.emit('alert', { type: 'success', message: `${username} posted ${newPost.headline} post` });
                     }
                     catch (err) {
 			            console.log(err);
 			            client.emit('alert', { type: 'error', title: 'Server Error [media/post]', message: `${err.message}` })
 		            };
                     break;
-                } 
+                }
+                case ("publish"): {
+                    data = await Post.findOneAndUpdate({ headline: payloadData.headline }, { status: "Published" })
+                        .populate('team')
+                        .populate('author');
+
+                    console.log(`Author populeted: ${data.populated('author')}`);
+                    console.log(`Team populeted: ${data.populated('team')}`);
+                    console.log(data)
+                    client.broadcast.emit('newsflash', { type: 'info', description: `${username} has published ${data.headline}`, data })
+                    description = 'We did it!'
+                    break;
+                }
                 default: {
                     io.emit('alert', { type: 'error', title: "Server Error", message: `${client.username} send invalid media request for ${action}` })
                 }
             }
-            callback({ status: 'success', description: `Post ${response.headline} saved`, data: response });
+            callback({ status: 'success', description, data: data });
         })
     });
 

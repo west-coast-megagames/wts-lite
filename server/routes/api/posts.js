@@ -16,7 +16,7 @@ router.get('/', async function (req, res) {
 
 	try {
 		const posts = await Post.find()
-			.sort({ post: 1 })
+			.sort({ updatedAt: -1 })
 			.populate('author')
 			.populate('team')
 			// .populate('comments')
