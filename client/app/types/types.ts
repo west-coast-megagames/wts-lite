@@ -16,14 +16,14 @@ export type User = {
 };
 
 export type Team = {
-    _id: string,
+    _id?: string,
     name: string,
-    shortName: string,
+    shortName?: string,
     code: string,
-    roles: Role[],
-    prTrack: number[],
-    prLevel: number
-    type: 'N' | 'M' | 'P' | 'C'
+    roles?: Role[],
+    prTrack?: number[],
+    prLevel?: number
+    type?: 'N' | 'M' | 'P' | 'C'
 };
 
 export type Role = {
@@ -68,14 +68,11 @@ export type Post = {
     _id: string,
     status: "In Progress" | "Published" | 'New',
     author: User | string,
-    publisher: Team | string,
+    team: Team | string,
     createdAt: string,
-    // location: string,
     headline: string,
     body: string,
-    // reactions: Reaction[],
     comments: Comment[]
-    upvotes?: number,
     tags: string[],
 };
 

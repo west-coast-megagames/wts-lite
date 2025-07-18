@@ -16,9 +16,12 @@ router.get('/', async function (req, res) {
 
 	try {
 		const posts = await Post.find()
-			.sort({ post: 1 })
-			.populate('user')
+			.sort({ updatedAt: -1 })
+			.populate('author')
+			.populate('team')
 			// .populate('comments')
+			// .populate({ path: "comments", populate: { path: 'author' }})
+			// .populate({ path: "comments", populate: { path: 'team' }})
 		res.status(200).json(posts);
 	}
 	catch (err) {
@@ -76,7 +79,7 @@ router.post('/', async (req, res) => {
 
 	try {
 
-		let newPost = new Post(req.body);
+		let newPost = new Post(req.body)
 		
 	    logger.info(`post ${req.body.name} has invalid type ${req.body.type}`);
 
@@ -97,11 +100,11 @@ router.delete('/:id', validateObjectId, async (req, res) => {
 	const id = req.params.id;
 
 	try {
-		const post = await Post.findByIdAndRemove(id);
+		const post = await Post.findByIdAndDelete(id);
 
 		if (post != null) {
-			logger.info(`post ${Post.name} with the id ${id} was deleted!`);
-			res.status(200).json(post).send(`post ${Post.name} with the id ${id} was deleted!`);
+			logger.info(`post ${post.headline} with the id ${id} was deleted!`);
+			res.status(200).send(`post ${post.headline} with the id ${id} was deleted!`);
 		}
 		else {
 			nexusError(`No post with the id ${id} exists!`, 404);

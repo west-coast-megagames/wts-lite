@@ -19,7 +19,6 @@ import { Tags } from '../Tags'
 import { PostDate } from '../PostTime'
 import type { Post } from '~/types/types'
 import { a3TOa2Converter, getFlag } from '~/scripts'
-import { useSocketContext } from '../../context/SocketContext'
 import { useEffect, useState, type SyntheticEvent } from 'react'
 import TagInputGroup from '../TagInput/TagInputGroup'
 import { BiSave, BiTrash } from 'react-icons/bi'
@@ -28,22 +27,23 @@ import { GiCardDiscard } from 'react-icons/gi'
 import { CharacterCountInput } from '../CharCountInput'
 import { useAppContext } from '~/components/context/AppContext'
 import { toaster } from '~/components/ui/toaster'
-import { useMediaContext } from '~/components/context/MediaContext'
 import { Comment } from '../Comment'
 import { EditableComment } from '../EditableComment'
+import { useSocketContext } from '~/components/context/SocketContext'
+import { useMediaContext } from '~/components/context/MediaContext'
 
-export const PostCard = (props: { post: Post, mode?: 'edit'  }) => {
-	const { post, mode } = props;
+export const PostCard = (props: { post: Post, mode?: 'view', onDelete: (post: Post) => void; onSave: (post: Post) => void }) => {
+	const { post, mode, onDelete, onSave } = props;
 	const [activeMode, setMode] = useState<'view' | 'edit'>(mode ? mode : 'view');
 	const [editedPost, setEdit] = useState<Post>(post);
-  // const [liked, setliked] = useState<boolean>(false);
-	const { socketEmit } = useSocketContext();
-  const { addPost } = useMediaContext();
   const [ fakeComment, setFakeComment ] = useState<Comment | undefined>(); 
   const { user, team } = useAppContext();
+  const { socketEmit } = useSocketContext();
+  const { addPost, refreshFeed } = useMediaContext();
 
 	useEffect(() => {
 		if (post.status === "New") setMode('edit');
+    if (post.status === 'Published') setMode('view')
 	}, [post])
 
 	const handleTagEdit = (e: SyntheticEvent, tags: string[]) => {
@@ -66,29 +66,29 @@ export const PostCard = (props: { post: Post, mode?: 'edit'  }) => {
 		setEdit(newPost);
 	}
 
-	const handleDiscard = () => {
-
-	}
-
-	const handleSave = () => {
-    let data = {...editedPost}
-    data.author = user?._id;
-    data.publisher = team?._id;
-
-    socketEmit({ event: 'media', payload: { action: 'post', data } }, (response: {status: string, description: string, data: any}) => {
-      const { status, description, data } = response;
-      toaster.create({ type: status, description });
-      addPost(data);
-    })
-  }
-     const handleNewComment = () => {
-      if (!user) toaster.create({ type: 'error', description: `User is not registered, you must be a registered user to post to the feed...`, duration: 5000 })
-      else if (!team) toaster.create({ type: 'error', description: `${user.name} isn't assigned to a team, only team players can post to the feed`, duration: 5000 })
-      else {
-        console.log('Adding comment');
-        setFakeComment({ user, body: "", replies: []})
-      }
+    const handlePublish = () => {
+      const data = { ...editedPost }
+      if (user && !data.author) data.author = user?._id;
+      if (team && !data.team) data.team = team?._id;
+  
+      socketEmit({ event: 'media', payload: { action: 'publish', data } }, (response: {status: string, description: string, data: any}) => {
+        const { status, description, data } = response;
+        console.log(response)
+        toaster.create({ type: status, description });
+        addPost(data);
+        refreshFeed();
+      })
     }
+
+	
+  const handleNewComment = () => {
+    if (!user) toaster.create({ type: 'error', description: `User is not registered, you must be a registered user to post to the feed...`, duration: 5000 })
+    else if (!team) toaster.create({ type: 'error', description: `${user.name} isn't assigned to a team, only team players can post to the feed`, duration: 5000 })
+    else {
+      console.log('Adding comment');
+      setFakeComment({ user: user, body: "", replies: []})
+    }
+  } 
 	
 return (
   <Flex
@@ -149,11 +149,12 @@ return (
             direction={{ base: "column", md: "row" }}
             fontWeight="medium"
             align={{ base: "flex-start", md: "center" }}
+            justifyContent={{ base: "", md: "space-between"}}
           >
             <HStack>
               <Avatar.Root size="xs">
                 <Avatar.Fallback />
-                <Avatar.Image src={getFlag(a3TOa2Converter(editedPost.publisher.code))} />
+                <Avatar.Image src={getFlag(a3TOa2Converter(editedPost.team?.code))} />
               </Avatar.Root>
               <Text textStyle="sm">
                 {editedPost.author?.name}
@@ -163,22 +164,22 @@ return (
             <Wrap>
               {activeMode === "edit" && (
                 <WrapItem>
-                  <Button variant="ghost" onClick={() => handleSave()}>
+                  <Button variant="ghost" onClick={ () => { onSave(editedPost); setMode('view'); }} >
                     <BiSave /> Save
                   </Button>
                 </WrapItem>
               )}
               {activeMode === "edit" && (
                 <WrapItem>
-                  <Button variant="ghost">
+                  <Button variant="ghost" onClick={ () => handlePublish() }>
                     <MdPublish /> Publish
                   </Button>
                 </WrapItem>
               )}
               {activeMode === "edit" && editedPost.status === "New" && (
                 <WrapItem>
-                  <Button variant="ghost" onClick={() => setMode("view")}>
-                    <GiCardDiscard /> Discard Changes
+                  <Button variant="ghost" onClick={() => onDelete(editedPost)}>
+                    <GiCardDiscard /> Discard Post
                   </Button>
                 </WrapItem>
               )}
@@ -191,7 +192,7 @@ return (
               )}
               {activeMode === "view" && (
                 <WrapItem>
-                  <Button variant="ghost" color="red">
+                  <Button variant="ghost" color="red" onClick={() => onDelete(editedPost)}>
                     <BiTrash /> Delete
                   </Button>
                 </WrapItem>

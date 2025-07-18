@@ -4,6 +4,7 @@ function httpErrorHandler (res, err) {
 	logger.error(err.message, { meta: err.stack });
 	const error = {
 		type: 'Server Error',
+		status: 500,
 		message: err.message,
 		meta: err.stack
 	};

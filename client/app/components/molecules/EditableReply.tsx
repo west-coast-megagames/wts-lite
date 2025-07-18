@@ -8,7 +8,6 @@ import type { Comment } from '~/types/types';
 
 export const EditableReply = (props: { reply: Comment, replytree:number, i:number }) => {
   const { reply, replytree, i} = props;
-  // const [liked, setliked] = useState<boolean>(false);
   const [expanded, setExpanded] = useState<boolean>(false);
 
   return (
@@ -38,9 +37,7 @@ export const EditableReply = (props: { reply: Comment, replytree:number, i:numbe
                       Author
                     </Badge> */}
                   </HStack>
-                  <Box textStyle="sm" color="fg.muted">
-                    <Textarea variant="outline" placeholder="enter comment here..." />
-                  </Box>
+                    <Textarea variant="outline" autoresize placeholder="enter comment here..." />
                 </Box>
               </Stack>
             </Flex>
