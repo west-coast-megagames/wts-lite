@@ -30,6 +30,7 @@ import { useAppContext } from '~/components/context/AppContext'
 import { toaster } from '~/components/ui/toaster'
 import { useMediaContext } from '~/components/context/MediaContext'
 import { Comment } from '../Comment'
+import { EditableComment } from '../EditableComment'
 
 export const PostCard = (props: { post: Post, mode?: 'edit'  }) => {
 	const { post, mode } = props;
@@ -38,6 +39,7 @@ export const PostCard = (props: { post: Post, mode?: 'edit'  }) => {
   // const [liked, setliked] = useState<boolean>(false);
 	const { socketEmit } = useSocketContext();
   const { addPost } = useMediaContext();
+  const [ fakeComment, setFakeComment ] = useState<Comment | undefined>(); 
   const { user, team } = useAppContext();
 
 	useEffect(() => {
@@ -79,6 +81,14 @@ export const PostCard = (props: { post: Post, mode?: 'edit'  }) => {
       addPost(data);
     })
   }
+     const handleNewComment = () => {
+      if (!user) toaster.create({ type: 'error', description: `User is not registered, you must be a registered user to post to the feed...`, duration: 5000 })
+      else if (!team) toaster.create({ type: 'error', description: `${user.name} isn't assigned to a team, only team players can post to the feed`, duration: 5000 })
+      else {
+        console.log('Adding comment');
+        setFakeComment({ user, body: "", replies: []})
+      }
+    }
 	
 return (
   <Flex
@@ -193,7 +203,7 @@ return (
 			  >
 				<BsChatHeart />
 			  </IconButton> */}
-              <Link color="fg.muted">Reply</Link> 
+              <Link color="fg.muted" onClick={() => handleNewComment()}>Reply</Link>  
             <Collapsible.Trigger padding="3">
                 <IconButton variant={"ghost"}><BsChat />{editedPost.comments.length}</IconButton>
             </Collapsible.Trigger>
@@ -201,7 +211,7 @@ return (
 
           </Stack>
 		  
-			  
+			  { fakeComment && <EditableComment comment={fakeComment} /> }
           <Collapsible.Content>
             {editedPost.comments.map((comment) => (
               <Comment key={comment.body} comment={comment} />

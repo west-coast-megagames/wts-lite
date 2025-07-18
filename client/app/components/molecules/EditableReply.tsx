@@ -6,7 +6,7 @@ import { getFlag } from '~/scripts';
 import type { Comment } from '~/types/types';
 
 
-export const Reply = (props: { reply: Comment, replytree:number, i:number }) => {
+export const EditableReply = (props: { reply: Comment, replytree:number, i:number }) => {
   const { reply, replytree, i} = props;
   // const [liked, setliked] = useState<boolean>(false);
   const [expanded, setExpanded] = useState<boolean>(false);
@@ -28,27 +28,20 @@ export const Reply = (props: { reply: Comment, replytree:number, i:number }) => 
             <Flex gap="2" ps="14" pt="2" as="article" tabIndex={-1}>
               <Avatar.Root size="xs">
                 <Avatar.Fallback name={reply.user.name} />
-                <Avatar.Image />
+                {/* <Avatar.Image src={getFlag(reply.user.team.code as T)} /> */}
               </Avatar.Root>
               <Stack>
                 <Box bg="bg.muted" rounded="l3" py="2" px="3">
                   <HStack textStyle="sm" fontWeight="semibold">
-                    {reply.user.name} | {reply.user.role}
+                    {reply.user.name} | {reply.user.role?.title}
                     {/* <Badge size="xs" variant="solid">
                       Author
                     </Badge> */}
                   </HStack>
                   <Box textStyle="sm" color="fg.muted">
-                    {reply.body}
+                    <Textarea variant="outline" placeholder="enter comment here..." />
                   </Box>
                 </Box>
-                {/* <HStack fontWeight="semibold" textStyle="xs" ps="2">
-                  <Link color="fg.muted">1d</Link>
-                  {/* <Icon size="md" color="tomato">
-                    <BsChatHeart />
-                    </Icon> */}
-                  {/* <Link color="fg.muted">Like</Link>
-                </HStack> */}
               </Stack>
             </Flex>
           </Box>

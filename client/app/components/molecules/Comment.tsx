@@ -5,12 +5,27 @@ import type { T } from '~/img/flags';
 import { getFlag } from '~/scripts';
 import type { Comment } from '~/types/types';
 import { Reply } from './Reply';
+import { useMediaContext } from '../context/MediaContext';
+import { toaster } from '../ui/toaster';
+import { useAppContext } from '../context/AppContext';
+import { EditableReply } from './EditableReply';
 
 
 export const Comment = (props: { comment: Comment }) => {
   const { comment } = props;
   // const [liked, setliked] = useState<boolean>(false);
   const [expanded, setExpanded] = useState<boolean>(false);
+  const [ fakeComment, setFakeComment ] = useState<Comment | undefined>(); 
+  const { user, team } = useAppContext();
+
+   const handleNewReply = () => {
+      if (!user) toaster.create({ type: 'error', description: `User is not registered, you must be a registered user to post to the feed...`, duration: 5000 })
+      else if (!team) toaster.create({ type: 'error', description: `${user.name} isn't assigned to a team, only team players can post to the feed`, duration: 5000 })
+      else {
+        console.log('Adding reply');
+        setFakeComment({ user, body: "", replies: []})
+      }
+    }
 
   return (
     <Container width="full" alignContent="start" py="4">
@@ -25,7 +40,7 @@ export const Comment = (props: { comment: Comment }) => {
           <Stack>
             <Box bg="bg.muted" rounded="l3" py="2" px="3">
               <Text textStyle="sm" fontWeight="semibold">
-                {comment.user.name} | {comment.user.role}
+                {comment.user.name} | {comment.user.role?.title}
               </Text>
               <Box textStyle="sm" color="fg.muted">
                 {comment.body}
@@ -40,7 +55,7 @@ export const Comment = (props: { comment: Comment }) => {
               >
                 <BsChatHeart />
               </IconButton> */}
-              <Link color="fg.muted">Reply</Link> 
+              <Link color="fg.muted" onClick={() => handleNewReply()}>Reply</Link> 
               <Collapsible.Trigger onClick={() => setExpanded(!expanded)} padding="3">
               <Link color="fg.muted">
                 <IconButton variant={"ghost"}><BsChat />{comment.replies.length}</IconButton>
@@ -50,8 +65,8 @@ export const Comment = (props: { comment: Comment }) => {
           </Stack>
         </Flex>
       </Box>
+        { fakeComment && <EditableReply reply={fakeComment} replytree={0} i={0} /> }
       <Collapsible.Content>
-        {/* TODO: Editable Comment goes here */}
         { comment.replies.map((el, i) => (
             <Reply reply={el} replytree={comment.replies.length} i={i} />
           ))}

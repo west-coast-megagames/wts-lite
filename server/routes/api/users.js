@@ -79,6 +79,7 @@ router.post('/', async (req, res) => {
 		newUser = new User(newUser);
 		
 		newUser = await newUser.save();
+		await newUser.populate("role");
 		logger.info(`user ${newUser.name} created...`);
 		res.status(200).json(newUser);
 	}
