@@ -97,7 +97,8 @@ return (
     divideX={{ base: "0", md: "1px" }}
     borderRadius="l3"
     bg="bg"
-  >
+
+    >
     <Stack p="6" flex="1">
       <Collapsible.Root>
         <Stack>
@@ -105,11 +106,12 @@ return (
             direction={{ base: "column", sm: "row" }}
             align={{ base: "flex-start", sm: "center" }}
             justify="space-between"
+            
           >
-            <HStack wrap="wrap">
+            <HStack wrap="wrap" >
               {activeMode === "view" && <Tags tags={editedPost.tags} />}
               {activeMode === "edit" && (
-                <TagInputGroup tags={editedPost.tags} onTagsChange={handleTagEdit} />
+                <TagInputGroup tags={editedPost.tags} onTagsChange={handleTagEdit} bg="white"/>
               )}
             </HStack>
             <PostDate date={editedPost.createdAt} />
@@ -138,6 +140,7 @@ return (
             disabled={activeMode === "view"}
             value={editedPost.body}
             onChange={handleBodyEdit}
+            bg="white"
           >
             <Textarea autoresize />
           </Input>
