@@ -12,6 +12,9 @@ body {
 
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
+	.chakra-input {
+		background-color: DimGray;
+	}
   }
 }
 
@@ -124,4 +127,8 @@ body {
  .monitor .terror-map #worldMap .landmass.hysteria path:nth-child(7n + 6) {
 	 -webkit-animation: hysteria 4000ms ease-in-out 3100ms infinite alternate;
 	 animation: hysteria 4000ms ease-in-out 3100ms infinite alternate;
+}
+
+.chakra-avatar__image {
+	border:1px solid var(--global-color-border, currentColor);
 }
