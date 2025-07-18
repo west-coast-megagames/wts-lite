@@ -2,9 +2,10 @@ import { useAppContext } from "~/components/context/AppContext";
 import type { Route } from "./+types/home";
 import { Box, Center, Container, Flex, HStack, Image, Spacer, Spinner, Text, VStack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useSearchParams } from "react-router";
 import logo from "../img/logos/wcm_logo.png"
 import { NotificationPopover, UserMenu } from "~/components/molecules";
+import { Login } from "~/components/molecules/Login";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -15,7 +16,7 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Home() {
   const { dataUplink, displayMode, teams,  } = useAppContext();
-  const [ loadMessage, setMessage ] = useState<string>('Loading digital assests... so sit back and Watch the Skies.')
+  const [ loadMessage, setMessage ] = useState<string>('Loading digital assests... so sit back and Watch the Skies.');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,7 +25,7 @@ export default function Home() {
       setMessage('Gathering Teams from the West Coast!')
       dataUplink();
     }
-    if (displayMode !== 'loading') navigate('/map');
+    if (displayMode !== 'loading') setMessage('Prep for Sign Up!');
   }, [displayMode]);
 
   return (
@@ -45,10 +46,11 @@ export default function Home() {
       </Container>
     </Box>
     <Center bg="bg.emphasized" h="100vh" w="100%">
-      <VStack colorPalette="teal">
+      { displayMode === 'loading' && <VStack colorPalette="teal">
         <Spinner color="colorPalette.600" size='xl' />
         <Text color="colorPalette.600">{loadMessage}</Text>
-      </VStack>
+      </VStack> }
+      { displayMode !== 'loading' && <Login /> }
     </Center>
     </VStack>
     </Container>

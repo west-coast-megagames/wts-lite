@@ -42,7 +42,7 @@ const SelectValue = () => {
   )
 }
 
-export const RoleSelect = () => {
+export const RoleSelect = (props: { disabled?: boolean}) => {
     const { team, role: currentRole, openRoles, selectRole } = useAppContext();
     const [ role, setRole ] = useState<string[]>([]);
     const [ selectList, setList ] = useState<ListCollection<Role>>(openRoles)
@@ -58,6 +58,7 @@ export const RoleSelect = () => {
       collection={selectList}
       value={role}
       size="md"
+      disabled={props.disabled || team === undefined}
       positioning={{ sameWidth: true }}
       onValueChange={(d) => {
         setRole(d.value);
@@ -65,7 +66,6 @@ export const RoleSelect = () => {
       }}
     >
       <Select.HiddenSelect />
-      <Select.Label>Select Role</Select.Label>
       <Select.Control>
         <Select.Trigger>
           <SelectValue />

@@ -5,12 +5,12 @@ import logo from "../../img/logos/wcm_logo.png";
 import { useAppContext } from '../context/AppContext'
 
 export const TopBar = () => {
-  const { displayMode } = useAppContext();
-  console.log(displayMode)
+  const { displayMode, user, team } = useAppContext();
 
   return (
     <Box borderBottomWidth="1px" bg="bg.panel">
-      { displayMode !== 'loading' && <Container fluid py={{ base: '1', md: '2' }}>
+      { displayMode !== 'loading' && user && team && 
+      <Container fluid py={{ base: '1', md: '2' }}>
         <HStack justify="space-between">
           <HStack gap={{ base: '4', md: '10' }}>
             <MobilePopover>

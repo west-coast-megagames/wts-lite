@@ -67,14 +67,6 @@ export const MediaContextProvider = ({
           !res.ok ? toaster.create({ type: 'error', description: `Failed to load Posts`, duration: 5000}) : undefined;
           return res.json();
         }).then(json => {
-          // const newsFeed = [...mediaFeed] 
-          // for (const post of json) { 
-          //   const i = mediaFeed.findIndex(el => el.headline === post.headline);
-          //   console.log(`${i} - ${post.headline}`)
-          //   if (i > -1) newsFeed[i] = post;
-          //   else newsFeed.push(post);
-          //   console.log(post)
-          // }
           toaster.create({ type: 'success', description: `${json.length} post${json.length > 1 ? 's' : ''} loaded into feed`, duration: 5000})
           setMediaFeed(json);
         });

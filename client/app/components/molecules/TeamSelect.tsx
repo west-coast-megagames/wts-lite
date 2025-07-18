@@ -26,7 +26,8 @@ const SelectValue = () => {
   )
 }
 
-export const TeamSelect = () => {
+export const TeamSelect = (props: { disabled?: boolean }) => {
+    const { disabled } = props;
     const [ team, setTeam ] = useState<string[]>([]);
     const { team: currentTeam, selectTeam } = useAppContext();
     
@@ -39,15 +40,14 @@ export const TeamSelect = () => {
       collection={members}
       value={team}
       size="md"
+      disabled={disabled}
       positioning={{ sameWidth: true }}
       onValueChange={(d) => {
-        // console.log(d)
         setTeam(d.value);
         selectTeam(d.value[0]);
       }}
     >
       <Select.HiddenSelect />
-      <Select.Label>Select Team</Select.Label>
       <Select.Control>
         <Select.Trigger>
           <SelectValue />

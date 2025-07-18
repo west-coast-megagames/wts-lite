@@ -10,52 +10,62 @@ export const teamArray: Team[] = [
       {
         title: "President",
         type: "Head of State",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Vice President",
         type: "Head of State",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Secretary of States",
         type: "Diplomat",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "UN Ambassador",
         type: "Ambassador",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Scientific Advisor",
         type: "Scientist",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Commander of Strategic Forces & Space Command",
         type: "Military",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Commander of the Military",
         type: "Military",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Senior Diplomat",
         type: "Diplomat",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Senior Diplomat",
         type: "Diplomat",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Head of the Joint Chiefs of Staff",
         type: "Military",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       }
     ],
     prTrack: [
@@ -80,32 +90,38 @@ export const teamArray: Team[] = [
       {
         title: "Prime Minister",
         type: "Head of State",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Secretary of State for Foreign Affairs and Commonwealth Nations",
         type: "Diplomat",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "UN Ambassador",
         type: "Ambassador",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Scientific Advisor",
         type: "Scientist",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Chief of the Defense Staff",
         type: "Military",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Deputy Prime Minister",
         type: "Head of State",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       }
     ],
     prTrack: [
@@ -121,59 +137,65 @@ export const teamArray: Team[] = [
     ],
     prLevel: 5,
   },
-//   {
-//     name: "The Republic of South Africa",
-//     shortName: "South Africa",
-//     type: "N",
-//     code: "RSA",
-//     roles: [
-//       {
-//         title: "President",
-//         type: "Head of State",
-//         userID: undefined,
-//       },
-//       {
-//         title: "Vice President",
-//         type: "Head of State",
-//         userID: undefined,
-//    
-//       },
-//       {
-//         title: "Minister of International Relations and Cooperation",
-//         type: "Diplomat",
-//         userID: undefined,
-//    
-//       },
-//       {
-//         title: "UN Ambassador",
-//         type: "Ambassador",
-//         userID: undefined,
-//       },
-//       {
-//         title: "Scientific Advisor",
-//         type: "Scientist",
-//         userID: undefined,
-//    
-//       },
-//       {
-//         title: "Chief of the Defense Staff",
-//         type: "Military",
-//         userID: undefined,
-//       }
-//     ],
-//     prTrack: [
-//       0,
-//       3,
-//       5,
-//       7,
-//       10,
-//       12,
-//       14,
-//       16,
-//       17
-//     ],
-//     prLevel: 5,
-//   },
+  {
+    name: "The Republic of South Africa",
+    shortName: "South Africa",
+    type: "N",
+    code: "RSA",
+    roles: [
+      {
+        title: "President",
+        type: "Head of State",
+        model:"Role",
+        _id: ""
+      },
+      {
+        title: "Vice President",
+        type: "Head of State",
+        model:"Role",
+        _id: ""
+   
+      },
+      {
+        title: "Minister of International Relations and Cooperation",
+        type: "Diplomat",
+        model:"Role",
+        _id: ""
+   
+      },
+      {
+        title: "UN Ambassador",
+        type: "Ambassador",
+        model:"Role",
+        _id: ""
+      },
+      {
+        title: "Scientific Advisor",
+        type: "Scientist",
+        model:"Role",
+        _id: ""
+   
+      },
+      {
+        title: "Chief of the Defense Staff",
+        type: "Military",
+        model:"Role",
+        _id: ""
+      }
+    ],
+    prTrack: [
+      0,
+      3,
+      5,
+      7,
+      10,
+      12,
+      14,
+      16,
+      17
+    ],
+    prLevel: 5,
+  },
   {
     name: "Russian Federation",
     shortName: "Russia",
@@ -183,37 +205,44 @@ export const teamArray: Team[] = [
       {
         title: "President",
         type: "Head of State",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Prime Minister",
         type: "Head of State",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Minister of Foreign Affairs",
         type: "Diplomat",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "UN Ambassador",
         type: "Ambassador",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Scientific Advisor",
         type: "Scientist",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Chief of the Defense Staff",
         type: "Military",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Senior Diplomat",
         type: "Diplomat",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       }
     ],
     prTrack: [
@@ -238,27 +267,32 @@ export const teamArray: Team[] = [
       {
         title: "Prime Minister",
         type: "Head of State",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Minister of Foreign Affairs",
         type: "Diplomat",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "UN Ambassador",
         type: "Ambassador",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Scientific Advisor",
         type: "Scientist",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Commander of Self Defense Forces",
         type: "Military",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       }
     ],
     prTrack: [
@@ -274,59 +308,65 @@ export const teamArray: Team[] = [
     ],
     prLevel: 5,
   },
-//   {
-//     name: "Islamic Republic of Iran",
-//     shortName: "Iran",
-//     type: "N",
-//     code: "IRN",
-//     roles: [
-//       {
-//         title: "President",
-//         type: "Head of State",
-//         userID: undefined,
-//       },
-//       {
-//         title: "Supreme Leader",
-//         type: "Head of State",
-//         userID: undefined,
-//    
-//       },
-//       {
-//         title: "Minister of Foreign Affairs",
-//         type: "Diplomat",
-//         userID: undefined,
-//    
-//       },
-//       {
-//         title: "UN Ambassador",
-//         type: "Ambassador",
-//         userID: undefined,
-//       },
-//       {
-//         title: "Scientific Advisor",
-//         type: "Scientist",
-//         userID: undefined,
-//    
-//       },
-//       {
-//         title: "Armed Forces Commander",
-//         type: "Military",
-//         userID: undefined,
-//       }
-//     ],
-//     prTrack: [
-//       0,
-//       2,
-//       4,
-//       6,
-//       8,
-//       10,
-//       12,
-//       14,
-//       16
-//     ],
-//     prLevel: 5,
-//   },
+  {
+    name: "Islamic Republic of Iran",
+    shortName: "Iran",
+    type: "N",
+    code: "IRN",
+    roles: [
+      {
+        title: "President",
+        type: "Head of State",
+        model:"Role",
+        _id: ""
+      },
+      {
+        title: "Supreme Leader",
+        type: "Head of State",
+        model:"Role",
+        _id: ""
+   
+      },
+      {
+        title: "Minister of Foreign Affairs",
+        type: "Diplomat",
+        model:"Role",
+        _id: ""
+   
+      },
+      {
+        title: "UN Ambassador",
+        type: "Ambassador",
+        model:"Role",
+        _id: ""
+      },
+      {
+        title: "Scientific Advisor",
+        type: "Scientist",
+        model:"Role",
+        _id: ""
+   
+      },
+      {
+        title: "Armed Forces Commander",
+        type: "Military",
+        model:"Role",
+        _id: ""
+      }
+    ],
+    prTrack: [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16
+    ],
+    prLevel: 5,
+  },
   {
     name: "Republic of India",
     shortName: "India",
@@ -336,32 +376,38 @@ export const teamArray: Team[] = [
       {
         title: "President",
         type: "Head of State",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Minister of External Affairs",
         type: "Diplomat",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "UN Ambassador",
         type: "Ambassador",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Scientific Advisor",
         type: "Scientist",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Chief of the Defense Staff",
         type: "Military",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Prime Minister",
         type: "Head of State",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       }
     ],
     prTrack: [
@@ -386,32 +432,38 @@ export const teamArray: Team[] = [
       {
         title: "President",
         type: "Head of State",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Minister of Foreign Affairs & International Development",
         type: "Diplomat",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "UN Ambassador",
         type: "Ambassador",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Scientific Advisor",
         type: "Scientist",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Chief of the Defense Staff",
         type: "Military",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Prime Minister",
         type: "Head of State",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       }
     ],
     prTrack: [
@@ -427,59 +479,65 @@ export const teamArray: Team[] = [
     ],
     prLevel: 5,
   },
-//   {
-//     name: "The Arab Republic of Egypt",
-//     shortName: "Egypt",
-//     type: "N",
-//     code: "EPT",
-//     roles: [
-//       {
-//         title: "President",
-//         type: "Head of State",
-//         userID: undefined,
-//       },
-//       {
-//         title: "Prime Minister",
-//         type: "Head of State",
-//         userID: undefined,
-//    
-//       },
-//       {
-//         title: "Minister of Foreign Affairs",
-//         type: "Diplomat",
-//         userID: undefined,
-//    
-//       },
-//       {
-//         title: "UN Ambassador",
-//         type: "Ambassador",
-//         userID: undefined,
-//       },
-//       {
-//         title: "Scientific Advisor",
-//         type: "Scientist",
-//         userID: undefined,
-//    
-//       },
-//       {
-//         title: "Chief of the Defense Staff",
-//         type: "Military",
-//         userID: undefined,
-//       }
-//     ],
-//     prTrack: [
-//       0,
-//       2,
-//       4,
-//       6,
-//       8,
-//       10,
-//       11,
-//       12,
-//       13
-//     ],
-//     prLevel: 5,
-//   },
+  {
+    name: "The Arab Republic of Egypt",
+    shortName: "Egypt",
+    type: "N",
+    code: "EPT",
+    roles: [
+      {
+        title: "President",
+        type: "Head of State",
+        model:"Role",
+        _id: ""
+      },
+      {
+        title: "Prime Minister",
+        type: "Head of State",
+        model:"Role",
+        _id: ""
+   
+      },
+      {
+        title: "Minister of Foreign Affairs",
+        type: "Diplomat",
+        model:"Role",
+        _id: ""
+   
+      },
+      {
+        title: "UN Ambassador",
+        type: "Ambassador",
+        model:"Role",
+        _id: ""
+      },
+      {
+        title: "Scientific Advisor",
+        type: "Scientist",
+        model:"Role",
+        _id: ""
+   
+      },
+      {
+        title: "Chief of the Defense Staff",
+        type: "Military",
+        model:"Role",
+        _id: ""
+      }
+    ],
+    prTrack: [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      11,
+      12,
+      13
+    ],
+    prLevel: 5,
+  },
   {
     name: "People's Republic of China",
     shortName: "China",
@@ -489,42 +547,50 @@ export const teamArray: Team[] = [
       {
         title: "President",
         type: "Head of State",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Premier",
         type: "Head of State",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Minister of Foreign Affairs",
         type: "Diplomat",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "UN Ambassador",
         type: "Ambassador",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Scientific Advisor",
         type: "Scientist",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Chief of the Defense Staff",
         type: "Military",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Senior Diplomat",
         type: "Diplomat",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Commander of Second Artillery Corps",
         type: "Military",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       }
     ],
     prTrack: [
@@ -540,128 +606,142 @@ export const teamArray: Team[] = [
     ],
     prLevel: 5,
   },
-//   {
-//     name: "Federative Republic of Brazil",
-//     shortName: "Brazil",
-//     type: "N",
-//     code: "BRZ",
-//     roles: [
-//       {
-//         title: "President",
-//         type: "Head of State",
-//         userID: undefined,
-//       },
-//       {
-//         title: "Minister of Foreign Affairs",
-//         type: "Diplomat",
-//         userID: undefined,
-//       },
-//       {
-//         title: "UN Ambassador",
-//         type: "Ambassador",
-//         userID: undefined,
-//       },
-//       {
-//         title: "Scientific Advisor",
-//         type: "Scientist",
-//         userID: undefined,
-//       },
-//       {
-//         title: "Commander of the Joint General Staff",
-//         type: "Military",
-//         userID: undefined,
-//       },
-//       {
-//         title: "Deputy Prime Minister",
-//         type: "Head of State",
-//         userID: undefined,
-//    
-//       }
-//     ],
-//     prTrack: [
-//       0,
-//       3,
-//       6,
-//       9,
-//       12,
-//       16,
-//       19,
-//       22,
-//       25
-//     ],
-//     prLevel: 5,
-//   },
-//   {
-//     name: "The Commonwealth of Australia",
-//     shortName: "Australia",
-//     type: "N",
-//     code: "AUS",
-//     roles: [
-//       {
-//         title: "Prime Minister",
-//         type: "Head of State",
-//         userID: undefined,
-//       },
-//       {
-//         title: "Minister of Foreign Affairs",
-//         type: "Diplomat",
-//         userID: undefined,
-//    
-//       },
-//       {
-//         title: "UN Ambassador",
-//         type: "Ambassador",
-//         userID: undefined,
-//       },
-//       {
-//         title: "Scientific Advisor",
-//         type: "Scientist",
-//         userID: undefined,
-//    
-//       },
-//       {
-//         title: "Chief of the Defense Staff",
-//         type: "Military",
-//         userID: undefined,
-//       }
-//     ],
-//     prTrack: [
-//       0,
-//       2,
-//       5,
-//       8,
-//       9,
-//       12,
-//       16,
-//       19,
-//       22
-//     ],
-//     prLevel: 5,
-//   },
-//   {
-//     name: "Federation",
-//     shortName: "Aliens",
-//     type: "A",
-//     code: "FFG",
-//     roles: [
-//       {
-//         title: "Frontier Guild Leader",
-//         type: "Head of State",
-//         userID: undefined,
-//       },
-//       {
-//         title: "Frontier Envoy",
-//         type: "Diplomat",
-//         userID: undefined,
-//       },
-//       {
-//         title: "Frontier Logistics Officer",
-//         type: "Military",
-//         userID: undefined,
-//       }
-//     ],
-//     prLevel: 0,
-//   },
+  {
+    name: "Federative Republic of Brazil",
+    shortName: "Brazil",
+    type: "N",
+    code: "BRZ",
+    roles: [
+      {
+        title: "President",
+        type: "Head of State",
+        model:"Role",
+        _id: ""
+      },
+      {
+        title: "Minister of Foreign Affairs",
+        type: "Diplomat",
+        model:"Role",
+        _id: ""
+      },
+      {
+        title: "UN Ambassador",
+        type: "Ambassador",
+        model:"Role",
+        _id: ""
+      },
+      {
+        title: "Scientific Advisor",
+        type: "Scientist",
+        model:"Role",
+        _id: ""
+      },
+      {
+        title: "Commander of the Joint General Staff",
+        type: "Military",
+        model:"Role",
+        _id: ""
+      },
+      {
+        title: "Deputy Prime Minister",
+        type: "Head of State",
+        model:"Role",
+        _id: ""
+   
+      }
+    ],
+    prTrack: [
+      0,
+      3,
+      6,
+      9,
+      12,
+      16,
+      19,
+      22,
+      25
+    ],
+    prLevel: 5,
+  },
+  {
+    name: "The Commonwealth of Australia",
+    shortName: "Australia",
+    type: "N",
+    code: "AUS",
+    roles: [
+      {
+        title: "Prime Minister",
+        type: "Head of State",
+        model:"Role",
+        _id: ""
+      },
+      {
+        title: "Minister of Foreign Affairs",
+        type: "Diplomat",
+        model:"Role",
+        _id: ""
+   
+      },
+      {
+        title: "UN Ambassador",
+        type: "Ambassador",
+        model:"Role",
+        _id: ""
+      },
+      {
+        title: "Scientific Advisor",
+        type: "Scientist",
+        model:"Role",
+        _id: ""
+   
+      },
+      {
+        title: "Chief of the Defense Staff",
+        type: "Military",
+        model:"Role",
+        _id: ""
+      }
+    ],
+    prTrack: [
+      0,
+      2,
+      5,
+      8,
+      9,
+      12,
+      16,
+      19,
+      22
+    ],
+    prLevel: 5,
+  },
+  {
+    name: "Federation",
+    shortName: "Aliens",
+    type: "A",
+    code: "FFG",
+    roles: [
+      {
+        title: "Frontier Guild Leader",
+        type: "Head of State",
+        model:"Role",
+        _id: ""
+      },
+      {
+        title: "Frontier Envoy",
+        type: "Diplomat",
+        model:"Role",
+        _id: ""
+      },
+      {
+        title: "Frontier Logistics Officer",
+        type: "Military",
+        model:"Role",
+        _id: ""
+      }
+    ],
+    prLevel: 0,
+  },
   {
     name: "Control Team",
     shortName: "Control",
@@ -671,32 +751,38 @@ export const teamArray: Team[] = [
       {
         title: "Game Controller",
         type: "Head of State",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Alliances Controller",
         type: "Diplomat",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Alien Controller",
         type: "Ambassador",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Science Controller",
         type: "Scientist",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Map Controller",
         type: "Military",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Deputy Game Controller",
         type: "Head of State",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       }
     ],
     prTrack: [],
@@ -711,17 +797,20 @@ export const teamArray: Team[] = [
       {
         title: "Editor",
         type: "Head of State",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Reporter",
         type: "Diplomat",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Public Relations",
         type: "Ambassador",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       }
     ],
     prTrack: [],
@@ -737,17 +826,20 @@ export const teamArray: Team[] = [
       {
         title: "Editor",
         type: "Head of State",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Reporter",
         type: "Diplomat",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Public Relations",
         type: "Ambassador",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       }
     ],
     prTrack: [],
@@ -762,17 +854,20 @@ export const teamArray: Team[] = [
       {
         title: "Editor",
         type: "Head of State",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Reporter",
         type: "Diplomat",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       },
       {
         title: "Public Relations",
         type: "Ambassador",
-        userID: undefined,
+        model:"Role",
+        _id: ""
       }
     ],
     prTrack: [],
@@ -786,5 +881,33 @@ export const teamArray: Team[] = [
     roles: [],
     prTrack: [],
     prLevel: 5,
-  }
+  },
+    {
+    name: "Nexus Development Team",
+    shortName: "Development",
+    type: "D",
+    code: "DEV",
+    roles: [
+      {
+        title: "Project Lead",
+        type: "Head of State",
+        model:"Role",
+        _id: ""
+      },
+      {
+        title: "Senior Developer",
+        type: "Diplomat",
+        model:"Role",
+        _id: ""
+      },
+      {
+        title: "Jr. Developer",
+        type: "Ambassador",
+        model:"Role",
+        _id: ""
+      }
+    ],
+    prTrack: [],
+    prLevel: 5,
+  },
 ]
