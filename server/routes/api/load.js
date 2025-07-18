@@ -8,8 +8,7 @@ const router = express.Router(); // Destructure of HTTP router for server
 // @access  Public
 router.patch('/loadAll', async function (req, res) {
 	await loadDB();
-	// console.log(data);
-	return res.status(200).send(`We wiped out ${data.deletedCount} posts!`);
+	return res.status(200).send(`Loaded the Database boss...`);
 });
 
 module.exports = router;
