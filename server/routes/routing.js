@@ -13,6 +13,7 @@ const roles = require('./api/roles');
 const posts = require('./api/posts');
 const users = require('./api/users');
 const comment = require('./api/comments');
+const load = require('./api/load');
 
 logger.info('API routes initiated...');
 
@@ -29,6 +30,7 @@ module.exports = function(app) {
 	app.use('/api/posts', posts); // Route for inputing POSTS
 	app.use('/api/comments', comment); // Route for inputing Comments
 	app.use('/api/users', users); // Route for inputing users
+	app.use('/api/load', load)
 
 	logger.info('Routes Primed...');
 };
