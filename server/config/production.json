@@ -1,1 +1,8 @@
-{}
+
+{
+  "jwtPrivateKey": "concord-folly",
+  "dbName": "WTS-19JUL25",
+  "clientURL": "https://wts-lite-client.onrender.com/",
+  "serverURL": "https://wts-lite-server.onrender.com/",
+  "socketCORS": "https://wts-lite-client.onrender.com/"
+}
