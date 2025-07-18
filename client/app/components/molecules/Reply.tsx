@@ -42,13 +42,13 @@ export const Reply = (props: { reply: Comment, replytree:number, i:number }) => 
                     {reply.body}
                   </Box>
                 </Box>
-                <HStack fontWeight="semibold" textStyle="xs" ps="2">
+                {/* <HStack fontWeight="semibold" textStyle="xs" ps="2">
                   <Link color="fg.muted">1d</Link>
                   {/* <Icon size="md" color="tomato">
                     <BsChatHeart />
                     </Icon> */}
-                  <Link color="fg.muted">Like</Link>
-                </HStack>
+                  {/* <Link color="fg.muted">Like</Link>
+                </HStack> */}
               </Stack>
             </Flex>
           </Box>

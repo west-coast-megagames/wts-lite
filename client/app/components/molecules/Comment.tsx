@@ -51,7 +51,7 @@ export const Comment = (props: { comment: Comment }) => {
         </Flex>
       </Box>
       <Collapsible.Content>
-        // TODO: Editable Comment goes here
+        {/* TODO: Editable Comment goes here */}
         { comment.replies.map((el, i) => (
             <Reply reply={el} replytree={comment.replies.length} i={i} />
           ))}
