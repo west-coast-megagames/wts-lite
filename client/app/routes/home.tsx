@@ -14,7 +14,7 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
-  const { loadTeams, dataUplink, displayMode, teams } = useAppContext();
+  const { dataUplink, displayMode, teams,  } = useAppContext();
   const [ loadMessage, setMessage ] = useState<string>('Loading digital assests... so sit back and Watch the Skies.')
   const navigate = useNavigate();
 

@@ -31,6 +31,7 @@ export const MediaContextProvider = ({
   children,
 }: MediaContextProviderProps) => {
     const [mediaFeed, setMediaFeed] = useState<Post[]>(feeds);
+    
     const setFeed = (payload: Post) => {
         const newTrack: Post[] = []
         let index = -1
@@ -47,47 +48,43 @@ export const MediaContextProvider = ({
     }
 
     const addPost = (payload: Post) => {
-      console.log('Adding Post');
-      console.log(payload);
       const newFeed: Post[] = [...mediaFeed]
-      let i = 0;
-      for (const post of newFeed) {
-        if (post._id === payload._id) newFeed[i] = payload;
-        else newFeed.push(payload); 
-        i++;
-      }
+      const i = mediaFeed.findIndex(el => el._id === payload._id);
+      console.log(`${i} - ${payload.headline}`)
+      if (i > -1) newFeed[i] = payload;
+      else newFeed.push(payload);
       setMediaFeed(newFeed);
     }
 
-    const deletePost = (payload: Post | string) => {
-      console.log(`Deleting Post ${ typeof payload === 'string' ? payload : payload?.headline }`);
-      const newFeed: Post[] = [...mediaFeed];
-      let i = 0;
-      for (const post of newFeed) {
-        if (typeof payload === 'string' && post._id === payload) {
-          newFeed.splice(i, 1);
-          toaster.create({ type: 'success', description: `Deleted ${post.headline}` });
-        }
-        if (typeof payload === 'object' && post._id === payload._id) {
-          newFeed.splice(i, 1);
-          toaster.create({ type: 'success', description: `Deleted ${post.headline}` });
-        }
-        else {
-          toaster.create({ type: 'error', description: `Post isn't in context` });
-        };
-        i++;
-      }
+    const deletePost = async (payload: Post) => {
+      console.log(`Deleting Post ${ payload.headline }`);
+      await fetch(`${server}api/posts/${payload._id}`, { // Replace with your API endpoint
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      await refreshFeed();;
     }
 
     const refreshFeed = async () => {
-      await fetch(`${ server }api/teams`).then((res) => {
+      setMediaFeed(feeds);
+      await fetch(`${ server }api/posts`).then((res) => {
           !res.ok ? toaster.create({ type: 'error', description: `Failed to load Posts`, duration: 5000}) : undefined;
           return res.json();
         }).then(json => {
-          setFeed(json);
-          toaster.create({ type: 'success', description: `${json.length} posts loaded into feed`, duration: 5000})
+          // const newsFeed = [...mediaFeed] 
+          // for (const post of json) { 
+          //   const i = mediaFeed.findIndex(el => el.headline === post.headline);
+          //   console.log(`${i} - ${post.headline}`)
+          //   if (i > -1) newsFeed[i] = post;
+          //   else newsFeed.push(post);
+          //   console.log(post)
+          // }
+          toaster.create({ type: 'success', description: `${json.length} post${json.length > 1 ? 's' : ''} loaded into feed`, duration: 5000})
+          setMediaFeed(json);
         });
-        console.log('Team Load Complete...')
+        
       }
 
       const wipeFeed = async () => {
@@ -118,7 +115,7 @@ export const MediaContextProvider = ({
 
   const value = useMemo(
     () => ({ mediaFeed, setFeed, addPost, deletePost, refreshFeed, wipeFeed }),
-    [mediaFeed, addPost, setFeed]
+    [mediaFeed, addPost, setFeed, deletePost, addPost, wipeFeed]
   )
 
   return (
@@ -130,63 +127,4 @@ export const MediaContext =
 
 export const useMediaContext = () => useContext(MediaContext);
 
-const feeds: Post[] = [
-  {
-    status: 'In Progress',
-    _id: '01',
-    publisher: { code: "rfd" },
-    headline: 'BREAKING NEWS: Even with Chakra UI, I suck at Front End development',
-    body:
-      "I enjoy coding, and even making data driven platforms for games, but when considering scope one has to consider that I severly hate and am deficient at it...",
-    author: {
-      _id: '01',
-      name: 'John T. Cleveland',
-      role: { title: 'Random' }
-    },
-    createdAt: "2025-07-4T15:25:41.582Z",
-    comments: [
-      {
-        user: {
-          _id: '01',
-          name: 'Juan Doe',
-          team: 'us',
-        },
-        body: "Honestly, I'm not sure you can pull it off with the seven days remaining.",
-        replies: [
-          {
-            user: {
-              _id: '02',
-              name: 'Emily Smith',
-              team: 'ru',
-            
-            },
-            body: "Maybe you should have stayed in your comfort zone and not tried!.",
-            replies: [],
-          },
-          {
-            user: {
-              _id: '02',
-              name: 'Jay Quick',
-              team: 'au',
-            
-            },
-            body: "I made another comment, I'm so helpful to the scaffold",
-            replies: [],
-          },
-        ]
-      },
-      {
-        user: {
-          _id: '01',
-          name: 'John Doe',
-          role: 'Random Dude',
-          team: 'us'
-        },
-        body: "This sucks ass",
-        replies: []
-      }
-    ],
-    upvotes: 24,
-    tags: ['Theming', 'Moo'],
-  },
-]
+const feeds: Post[] = []

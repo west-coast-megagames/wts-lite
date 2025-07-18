@@ -5,6 +5,11 @@ import { io } from "socket.io-client";
 import { server } from "../../config";
 import { toaster } from "../ui/toaster";
 
+  const URL = server;
+  const socket = io(URL, { 
+    autoConnect: false,
+  });
+
 type SocketEmitPayload = {
     event: string
     payload: any
@@ -29,11 +34,6 @@ const initialSocketContext: InitialSocketStateProps = {
     socketEmit: () => null,
     socketLogoff: () => null,
 };
-
-const URL = server;
-const socket = io(URL, { 
-  autoConnect: false,
-});
 
 export const SocketContextProvider = ({
   children,

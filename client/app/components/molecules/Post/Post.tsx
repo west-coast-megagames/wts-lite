@@ -19,28 +19,22 @@ import { PostDate } from '../PostTime'
 import { CommentFeed } from '../Comment'
 import type { Post } from '~/types/types'
 import { a3TOa2Converter, getFlag } from '~/scripts'
-import { useSocketContext } from '../../context/SocketContext'
 import { useEffect, useState, type SyntheticEvent } from 'react'
 import TagInputGroup from '../TagInput/TagInputGroup'
 import { BiSave, BiTrash } from 'react-icons/bi'
 import { MdPublish } from 'react-icons/md'
 import { GiCardDiscard } from 'react-icons/gi'
 import { CharacterCountInput } from '../CharCountInput'
-import { useAppContext } from '~/components/context/AppContext'
-import { toaster } from '~/components/ui/toaster'
-import { useMediaContext } from '~/components/context/MediaContext'
 
-export const PostCard = (props: { post: Post, mode?: 'edit'  }) => {
-	const { post, mode } = props;
+export const PostCard = (props: { post: Post, mode?: 'view', onDelete: (post: Post) => void; onSave: (post: Post) => void }) => {
+	const { post, mode, onDelete, onSave } = props;
 	const [activeMode, setMode] = useState<'view' | 'edit'>(mode ? mode : 'view');
 	const [editedPost, setEdit] = useState<Post>(post);
   const [liked, setliked] = useState<boolean>(false);
-	const { socketEmit } = useSocketContext();
-  const { addPost } = useMediaContext();
-  const { user, team } = useAppContext();
 
 	useEffect(() => {
 		if (post.status === "New") setMode('edit');
+    if (post.status === 'Published') setMode('view')
 	}, [post])
 
 	const handleTagEdit = (e: SyntheticEvent, tags: string[]) => {
@@ -62,22 +56,6 @@ export const PostCard = (props: { post: Post, mode?: 'edit'  }) => {
 			newPost.body = e.target.value;
 		setEdit(newPost);
 	}
-
-	const handleDiscard = () => {
-
-	}
-
-	const handleSave = () => {
-    let data = {...editedPost}
-    data.author = user?._id;
-    data.publisher = team?._id;
-
-    socketEmit({ event: 'media', payload: { action: 'post', data } }, (response: {status: string, description: string, data: any}) => {
-      const { status, description, data } = response;
-      toaster.create({ type: status, description });
-      addPost(data);
-    })
-  }
 	
 return (
   <Flex
@@ -135,11 +113,12 @@ return (
             direction={{ base: "column", md: "row" }}
             fontWeight="medium"
             align={{ base: "flex-start", md: "center" }}
+            justifyContent={{ base: "", md: "space-between"}}
           >
             <HStack>
               <Avatar.Root size="xs">
                 <Avatar.Fallback />
-                <Avatar.Image src={getFlag(a3TOa2Converter(editedPost.publisher.code))} />
+                <Avatar.Image src={getFlag(a3TOa2Converter(editedPost.team?.code))} />
               </Avatar.Root>
               <Text textStyle="sm">
                 {editedPost.author?.name}
@@ -149,7 +128,7 @@ return (
             <Wrap>
               {activeMode === "edit" && (
                 <WrapItem>
-                  <Button variant="ghost" onClick={() => handleSave()}>
+                  <Button variant="ghost" onClick={() => onSave(editedPost)}>
                     <BiSave /> Save
                   </Button>
                 </WrapItem>
@@ -163,8 +142,8 @@ return (
               )}
               {activeMode === "edit" && editedPost.status === "New" && (
                 <WrapItem>
-                  <Button variant="ghost" onClick={() => setMode("view")}>
-                    <GiCardDiscard /> Discard Changes
+                  <Button variant="ghost" onClick={() => onDelete(editedPost)}>
+                    <GiCardDiscard /> Discard Post
                   </Button>
                 </WrapItem>
               )}
@@ -177,7 +156,7 @@ return (
               )}
               {activeMode === "view" && (
                 <WrapItem>
-                  <Button variant="ghost" color="red">
+                  <Button variant="ghost" color="red" onClick={() => onDelete(editedPost)}>
                     <BiTrash /> Delete
                   </Button>
                 </WrapItem>

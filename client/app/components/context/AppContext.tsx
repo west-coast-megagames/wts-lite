@@ -86,7 +86,6 @@ export const AppContextProvider = ({
     }).then(json => {
       setTeams(json);
       toaster.create({ type: 'success', description: `${json.length} Teams loaded`, duration: 5000})
-      setDisplayMode('user');
       console.log(json)
     });
     console.log('Team Load Complete...')
@@ -113,6 +112,7 @@ export const AppContextProvider = ({
   const dataUplink = async () => {
     await loadTeams();
     await loadRoles();
+    setDisplayMode('user');
     toaster.create({ type: 'success', description: `Data load succesfull, hydration complete`, duration: 5000});
   }
 

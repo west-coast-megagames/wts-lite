@@ -11,29 +11,25 @@ import { useMediaContext } from '../context/MediaContext'
 import { useAppContext } from '../context/AppContext'
 import { toaster } from '../ui/toaster'
 import type { Post } from '~/types/types'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { FaDumpsterFire } from 'react-icons/fa'
+import { useSocketContext } from '../context/SocketContext'
 
 export const MediaFeed = () => {
-  const { addPost, refreshFeed, wipeFeed, mediaFeed } = useMediaContext();
+  const { deletePost, refreshFeed, wipeFeed, addPost, mediaFeed } = useMediaContext();
+  const { socketEmit } = useSocketContext();
   const { team, user } = useAppContext();
-  const [ feed, setFeed ] = useState<Post[]>([]);
-  console.log(feed);
-
-  useEffect(() => {
-    setFeed([...mediaFeed.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())])
-  }, [mediaFeed])
+  const [ newPost, setNewPost ] = useState<Post | undefined>(undefined);
   
   const handleNewPost = () => {
     const now = new Date()
     if (!user) toaster.create({ type: 'error', description: `User is not registered, you must be a registered user to post to the feed...`, duration: 5000 })
     else if (!team) toaster.create({ type: 'error', description: `${user.name} isn't assigned to a team, only team players can post to the feed`, duration: 5000 })
     else {
-      console.log('Adding post');
-      addPost({
+      setNewPost({
         status: 'New',
-        _id: `${feed.length + 1}`,
-        publisher: { code: team.code },
+        _id: `${mediaFeed.length + 1}`,
+        team,
         headline: '',
         body:
           "",
@@ -43,6 +39,25 @@ export const MediaFeed = () => {
         tags: [],
       })
     }
+  }
+
+  const handleDeletePost = (post: Post) => {
+    if (post.status === "New") setNewPost(undefined);
+    else deletePost(post);
+  }
+
+  const handleSave = (post: Post) => {
+    let data = {...post}
+    if (user) data.author = user?._id;
+    if (team) data.team = team?._id;
+
+    socketEmit({ event: 'media', payload: { action: 'post', data } }, (response: {status: string, description: string, data: any}) => {
+      const { status, description, data } = response;
+      console.log(response)
+      toaster.create({ type: status, description });
+      if (post.status === 'New') setNewPost(undefined);
+      addPost(data);
+    })
   }
   
   return (
@@ -55,8 +70,9 @@ export const MediaFeed = () => {
         </Flex>
         <Box scrollbar="hidden" overflowY='scroll' h="80vh">
         <Stack gap="4">
-          {feed.map((item) => (
-            <PostCard key={item._id} post={item} />
+          { newPost && <PostCard key={newPost._id} post={newPost} onDelete={handleDeletePost} onSave={handleSave} /> }
+          {mediaFeed.filter((el) => el.status !== 'New' ).map((item) => (
+            <PostCard key={item._id} post={item} onDelete={handleDeletePost} onSave={handleSave} />
           ))}
         </Stack>
         </Box>
