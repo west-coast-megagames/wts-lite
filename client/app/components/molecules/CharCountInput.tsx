@@ -17,6 +17,7 @@ export const CharacterCountInput = (props: { value?: string, max: number, handle
         placeholder="Enter your message"
         value={value}
         maxLength={max}
+        bg="white"
         onChange={(e) => {
 					const update = e.currentTarget.value.slice(0, max) 
           setValue(update);

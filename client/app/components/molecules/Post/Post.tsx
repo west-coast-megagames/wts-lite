@@ -7,6 +7,7 @@ import {
   HStack,
   Input,
   IconButton,
+  Link,
   Stack,
   Text,
   Textarea,
@@ -16,7 +17,6 @@ import {
 import { BsChat, BsChatHeart, BsPencil } from 'react-icons/bs'
 import { Tags } from '../Tags'
 import { PostDate } from '../PostTime'
-import { CommentFeed } from '../Comment'
 import type { Post } from '~/types/types'
 import { a3TOa2Converter, getFlag } from '~/scripts'
 import { useEffect, useState, type SyntheticEvent } from 'react'
@@ -25,12 +25,17 @@ import { BiSave, BiTrash } from 'react-icons/bi'
 import { MdPublish } from 'react-icons/md'
 import { GiCardDiscard } from 'react-icons/gi'
 import { CharacterCountInput } from '../CharCountInput'
+import { useAppContext } from '~/components/context/AppContext'
+import { toaster } from '~/components/ui/toaster'
+import { Comment } from '../Comment'
+import { EditableComment } from '../EditableComment'
 
 export const PostCard = (props: { post: Post, mode?: 'view', onDelete: (post: Post) => void; onSave: (post: Post) => void }) => {
 	const { post, mode, onDelete, onSave } = props;
 	const [activeMode, setMode] = useState<'view' | 'edit'>(mode ? mode : 'view');
 	const [editedPost, setEdit] = useState<Post>(post);
-  const [liked, setliked] = useState<boolean>(false);
+  const [ fakeComment, setFakeComment ] = useState<Comment | undefined>(); 
+  const { user, team } = useAppContext();
 
 	useEffect(() => {
 		if (post.status === "New") setMode('edit');
@@ -56,6 +61,16 @@ export const PostCard = (props: { post: Post, mode?: 'view', onDelete: (post: Po
 			newPost.body = e.target.value;
 		setEdit(newPost);
 	}
+
+	
+  const handleNewComment = () => {
+    if (!user) toaster.create({ type: 'error', description: `User is not registered, you must be a registered user to post to the feed...`, duration: 5000 })
+    else if (!team) toaster.create({ type: 'error', description: `${user.name} isn't assigned to a team, only team players can post to the feed`, duration: 5000 })
+    else {
+      console.log('Adding comment');
+      setFakeComment({ user: user, body: "", replies: []})
+    }
+  } 
 	
 return (
   <Flex
@@ -64,7 +79,8 @@ return (
     divideX={{ base: "0", md: "1px" }}
     borderRadius="l3"
     bg="bg"
-  >
+
+    >
     <Stack p="6" flex="1">
       <Collapsible.Root>
         <Stack>
@@ -72,11 +88,12 @@ return (
             direction={{ base: "column", sm: "row" }}
             align={{ base: "flex-start", sm: "center" }}
             justify="space-between"
+            
           >
-            <HStack wrap="wrap">
+            <HStack wrap="wrap" >
               {activeMode === "view" && <Tags tags={editedPost.tags} />}
               {activeMode === "edit" && (
-                <TagInputGroup tags={editedPost.tags} onTagsChange={handleTagEdit} />
+                <TagInputGroup tags={editedPost.tags} onTagsChange={handleTagEdit} bg="white"/>
               )}
             </HStack>
             <PostDate date={editedPost.createdAt} />
@@ -105,6 +122,7 @@ return (
             disabled={activeMode === "view"}
             value={editedPost.body}
             onChange={handleBodyEdit}
+            bg="white"
           >
             <Textarea autoresize />
           </Input>
@@ -128,7 +146,7 @@ return (
             <Wrap>
               {activeMode === "edit" && (
                 <WrapItem>
-                  <Button variant="ghost" onClick={() => onSave(editedPost)}>
+                  <Button variant="ghost" onClick={ () => { onSave(editedPost); setMode('view'); }} >
                     <BiSave /> Save
                   </Button>
                 </WrapItem>
@@ -164,28 +182,25 @@ return (
             </Wrap>
 			  <HStack>
             <Badge variant="surface">{editedPost.status}</Badge>
-							<IconButton
+							{/* <IconButton
 				color={`${liked ? "tomato" : ""}`}
 				variant={"ghost"}
 				onClick={ () => setliked(!liked)}
 			  >
 				<BsChatHeart />
-			  </IconButton>
-
+			  </IconButton> */}
+              <Link color="fg.muted" onClick={() => handleNewComment()}>Reply</Link>  
             <Collapsible.Trigger padding="3">
-              <HStack>
-                <BsChat />
-                {editedPost.comments.length}
-              </HStack>
+                <IconButton variant={"ghost"}><BsChat />{editedPost.comments.length}</IconButton>
             </Collapsible.Trigger>
 			</HStack>
 
           </Stack>
 		  
-			  
+			  { fakeComment && <EditableComment comment={fakeComment} /> }
           <Collapsible.Content>
             {editedPost.comments.map((comment) => (
-              <CommentFeed key={comment.body} comment={comment} />
+              <Comment key={comment.body} comment={comment} />
             ))}
           </Collapsible.Content>
         </Stack>
