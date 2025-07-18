@@ -1,11 +1,14 @@
 const mongoose = require('mongoose'); // Mongo DB object modeling module
+const { Team } = require('./team');
+const { User } = require('./user');
 
 // Global Constants
 const { Schema, ObjectId } = mongoose; // Destructure of Mongoose
 
 const PostSchema = new Schema({
 	model: { type: String, default: 'Post' },
-	user: { type: ObjectId, ref: 'User' },
+	author: { type: ObjectId, ref: 'User' },
+	team: { type: ObjectId, ref: 'Team' },
 	headline: { type: String, required: true, minlength: 1, maxlength: 100 },
 	body: { type: String, minlength: 1, maxlength: 1000 },
 	tags: [{ type: String }],
@@ -22,9 +25,10 @@ PostSchema.static({
 		console.log('Adding post to Database');
 		const Post = mongoose.model('Post');
 		let newPost = {...data, status: "Draft" };
+		console.log(data);
 		delete newPost._id
 		console.log(newPost);
-		newPost = new Post({...data, status: "Draft" });
+		newPost = new Post(newPost);
 
 		newPost = await newPost.save().then((doc) => {
 			console.log(doc);

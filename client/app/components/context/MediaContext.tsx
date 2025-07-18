@@ -1,6 +1,8 @@
 import { useState, createContext, useContext, useMemo } from "react";
 import { type ReactElement } from "react";
 import { type Post } from "~/types/types";
+import { toaster } from "../ui/toaster";
+import { server } from "~/config";
 
 
 type MediaContextProviderProps = {
@@ -11,14 +13,18 @@ type InitialMediaStateProps = {
   mediaFeed: Post[];
   setFeed: (payload: Post) => void;
   addPost: (payload: Post) => void;
-//   deletePost: (post: Post) => void;
+  deletePost: (post: Post) => void;
+  refreshFeed: () => void;
+  wipeFeed: () => void;
 };
 
 const initialMediaContext: InitialMediaStateProps = {
   mediaFeed: [] as Post[],
   setFeed: () => null,
   addPost: () => null,
-//   deletePost: () => null
+  deletePost: () => null,
+  refreshFeed: () => null,
+  wipeFeed: () => null
 };
 
 export const MediaContextProvider = ({
@@ -39,16 +45,79 @@ export const MediaContextProvider = ({
         console.log(newTrack);
         setMediaFeed(newTrack);
     }
+
     const addPost = (payload: Post) => {
-        console.log('Adding Post');
-        console.log(payload);
-        const newFeed: Post[] = [...mediaFeed]
-        newFeed.push(payload);
-        setMediaFeed(newFeed);
+      console.log('Adding Post');
+      console.log(payload);
+      const newFeed: Post[] = [...mediaFeed]
+      let i = 0;
+      for (const post of newFeed) {
+        if (post._id === payload._id) newFeed[i] = payload;
+        else newFeed.push(payload); 
+        i++;
+      }
+      setMediaFeed(newFeed);
     }
 
+    const deletePost = (payload: Post | string) => {
+      console.log(`Deleting Post ${ typeof payload === 'string' ? payload : payload?.headline }`);
+      const newFeed: Post[] = [...mediaFeed];
+      let i = 0;
+      for (const post of newFeed) {
+        if (typeof payload === 'string' && post._id === payload) {
+          newFeed.splice(i, 1);
+          toaster.create({ type: 'success', description: `Deleted ${post.headline}` });
+        }
+        if (typeof payload === 'object' && post._id === payload._id) {
+          newFeed.splice(i, 1);
+          toaster.create({ type: 'success', description: `Deleted ${post.headline}` });
+        }
+        else {
+          toaster.create({ type: 'error', description: `Post isn't in context` });
+        };
+        i++;
+      }
+    }
+
+    const refreshFeed = async () => {
+      await fetch(`${ server }api/teams`).then((res) => {
+          !res.ok ? toaster.create({ type: 'error', description: `Failed to load Posts`, duration: 5000}) : undefined;
+          return res.json();
+        }).then(json => {
+          setFeed(json);
+          toaster.create({ type: 'success', description: `${json.length} posts loaded into feed`, duration: 5000})
+        });
+        console.log('Team Load Complete...')
+      }
+
+      const wipeFeed = async () => {
+        try {
+          const response = await fetch(`${server}api/posts/deleteAll`, { // Replace with your API endpoint
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+
+          if (!response.ok) {
+            // Handle HTTP errors (e.g., 404, 500)
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Something went wrong with the request.');
+          }
+
+          const data = await response.json();
+          console.log(data);
+          toaster.create({ type: 'success', description: data });
+
+        } catch (err) {
+          // Handle network errors or errors thrown from the response.ok check
+          console.log(err)
+          toaster.create({ type: 'error', description: 'Error submitting data: ' + err.message});
+        }
+      }
+
   const value = useMemo(
-    () => ({ mediaFeed, setFeed, addPost }),
+    () => ({ mediaFeed, setFeed, addPost, deletePost, refreshFeed, wipeFeed }),
     [mediaFeed, addPost, setFeed]
   )
 
@@ -65,7 +134,7 @@ const feeds: Post[] = [
   {
     status: 'In Progress',
     _id: '01',
-    publisher: "rfd",
+    publisher: { code: "rfd" },
     headline: 'BREAKING NEWS: Even with Chakra UI, I suck at Front End development',
     body:
       "I enjoy coding, and even making data driven platforms for games, but when considering scope one has to consider that I severly hate and am deficient at it...",

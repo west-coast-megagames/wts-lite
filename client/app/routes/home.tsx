@@ -14,7 +14,7 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
-  const { loadTeams, displayMode, teams } = useAppContext();
+  const { loadTeams, dataUplink, displayMode, teams } = useAppContext();
   const [ loadMessage, setMessage ] = useState<string>('Loading digital assests... so sit back and Watch the Skies.')
   const navigate = useNavigate();
 
@@ -22,7 +22,7 @@ export default function Home() {
     console.log(displayMode);
     if (displayMode === 'loading') {
       setMessage('Gathering Teams from the West Coast!')
-      loadTeams();
+      dataUplink();
     }
     if (displayMode !== 'loading') navigate('/map');
   }, [displayMode]);

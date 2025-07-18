@@ -11,26 +11,25 @@ import { a3TOa2Converter, getFlag } from "~/scripts";
 import { useAppContext } from "../context/AppContext";
 
 const SelectValue = () => {
-  const select = useSelectContext()
+  const select = useSelectContext();
   const items = select.selectedItems as Array<{ name: string; code: string }>
-  // console.log(items)
-  const { name, code } = items[0]
   return (
-    <Select.ValueText placeholder="Select member">
-      <HStack>
+    <Select.ValueText placeholder="Select Team">
+      { items.length > 0 && <HStack>
         <Avatar.Root shape="rounded" size="2xs">
-          <Avatar.Image src={getFlag(a3TOa2Converter(code))} alt={name} />
-          <Avatar.Fallback name={name} />
+          <Avatar.Image src={getFlag(a3TOa2Converter(items[0].code))} alt={items[0].name} />
+          <Avatar.Fallback name={items[0].name} />
         </Avatar.Root>
-        {name}
-      </HStack>
+        {items[0].name}
+      </HStack> }
     </Select.ValueText>
   )
 }
 
 export const TeamSelect = () => {
-    const [ team, setTeam ] = useState<string[]>(["USA"]);
+    const [ team, setTeam ] = useState<string[]>([]);
     const { team: currentTeam, selectTeam } = useAppContext();
+    
     useEffect(() => {
       if (currentTeam) setTeam([currentTeam.code]);
     }, [currentTeam]);
@@ -38,8 +37,8 @@ export const TeamSelect = () => {
   return (
     <Select.Root
       collection={members}
-      size="md"
       value={team}
+      size="md"
       positioning={{ sameWidth: true }}
       onValueChange={(d) => {
         // console.log(d)

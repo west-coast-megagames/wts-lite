@@ -7,7 +7,7 @@ import {
   HStack,
   Input,
   IconButton,
-  Spacer,
+  Link,
   Stack,
   Text,
   Textarea,
@@ -17,7 +17,6 @@ import {
 import { BsChat, BsChatHeart, BsPencil } from 'react-icons/bs'
 import { Tags } from '../Tags'
 import { PostDate } from '../PostTime'
-import { CommentFeed } from '../Comment'
 import type { Post } from '~/types/types'
 import { a3TOa2Converter, getFlag } from '~/scripts'
 import { useSocketContext } from '../../context/SocketContext'
@@ -27,12 +26,21 @@ import { BiSave, BiTrash } from 'react-icons/bi'
 import { MdPublish } from 'react-icons/md'
 import { GiCardDiscard } from 'react-icons/gi'
 import { CharacterCountInput } from '../CharCountInput'
+import { useAppContext } from '~/components/context/AppContext'
+import { toaster } from '~/components/ui/toaster'
+import { useMediaContext } from '~/components/context/MediaContext'
+import { Comment } from '../Comment'
+import { EditableComment } from '../EditableComment'
 
 export const PostCard = (props: { post: Post, mode?: 'edit'  }) => {
 	const { post, mode } = props;
 	const [activeMode, setMode] = useState<'view' | 'edit'>(mode ? mode : 'view');
 	const [editedPost, setEdit] = useState<Post>(post);
+  // const [liked, setliked] = useState<boolean>(false);
 	const { socketEmit } = useSocketContext();
+  const { addPost } = useMediaContext();
+  const [ fakeComment, setFakeComment ] = useState<Comment | undefined>(); 
+  const { user, team } = useAppContext();
 
 	useEffect(() => {
 		if (post.status === "New") setMode('edit');
@@ -61,9 +69,26 @@ export const PostCard = (props: { post: Post, mode?: 'edit'  }) => {
 	const handleDiscard = () => {
 
 	}
-	const [liked, setliked] = useState<boolean>(false);
 
-	const handleSave = () => socketEmit({ event: 'media', payload: { action: 'post', data: editedPost } })
+	const handleSave = () => {
+    let data = {...editedPost}
+    data.author = user?._id;
+    data.publisher = team?._id;
+
+    socketEmit({ event: 'media', payload: { action: 'post', data } }, (response: {status: string, description: string, data: any}) => {
+      const { status, description, data } = response;
+      toaster.create({ type: status, description });
+      addPost(data);
+    })
+  }
+     const handleNewComment = () => {
+      if (!user) toaster.create({ type: 'error', description: `User is not registered, you must be a registered user to post to the feed...`, duration: 5000 })
+      else if (!team) toaster.create({ type: 'error', description: `${user.name} isn't assigned to a team, only team players can post to the feed`, duration: 5000 })
+      else {
+        console.log('Adding comment');
+        setFakeComment({ user, body: "", replies: []})
+      }
+    }
 	
 return (
   <Flex
@@ -128,7 +153,7 @@ return (
             <HStack>
               <Avatar.Root size="xs">
                 <Avatar.Fallback />
-                <Avatar.Image src={getFlag(a3TOa2Converter(editedPost.publisher))} />
+                <Avatar.Image src={getFlag(a3TOa2Converter(editedPost.publisher.code))} />
               </Avatar.Root>
               <Text textStyle="sm">
                 {editedPost.author?.name}
@@ -174,28 +199,25 @@ return (
             </Wrap>
 			  <HStack>
             <Badge variant="surface">{editedPost.status}</Badge>
-							<IconButton
+							{/* <IconButton
 				color={`${liked ? "tomato" : ""}`}
 				variant={"ghost"}
 				onClick={ () => setliked(!liked)}
 			  >
 				<BsChatHeart />
-			  </IconButton>
-
+			  </IconButton> */}
+              <Link color="fg.muted" onClick={() => handleNewComment()}>Reply</Link>  
             <Collapsible.Trigger padding="3">
-              <HStack>
-                <BsChat />
-                {editedPost.comments.length}
-              </HStack>
+                <IconButton variant={"ghost"}><BsChat />{editedPost.comments.length}</IconButton>
             </Collapsible.Trigger>
 			</HStack>
 
           </Stack>
 		  
-			  
+			  { fakeComment && <EditableComment comment={fakeComment} /> }
           <Collapsible.Content>
             {editedPost.comments.map((comment) => (
-              <CommentFeed key={comment.body} comment={comment} />
+              <Comment key={comment.body} comment={comment} />
             ))}
           </Collapsible.Content>
         </Stack>

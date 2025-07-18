@@ -2,6 +2,7 @@ const { logger } = require("../middleware/log/winston");
 const config = require("config");
 const { Server } = require("socket.io");
 const { Post } = require("../models/post");
+const { response } = require("express");
 
 module.exports = function(httpServer) {
     logger.info('Socket.io server initialized...');
@@ -39,18 +40,19 @@ module.exports = function(httpServer) {
 			currentUsers();
 		});
 
-        client.on('media', async (payload) => {
+        client.on('media', async (payload, callback) => {
             const { action, data } = payload;
-						console.log(`Attempting media route with ${action} action`);
+			console.log(`Attempting media route with ${action} action`);
+            let reponse
 
             switch(action) {
                 case ("post"): {
-                    await Post.postToDB(client, data);
+                    response = await Post.postToDB(client, data);
                 } 
                 default: 
                     client.emit(('alert', { type: 'Error', title: "Server Error", message: `${client.username} send invalid media request for ${action}` }))
             }
-
+            callback({ status: 'success', description: `Post ${response.title} saved`, data: response });
         })
     });
 
