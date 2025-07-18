@@ -2,7 +2,6 @@ const { logger } = require("../middleware/log/winston");
 const config = require("config");
 const { Server } = require("socket.io");
 const { Post } = require("../models/post");
-const { response } = require("express");
 
 module.exports = function(httpServer) {
     logger.info('Socket.io server initialized...');
@@ -43,16 +42,31 @@ module.exports = function(httpServer) {
         client.on('media', async (payload, callback) => {
             const { action, data } = payload;
 			console.log(`Attempting media route with ${action} action`);
-            let reponse
+            let response
 
             switch(action) {
                 case ("post"): {
-                    response = await Post.postToDB(client, data);
+                    try {
+                        console.log('Adding post to Database');
+                       
+                        let newPost = {...data, status: "Draft" };
+                        delete newPost._id;
+                        console.log(newPost);
+                        newPost = new Post(newPost);
+
+                        response = await newPost.save();
+			            await response.populate('team');
+			            client.emit('alert', { type: 'success', message: `${client.username} updated ${newPost.headline} post` });
+                    }
+                    catch (err) {
+			            console.log(err);
+			            client.emit('alert', { type: 'error', title: 'Server Error [media/post]', message: `${err.message}` })
+		            }
                 } 
                 default: 
-                    client.emit(('alert', { type: 'Error', title: "Server Error", message: `${client.username} send invalid media request for ${action}` }))
+                    io.emit('alert', { type: 'error', title: "Server Error", message: `${client.username} send invalid media request for ${action}` })
             }
-            callback({ status: 'success', description: `Post ${response.title} saved`, data: response });
+            callback({ status: 'success', description: `Post ${response.headline} saved`, data: response });
         })
     });
 

@@ -17,8 +17,11 @@ router.get('/', async function (req, res) {
 	try {
 		const posts = await Post.find()
 			.sort({ post: 1 })
-			.populate('user')
+			.populate('author')
+			.populate('team')
 			// .populate('comments')
+			// .populate({ path: "comments", populate: { path: 'author' }})
+			// .populate({ path: "comments", populate: { path: 'team' }})
 		res.status(200).json(posts);
 	}
 	catch (err) {
@@ -76,7 +79,7 @@ router.post('/', async (req, res) => {
 
 	try {
 
-		let newPost = new Post(req.body);
+		let newPost = new Post(req.body)
 		
 	    logger.info(`post ${req.body.name} has invalid type ${req.body.type}`);
 
