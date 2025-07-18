@@ -799,6 +799,31 @@ const teams = [{
     prTrack: [],
     prLevel: 5,
   },
+      {
+    name: "Nexus Development Team",
+    shortName: "Development",
+    type: "D",
+    code: "DEV",
+    roles: [
+      {
+        title: "Project Lead",
+        type: "Head of State",
+        countryCode: "DEV"
+      },
+      {
+        title: "Senior Developer",
+        type: "Diplomat",
+        countryCode: "DEV"
+      },
+      {
+        title: "Jr. Developer",
+        type: "Ambassador",
+        countryCode: "DEV"
+      }
+    ],
+    prTrack: [],
+    prLevel: 5,
+  },
 ]
 
 module.exports = teams

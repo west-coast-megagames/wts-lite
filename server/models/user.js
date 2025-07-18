@@ -7,6 +7,7 @@ const UserSchema = new Schema({
     model: { type: String, default: 'User' },
     name: { type: String },
     role: { type: ObjectId, ref: 'Role' },
+    pin: [{ type: Number }]
 }, { timestamps: true });
 
 

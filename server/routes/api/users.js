@@ -35,7 +35,9 @@ router.get('/:key/:value', async (req, res) => {
 	query[req.params.key] = req.params.value;
 
 	try {
-		const user = await User.find(query).sort({ user: 1 });
+		const user = await User.findOne(query).sort({ user: 1 })
+			.populate('role')
+			.populate({ path: "role", populate: { path: 'team' }});
 		res.status(200).json(user);
 	}
 	catch (err) {
