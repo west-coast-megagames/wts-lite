@@ -85,6 +85,13 @@ module.exports = function(httpServer) {
             }
             callback({ status: 'success', description, data: data });
         })
+
+        // countdown clock
+        client.on('countdown', async (payload, callback) => {
+            const { minutes } = payload;
+            console.log(`Attempting to update countdown clock with ${minutes}`);
+            callback({ status: 'success', minutes})
+        })
     });
 
 

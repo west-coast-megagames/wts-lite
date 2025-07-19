@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { useCountdownClockContext } from "../context/CountdownClockContext";
 
 export const CountdownClock = () => {
-    const countDownDate = new Date("Jul 19, 2025 08:30:00").getTime();
+    const { countdownDate } = useCountdownClockContext();
     const [message, setMessage] = useState()
     const [seconds, setSeconds] = useState<number>(0);
     const [minutes, setMinutes] = useState<number>(0);
@@ -15,7 +16,7 @@ export const CountdownClock = () => {
     const now = new Date().getTime();
 
     // Find the distance between now and the count down date
-    const distance = countDownDate - now;
+    const distance = countdownDate.getTime() - now;
 
     // Time calculations for days, hours, minutes and seconds
     setDays(Math.floor(distance / (1000 * 60 * 60 * 24)));

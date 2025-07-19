@@ -5,6 +5,7 @@ import { io } from "socket.io-client";
 import { server } from "../../config";
 import { toaster } from "../ui/toaster";
 import { useMediaContext } from "./MediaContext";
+import { useCountdownClockContext } from "./CountdownClockContext";
 
   const URL = server;
   const socket = io(URL, { 
@@ -42,7 +43,8 @@ export const SocketContextProvider = ({
     const [socketOnline, setSocketOnline] = useState<boolean>(false);
     const [clients, setClients] = useState<Client[]>([]);
     const { addPost, refreshFeed } = useMediaContext();
-
+    const { setCountdownTime: setCountdownDate } = useCountdownClockContext();
+    
     // Socket Context functions
     const socketEmit = (data: SocketEmitPayload, callback: Function = () => {}) => {
         socket.emit(data.event, data.payload, callback);
@@ -114,6 +116,13 @@ export const SocketContextProvider = ({
           toaster.create({ type, description, duration: 4000 });
           addPost(data);
           refreshFeed();
+        })
+
+        // countdown clock updates
+        socket.on('countdown', payload => {
+          const { action, data } = payload;
+          console.log(action, data);
+          setCountdownDate(data);
         })
 
         socket.connect();
