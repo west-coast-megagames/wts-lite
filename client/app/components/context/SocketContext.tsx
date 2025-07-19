@@ -43,7 +43,7 @@ export const SocketContextProvider = ({
     const [socketOnline, setSocketOnline] = useState<boolean>(false);
     const [clients, setClients] = useState<Client[]>([]);
     const { addPost, refreshFeed } = useMediaContext();
-    const { setCountdownTime: setCountdownDate } = useCountdownClockContext();
+    const { setCountdownTime } = useCountdownClockContext();
     
     // Socket Context functions
     const socketEmit = (data: SocketEmitPayload, callback: Function = () => {}) => {
@@ -120,9 +120,9 @@ export const SocketContextProvider = ({
 
         // countdown clock updates
         socket.on('countdown', payload => {
-          const { action, data } = payload;
-          console.log(action, data);
-          setCountdownDate(data);
+          const { data } = payload;
+          console.log(payload);
+          setCountdownTime(data);
         })
 
         socket.connect();

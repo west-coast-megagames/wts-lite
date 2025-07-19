@@ -90,6 +90,7 @@ module.exports = function(httpServer) {
         client.on('countdown', async (payload, callback) => {
             const { minutes } = payload;
             console.log(`Attempting to update countdown clock with ${minutes}`);
+            io.emit('countdown', {action: 'update', data: minutes});
             callback({ status: 'success', minutes})
         })
     });

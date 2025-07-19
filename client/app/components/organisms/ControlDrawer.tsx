@@ -12,7 +12,7 @@ export const ControlDrawer = () => {
 	const { terrorTrack, setTerror } = useTerrorContext();
 	const { socketEmit } = useSocketContext();
 	const breakpoints = terrorBreakpoints;
-	const [ minutes, setMinutes ] = useState<number>();
+	const [minutes, setMinutes] = useState<number>(15);
 	return (
 		<Drawer.Root placement="end" open={activeDrawer === "dashboard"} onOpenChange={(e) => !e.open ? closeDrawer() : ""} onEscapeKeyDown={() => closeDrawer()} size='sm'>
 			<Portal>
@@ -42,8 +42,8 @@ export const ControlDrawer = () => {
 								<Button onClick={() => {
 									console.log(`client attempting to update with ${minutes}`);
 									socketEmit(
-										{event: 'countdown', payload: {action: 'update', minutes}},
-										(response: {}) => {console.log(response);}
+										{ event: 'countdown', payload: { action: 'update', minutes } },
+										(response: {}) => { console.log(response); }
 									)
 								}}>Update Time</Button>
 							</HStack>
