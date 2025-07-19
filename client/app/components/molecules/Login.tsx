@@ -162,7 +162,7 @@ export const Login = () => {
 				if (mode === "login") handleLogin();
 				if (mode === "reg") handleReg();
 			}}>
-        { mode === 'login' && "Login" }{ mode === 'reg' && "Regester User" } <LuArrowRight />
+        { mode === 'login' && "Login" }{ mode === 'reg' && "Register User" } <LuArrowRight />
       </Button>
     </Stack>
   </Container>)
