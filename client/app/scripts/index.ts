@@ -2,7 +2,7 @@ import { flagIcons, type T } from "~/img/flags";
 
 export function getFlag(team: T) {
     if (team in flagIcons) return flagIcons[team]
-    else return flagIcons["af"]
+    else return flagIcons["mc"]
 };
 
 export function a3TOa2Converter (code: string) {
@@ -14,6 +14,13 @@ export function a3TOa2Converter (code: string) {
         case ('gbr'): return 'gb' as T;
         case ('fra'): return 'fr' as T;
         case ('chn'): return 'cn' as T;
+        case ('aus'): return 'au' as T;
+        case ('rmt'): return 'rmt' as T;
+        case ('cgm'): return 'cgm' as T;
+        case ('tcn'): return 'tcn' as T;
+        case ('bgc'): return 'bnc' as T;
+        case ('gnn'): return 'gnn' as T;
+        case ('hpw'): return 'hpw' as T;
         default: return code  as T;
     }
 };

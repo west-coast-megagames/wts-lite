@@ -649,6 +649,54 @@ const teams = [{
     ],
     prLevel: 0,
   },
+   {
+    name: "Remnant",
+    shortName: "Aliens",
+    type: "A",
+    code: "RMT",
+    roles: [
+      {
+        title: "Ship Commander",
+        type: "Head of State",
+        countryCode: "RMT"
+      },
+      {
+        title: "Lead Surveyor",
+        type: "Diplomat",
+        countryCode: "RMT"
+      },
+      {
+        title: "Operations Officer",
+        type: "Military",
+        countryCode: "RMT"
+      },
+    ],
+    prLevel: 0,
+  },
+   {
+    name: "Conglomerate",
+    shortName: "Aliens",
+    type: "A",
+    code: "CGM",
+    roles: [
+      {
+        title: "Expeditionary Group Commander",
+        type: "Head of State",
+        countryCode: "CGM"
+      },
+      {
+        title: "Contract Specialist",
+        type: "Diplomat",
+        countryCode: "CGM"
+      },
+      {
+        title: "Systemization Operative",
+        type: "Military",
+        countryCode: "CGM"
+      },
+    ],
+    prLevel: 0,
+  },
   {
     name: "Control Team",
     shortName: "Control",
