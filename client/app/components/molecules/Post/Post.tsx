@@ -79,7 +79,6 @@ export const PostCard = (props: { post: Post, mode?: 'view', onDelete: (post: Po
         refreshFeed();
       })
     }
-
 	
   const handleNewComment = () => {
     if (!user) toaster.create({ type: 'error', description: `User is not registered, you must be a registered user to post to the feed...`, duration: 5000 })
@@ -157,7 +156,7 @@ return (
                 <Avatar.Image src={getFlag(a3TOa2Converter(editedPost.team?.code))} />
               </Avatar.Root>
               <Text textStyle="sm">
-                {editedPost.author?.name}
+                {editedPost.author?.name} | { editedPost.author?.role?.title }
               </Text>
             </HStack>
 

@@ -1,5 +1,5 @@
 import { Input, InputGroup, Span } from "@chakra-ui/react"
-import { useState, type SyntheticEvent } from "react"
+import { useState } from "react"
 
 export const CharacterCountInput = (props: { value?: string, max: number, handleChange: (value: string) => void }) => {
   const { max, handleChange } = props

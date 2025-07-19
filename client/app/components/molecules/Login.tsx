@@ -25,7 +25,7 @@ import { toaster } from '../ui/toaster'
 import { server } from '~/config'
 
 export const Login = () => {
-  const { team, role, selectTeam, selectUser, selectRole } = useAppContext();
+  const { team, role, user, selectTeam, selectUser, selectRole } = useAppContext();
 	const navigate = useNavigate();
 	const [ pin, setPin ] = useState(["", "", "", ""]);
 	const [ mode, setMode ] = useState<'login' | 'reg'>('reg');
@@ -45,15 +45,15 @@ export const Login = () => {
 						return res.json();
           }).then(json => {
             console.log(json);
-						let i = 0;
-						for (const num in pin) {
-							if (json.pin[i].toString() !== pin[i]) return;
-							i++;
-						}
-						setLoginSuccess(true);
-						selectUser(json);
-						selectRole(json.role._id);
-						selectTeam(json.role.team.code);
+			let i = 0;
+			for (const num in pin) {
+				if (json.pin[i].toString() !== pin[i]) return;
+				i++;
+			}
+			setLoginSuccess(true);
+			selectUser(json);
+			selectRole(json.role._id);
+			selectTeam(json.role.team.code);
           });
         } catch (err) {
           // Handle network errors or errors thrown from the response.ok check
@@ -86,19 +86,30 @@ export const Login = () => {
 		}
 	};
 
+	useEffect(() => {
+		const savedUser = localStorage.getItem('username');
+		if (!username && savedUser) {
+			setUsername(savedUser);
+			setMode('login');
+		}
+	}, [username])
+
 	useEffect(() => { 
-		console.log(pin);
 		if (pin.length === 4) null;
 	}, [pin]); // Listens to changes on the pin.
+
 	useEffect(() => {
 		if (loginSuccess) {
 			navigate(`/feed`);
 			localStorage.setItem('username', username as string);
+			if (user) localStorage.setItem('_id', user?._id);
 		}
 	}, [loginSuccess])
+
 	useEffect(() => {
 		harvestCode(searchParams.get('team')) 
 	}, [searchParams])
+	
 	useEffect(() => {
 		if (code) selectTeam(code?.toUpperCase());
 	}, [code])
@@ -117,7 +128,7 @@ export const Login = () => {
 						{ mode === "login" && "Switch to Registration"}
           </Span>
 				</Link>
-				<Editable.Root justifyContent="space-between" defaultEdit placeholder="Enter Username" onValueCommit={ (v) => setUsername(v.value) }>
+				<Editable.Root value={username} justifyContent="space-between" defaultEdit={!username} placeholder="Enter Username" onValueCommit={ (v) => setUsername(v.value) }>
 					<Editable.Preview />
 					<Editable.Input />
 					<Editable.Control>
@@ -140,29 +151,28 @@ export const Login = () => {
 				</Editable.Root>
 				{ mode === 'reg' && <TeamSelect disabled={team ? true : false} /> }
 				{ mode === 'reg' && <RoleSelect /> }
-      </Stack>
-
-      <VStack gap="6">
-        <PinInput.Root value={pin} onValueChange={ (e) => { 
-					console.log(e.value);
-					console.log(typeof e.value);
-					setPin(e.value)
-				}} size="xl" placeholder="*">
-          <PinInput.HiddenInput />
-          <PinInput.Control>
-            <PinInput.Input index={0} />
-            <PinInput.Input index={1} />
-            <PinInput.Input index={2} />
-            <PinInput.Input index={3} />
-          </PinInput.Control>
-        </PinInput.Root>
-      </VStack>
-
-      <Button onClick={ () => {
+			</Stack>
+			<VStack gap="6">
+				<Text>Enter pin below</Text>
+					<PinInput.Root value={pin} onValueChange={ (e) => { 
+							setPin(e.value);
+						}} size="xl" placeholder="*">
+					<PinInput.HiddenInput />
+				<PinInput.Control>
+					<PinInput.Input index={0} />
+					<PinInput.Input index={1} />
+					<PinInput.Input index={2} />
+					<PinInput.Input index={3} />
+				</PinInput.Control>
+				</PinInput.Root>
+			</VStack>
+      	<Button
+				disabled={ pin.includes("") }
+				onClick={ () => {
 				if (mode === "login") handleLogin();
 				if (mode === "reg") handleReg();
 			}}>
-        { mode === 'login' && "Login" }{ mode === 'reg' && "Regester User" } <LuArrowRight />
+        { mode === 'login' && "Login" }{ mode === 'reg' && "Register User" } <LuArrowRight />
       </Button>
     </Stack>
   </Container>)

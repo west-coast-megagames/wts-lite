@@ -8,7 +8,7 @@ import { useAppContext } from '../context/AppContext'
 export const UserMenu = () => {
   const { initConnection, socketOnline, socketLogoff } = useSocketContext();
   const { setDrawer } = useDrawerContext();
-  const { team } = useAppContext();
+  const { team, user, role } = useAppContext();
   return (
     <Menu.Root positioning={{ placement: 'bottom' }}>
       <Menu.Trigger rounded="full">
@@ -24,7 +24,7 @@ export const UserMenu = () => {
               <LuUser />
               Profile
             </Menu.Item>
-            <Menu.Item value="settings">
+            <Menu.Item value="settings" onClick={ () => setDrawer("settings") }>
               <LuSettings />
               Settings
             </Menu.Item>
@@ -33,11 +33,11 @@ export const UserMenu = () => {
               Help & Support
             </Menu.Item> */}
             <Menu.Separator />
-            {socketOnline && <Menu.Item value="logout" onClick={ () => socketLogoff() } >
-              <LuLogOut /> Logout
-            </Menu.Item>}
-            {!socketOnline && <Menu.Item value="login" onClick={ () => initConnection({ username: 'John', self: true, userID: 'Temp', team: 'Nexus', role: 'Developer' })}>
-              <LuLogIn /> Login
+            { socketOnline && <Menu.Item value="logout" onClick={ () => socketLogoff() } >
+              <LuLogOut /> Logout of Socket connection
+            </Menu.Item> }
+            {!socketOnline && user && team && role && <Menu.Item value="login" onClick={ () => initConnection({ username: user?.name, userID: 'Temp', team: team?.name, role: role?.title })}>
+              <LuLogIn /> Login to sockets
             </Menu.Item>}
           </Menu.Content>
         </Menu.Positioner>

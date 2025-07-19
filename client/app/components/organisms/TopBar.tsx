@@ -9,7 +9,7 @@ export const TopBar = () => {
 
   return (
     <Box borderBottomWidth="1px" bg="bg.panel">
-      { displayMode !== 'loading' && user && team && 
+      { displayMode === 'user' && user && team && 
       <Container fluid py={{ base: '1', md: '2' }}>
         <HStack justify="space-between">
           <HStack gap={{ base: '4', md: '10' }}>

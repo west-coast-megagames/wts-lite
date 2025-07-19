@@ -82,6 +82,11 @@ export default forwardRef(function TagInputGroup({
         event.preventDefault()
       } else if (key === 'Backspace' && tags.length > 0 && selectionStart === 0 && selectionEnd === 0) {
         removeTag(event, tags.length - 1)
+      } else if (key === 'Tab' && tags.length > 0) {
+        addTag(event, currentTarget.value);
+        if (!event.isDefaultPrevented()) {
+          currentTarget.value = ''
+        }
       }
     },
     [addKeys, tags.length, addTag, removeTag, onKeyDown]

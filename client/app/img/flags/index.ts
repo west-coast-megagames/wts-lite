@@ -25,6 +25,7 @@ import bi from "./bi.svg";
 import bl from "./bl.svg";
 import bm from "./bm.svg";
 import bn from "./bn.svg";
+import bnc from "./bnc.svg"
 import bo from "./bo.svg";
 import bq from "./bq.svg";
 import br from "./br.svg";
@@ -221,6 +222,7 @@ import tk from "./tk.svg";
 import tl from "./tl.svg";
 import tm from "./tm.svg";
 import tn from "./tn.svg";
+import tnc from "./tcn.svg";
 import to from "./to.svg";
 import tr from "./tr.svg";
 import tt from "./tt.svg";
@@ -278,6 +280,7 @@ export type FlagObject = {
     bl: string,
     bm: string,
     bn: string,
+    bnc: string,
     bo: string,
     bq: string,
     br: string,
@@ -474,6 +477,7 @@ export type FlagObject = {
     tl: string,
     tm: string,
     tn: string,
+    tnc: string,
     to: string,
     tr: string,
     tt: string,
@@ -507,7 +511,7 @@ export type T = keyof FlagObject
 
 export const flagIcons: FlagObject = {
     ad, ae, af, ag, ai, al, am, ao, aq, ar, as, at, au, aw, ax, az,
-    ba, bb, bd, be, bf, bg, bh, bi, bl, bm, bn, bo, bq, br, brl, bs, bt, bv, bw, by, bz,
+    ba, bb, bd, be, bf, bg, bh, bi, bl, bm, bn, bnc, bo, bq, br, brl, bs, bt, bv, bw, by, bz,
     ca, cc, cd, cf, cg, ch, ci, ck, cl, cm, cn, co, cr, cu, cv, cw, cx, cy,cz,
     de, dj, dk, dm, /*dom: do,*/ dz,
     ec, ee, eg, eh, er, es, et, eu,
@@ -526,7 +530,7 @@ export const flagIcons: FlagObject = {
     qa,
     re, ro, rs, ru, rw,
     sa, sb, sc, sd, se, sg, sh, si, sj, sk, sl, sm, sn, so, sr, ss, st, sv, sx, sy, sz,
-    tc, td, tf, tg, th, tj, tk, tl, tm, tn, to, tr, tt, tv, tw, tz,
+    tc, td, tf, tg, th, tj, tk, tl, tm, tn, tnc, to, tr, tt, tv, tw, tz,
     ua, ug, um, us, uy, uz,
     va, vc, ve, vg, vi, vn, vu,
     wf, ws,

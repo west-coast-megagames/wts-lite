@@ -108,7 +108,7 @@ export const ControlDrawer = () => {
 							<Drawer.CloseTrigger asChild>
 								<CloseButton onClick={() => closeDrawer()} size="lg" />
 							</Drawer.CloseTrigger>
-							<Button variant="outline" onClick={() => closeDrawer()}>Cancel</Button>
+							<Button variant="outline" onClick={() => closeDrawer()}>Close</Button>
 						</Drawer.Footer>
 					</Drawer.Content>
 				</Drawer.Positioner>

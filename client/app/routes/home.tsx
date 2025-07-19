@@ -1,11 +1,13 @@
 import { useAppContext } from "~/components/context/AppContext";
 import type { Route } from "./+types/home";
-import { Box, Center, Container, Flex, HStack, Image, Spacer, Spinner, Text, VStack } from "@chakra-ui/react";
+import { Box, Center, Container, HStack, Image, Spacer, Spinner, Text, VStack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router";
+import { useNavigate } from "react-router";
 import logo from "../img/logos/wcm_logo.png"
 import { NotificationPopover, UserMenu } from "~/components/molecules";
 import { Login } from "~/components/molecules/Login";
+import { server } from "~/config";
+import { toaster } from "~/components/ui/toaster";
 
 export function meta({}: Route.MetaArgs) {
   return [

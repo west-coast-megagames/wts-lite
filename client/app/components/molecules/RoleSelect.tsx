@@ -2,8 +2,6 @@ import {
   Avatar,
   HStack,
   Select,
-  Text,
-  createListCollection,
   useSelectContext,
   type ListCollection,
 } from "@chakra-ui/react"
@@ -28,7 +26,6 @@ const getIcon = (type: string) => {
 const SelectValue = () => {
   const select = useSelectContext();
   const items = select.selectedItems as Array<{ title: string, type: string }>
-  console.log(items)
   return (
     <Select.ValueText placeholder="Select Team Role">
       { items.length > 0 && <HStack>

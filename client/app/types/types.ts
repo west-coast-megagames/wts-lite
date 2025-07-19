@@ -5,6 +5,7 @@ export type DrawerTypes =
     | "dashboard"
     | "controller"
     | "profile"
+    | "settings"
     | "";
 
 /* General Types used throughout the App */
@@ -50,7 +51,7 @@ export type ToasterData = {
 export type Client = {
     userID: string,
     username: string,
-    self: boolean,
+    self?: boolean,
     team: string,
     role: string
 }
@@ -76,16 +77,10 @@ export type Post = {
     tags: string[],
 };
 
-export type Comment = {
+export type CommentType = {
     user: User,
     body: string,
     replies: Comment[],
-    // timestamp: {
-    //     turn: string,
-    //     phase: string,
-    //     turnNum: number,
-    //     clock: string
-    // }
 }
 
 export type Reaction = {

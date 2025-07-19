@@ -57,9 +57,13 @@ export const MediaContextProvider = ({
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-        },
+        }
+      }).then(res => {
+        return res.json();
+      }).then(json => {
+        console.log(json);
+        refreshFeed();
       });
-      await refreshFeed();
     }
 
     const refreshFeed = async () => {
@@ -90,6 +94,7 @@ export const MediaContextProvider = ({
           }).then(json => {
             const errorData = json;
             console.log(json);
+            refreshFeed();
           });
         } catch (err) {
           // Handle network errors or errors thrown from the response.ok check
