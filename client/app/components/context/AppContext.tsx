@@ -85,7 +85,7 @@ export const AppContextProvider = ({
       return res.json();
     }).then(json => {
       setTeams(json);
-      toaster.create({ type: 'success', description: `${json.length} Teams loaded`, duration: 5000})
+      // toaster.create({ type: 'success', description: `${json.length} Teams loaded`, duration: 5000})
       console.log(json)
     });
     console.log('Team Load Complete...')
@@ -103,7 +103,7 @@ export const AppContextProvider = ({
         itemToString: (item) => item.title,
         itemToValue: (item) => item._id,
       }))
-      toaster.create({ type: 'success', description: `${json.length} Roles loaded`, duration: 5000});
+      // toaster.create({ type: 'success', description: `${json.length} Roles loaded`, duration: 5000});
       console.log(json);
     });
     console.log('Role load completed');

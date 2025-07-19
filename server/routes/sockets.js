@@ -40,6 +40,12 @@ module.exports = function(httpServer) {
 			currentUsers();
 		});
 
+        client.on('terror', async (payload, callback) => {
+            console.log(payload)
+            client.broadcast.emit('terrorUpdate', { status: 'info', description: 'Terror update', data: payload });
+            callback({ status: 'success', description: "Terror updated", data: {} });
+        })
+
         client.on('media', async (payload, callback) => {
             const { action, data: payloadData } = payload;
             const { username } = client.handshake.auth;

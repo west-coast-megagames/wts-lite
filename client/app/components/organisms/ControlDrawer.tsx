@@ -7,12 +7,13 @@ import { GiCheckMark } from "react-icons/gi";
 import { useSocketContext } from "../context/SocketContext";
 import { useState } from "react";
 import { server } from "~/config";
+import { toaster } from "../ui/toaster";
 
 const MS_PER_MINUTE = 6e4;
 
 export const ControlDrawer = () => {
 	const { activeDrawer, closeDrawer } = useDrawerContext();
-	const { terrorTrack, setTerror } = useTerrorContext();
+	const { terrorTrack, setTerror, getTerror } = useTerrorContext();
 	const { socketEmit } = useSocketContext();
 	const breakpoints = terrorBreakpoints;
 	const [minutes, setMinutes] = useState<number>(15);
@@ -24,7 +25,7 @@ export const ControlDrawer = () => {
 				<Drawer.Positioner>
 					<Drawer.Content>
 						<Drawer.Body pt="6" spaceY="3">
-							<Text textStyle="3xl">Clock Controls</Text>
+							{/* <Text textStyle="3xl">Clock Controls</Text>
 							<HStack justifyContent="space-between">
 								<VStack alignItems='start' gap={0}>
 									<Text textStyle="md">Minutes</Text>
@@ -78,7 +79,7 @@ export const ControlDrawer = () => {
 										(response: {}) => { console.log(response); }
 									)
 								}}>Update Time</Button>
-							</HStack>
+							</HStack> */}
 							<Text textStyle="3xl">Terror Controls</Text>
 							{terrorTrack.map(region => (
 								<HStack justifyContent="space-between">
@@ -103,6 +104,13 @@ export const ControlDrawer = () => {
 									</NumberInput.Root>
 								</HStack>
 							))}
+							<Button onClick={ () => {
+								let terror = getTerror()
+								socketEmit({ event: 'terror', payload: terror }, (response: {status: string, description: string, data: any}) => {
+										const { status, description, data } = response;
+										toaster.create({ type: status, description });
+								})
+							} }> Transmit Terror </Button>
 						</Drawer.Body>
 						<Drawer.Footer>
 							<Drawer.CloseTrigger asChild>

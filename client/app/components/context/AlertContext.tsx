@@ -37,7 +37,7 @@ export const NewsAlertContextProvider = ({
     const track = [...alertQueue];
     track.push(data);
     setAlertQueue(track);
-    startAlert();
+    if (alertQueue[0]) startAlert();
   };
   const removeAlert = (i: number) => {
     const track = [...alertQueue];

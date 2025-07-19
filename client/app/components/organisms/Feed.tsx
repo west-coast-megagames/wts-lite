@@ -59,7 +59,7 @@ export const MediaFeed = () => {
         <Flex borderWidth="1px" divideX="1px" borderRadius="l3" bg="bg" justify='space-between'>
           <Button variant={'ghost'} onClick={ () => handleNewPost() }><BiPlus />Add Post</Button>
           <Button variant={'ghost'} onClick={ () => refreshFeed() }><BiRefresh />Refresh Feed</Button>
-          <Button variant={'ghost'} onClick={ () => wipeFeed() }><FaDumpsterFire />Destroy Posts</Button>
+          { team?.code === "DEV" && <Button variant={'ghost'} onClick={ () => wipeFeed() }><FaDumpsterFire /></Button> }
         </Flex>
         <Box scrollbar="hidden" overflowY='scroll' h="80vh">
         <Stack gap="4">

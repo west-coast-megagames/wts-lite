@@ -10,30 +10,37 @@ type TerrorContextProviderProps = {
 type InitialTerrorStateProps = {
   terrorTrack: Region[];
   setTerror: (region: Region) => void;
+  getTerror: () => void;
 };
 
 const initialTerrorContext: InitialTerrorStateProps = {
   terrorTrack: regionList,
   setTerror: () => null,
+  getTerror: () => null,
 };
 
 export const TerrorContextProvider = ({
   children,
 }: TerrorContextProviderProps) => {
   const [terrorTrack, setterrorTrack] = useState<Region[]>(regionList);
+
   const setTerror = (payload: Region) => {
+    console.log(payload)
     const newTrack: Region[] = []
     terrorTrack.forEach((el, i) => {
         if (el.name === payload.name) newTrack.push(payload);
         else newTrack.push(el);
         
         setterrorTrack(newTrack);
-    })
+    });
   }
 
+  const getTerror = () => terrorTrack
+
+
   const value = useMemo(
-    () => ({ terrorTrack, setTerror }),
-    [terrorTrack]
+    () => ({ terrorTrack, setTerror, getTerror }),
+    [terrorTrack, getTerror]
   )
 
   return (

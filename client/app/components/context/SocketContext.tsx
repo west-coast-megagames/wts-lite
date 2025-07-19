@@ -7,6 +7,7 @@ import { toaster } from "../ui/toaster";
 import { useMediaContext } from "./MediaContext";
 import { useCountdownClockContext } from "./CountdownClockContext";
 import { useNewsAlertContext } from "./AlertContext";
+import { useTerrorContext } from "./TerrorContext";
 
   const URL = server;
   const socket = io(URL, { 
@@ -46,6 +47,7 @@ export const SocketContextProvider = ({
     const { refreshFeed } = useMediaContext();
     const { setCountdownDate } = useCountdownClockContext();
     const { addAlert, startAlert } = useNewsAlertContext();
+    const { setTerror} = useTerrorContext();
     
     // Socket Context functions
     const socketEmit = (data: SocketEmitPayload, callback: Function = () => {}) => {
@@ -102,6 +104,17 @@ export const SocketContextProvider = ({
             });
             setClients(newClients);
         });
+
+        socket.on('terrorUpdate', (payload) => {
+          const { status, description, data } = payload;
+           
+           data.forEach(el =>  setTerror(el))
+           toaster.create({
+                type: status,
+                description,
+                duration: 5000
+            });
+        })
 
         // Alert event for all messages from the server
         socket.on('alert', data => {
