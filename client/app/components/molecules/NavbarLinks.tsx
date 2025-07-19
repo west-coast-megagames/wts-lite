@@ -1,4 +1,4 @@
-import { Link, Stack, Text, usePopoverContext, type StackProps } from '@chakra-ui/react'
+import { Stack, Text, type StackProps } from '@chakra-ui/react'
 import { useState } from 'react'
 import { useDrawerContext } from '../context/DrawerContext';
 import { type DrawerTypes } from '~/types/types';
@@ -7,11 +7,11 @@ import { NavLink } from 'react-router';
 const getLink = (link: string) => {
   switch (link) {
     case("World Map"):
-      return "/";
+      return "/map";
     case("Newsroom"):
       return "/feed";
     default:
-      return "/";
+      return "/feed";
   }
 } 
 

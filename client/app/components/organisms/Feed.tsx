@@ -57,10 +57,8 @@ export const MediaFeed = () => {
 
     socketEmit({ event: 'media', payload: { action: 'post', data } }, (response: {status: string, description: string, data: any}) => {
       const { status, description, data } = response;
-      console.log(response)
       toaster.create({ type: status, description });
       if (post.status === 'New') setNewPost(undefined);
-      addPost(data);
       refreshFeed();
     })
   }

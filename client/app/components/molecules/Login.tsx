@@ -24,9 +24,8 @@ import { RoleSelect } from './RoleSelect'
 import { toaster } from '../ui/toaster'
 import { server } from '~/config'
 
-
 export const Login = () => {
-  const { team, teams, selectTeam, selectUser, selectRole } = useAppContext();
+  const { team, role, selectTeam, selectUser, selectRole } = useAppContext();
 	const navigate = useNavigate();
 	const [ pin, setPin ] = useState(["", "", "", ""]);
 	const [ mode, setMode ] = useState<'login' | 'reg'>('reg');
@@ -63,8 +62,28 @@ export const Login = () => {
         }
 	};
 
-	const handleReg = () => {
-
+	const handleReg = async () => {
+		try {
+			toaster.create({ type: 'info', description: 'Attempting to Register' });
+			await fetch(`${server}api/users`, { // Replace with your API endpoint
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ name: username, role: role?._id, pin: pin })
+			}).then(res => {
+				console.log(res.body)
+      	!res.ok ? toaster.create({ type: 'error', description: `Failed to load Teams`, duration: 5000}) : undefined;
+				return res.json();
+			}).then(json => {
+				setLoginSuccess(true);
+				selectUser(json);
+				selectRole(json.role._id);
+				selectTeam(json.role.team.code);
+			});
+		} catch (err) {
+			
+		}
 	};
 
 	useEffect(() => { 

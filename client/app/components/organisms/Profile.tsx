@@ -1,4 +1,4 @@
-import { Button, Container, Field, Input, Stack, Text } from '@chakra-ui/react'
+import { Button, Container, Field, Input, PinInput, Stack, Text } from '@chakra-ui/react'
 import { FormSection } from '../molecules/FormSection'
 import { TeamSelect } from '../molecules/TeamSelect'
 import { RoleSelect } from '../molecules/RoleSelect'
@@ -56,20 +56,45 @@ export const Profile = () => {
             <Field.Label>Username</Field.Label>
             <Input placeholder='Enter Screename' value={updateUser.name} onChange={handleUsername} />
           </Field.Root>
-          <TeamSelect />
+          <TeamSelect disabled />
           {currentTeam && <RoleSelect />}
-          <Button w="full" onClick={ () => handleSubmit() }>Update Profile</Button>
+          <Button disabled={!currentUser} w="full" onClick={ () => handleSubmit() }>Update Profile</Button>
         </FormSection>
 
         <form>
           <FormSection title="Password" description="Update your password">
             <Field.Root>
-              <Field.Label>Current password</Field.Label>
-              <Input type="password" name="currentPassword" />
+              <Field.Label>Current Pin</Field.Label>
+                <PinInput.Root 
+                  // onValueChange={ 
+                  //   (e) => setPin(e.value) 
+                  // } 
+                  size="xl" 
+                  placeholder="*">
+                  <PinInput.HiddenInput />
+                  <PinInput.Control>
+                    <PinInput.Input index={0} />
+                    <PinInput.Input index={1} />
+                    <PinInput.Input index={2} />
+                    <PinInput.Input index={3} />
+                  </PinInput.Control>
+                </PinInput.Root>
             </Field.Root>
             <Field.Root>
-              <Field.Label>New password</Field.Label>
-              <Input type="password" name="newPassword" />
+              <Field.Label>New Pin</Field.Label>
+              <PinInput.Root onValueChange={ (e) => { 
+                  console.log(e.value);
+                  console.log(typeof e.value);
+                  // setPin(e.value)
+                }} size="xl" placeholder="*">
+                <PinInput.HiddenInput />
+                <PinInput.Control>
+                  <PinInput.Input index={0} />
+                  <PinInput.Input index={1} />
+                  <PinInput.Input index={2} />
+                  <PinInput.Input index={3} />
+                </PinInput.Control>
+              </PinInput.Root>
             </Field.Root>
             <Button>Save</Button>
           </FormSection>
