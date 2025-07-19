@@ -2,6 +2,7 @@ const { logger } = require("../middleware/log/winston");
 const config = require("config");
 const { Server } = require("socket.io");
 const { Post } = require("../models/post");
+const { Turn } = require("../models/turns");
 
 module.exports = function(httpServer) {
     logger.info('Socket.io server initialized...');
@@ -85,9 +86,17 @@ module.exports = function(httpServer) {
             }
             callback({ status: 'success', description, data: data });
         })
+
+        // countdown clock
+        client.on('countdown', async (payload, callback) => {
+            const { minutes } = payload;
+            console.log(`Attempting to update countdown clock with ${minutes}`);
+            data = await Turn.findOne().sort({ createdAt: -1 }).exec();
+            console.log(`Turn: ${data}`);
+            io.emit('countdown', {action: 'update', data: data});
+            callback({ status: 'countdown success', data})
+        })
     });
-
-
 
     function currentUsers() {
 		const users = [];

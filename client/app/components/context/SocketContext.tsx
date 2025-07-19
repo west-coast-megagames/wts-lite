@@ -5,6 +5,7 @@ import { io } from "socket.io-client";
 import { server } from "../../config";
 import { toaster } from "../ui/toaster";
 import { useMediaContext } from "./MediaContext";
+import { useCountdownClockContext } from "./CountdownClockContext";
 
   const URL = server;
   const socket = io(URL, { 
@@ -42,7 +43,8 @@ export const SocketContextProvider = ({
     const [socketOnline, setSocketOnline] = useState<boolean>(false);
     const [clients, setClients] = useState<Client[]>([]);
     const { addPost, refreshFeed } = useMediaContext();
-
+    const { setCountdownDate } = useCountdownClockContext();
+    
     // Socket Context functions
     const socketEmit = (data: SocketEmitPayload, callback: Function = () => {}) => {
         socket.emit(data.event, data.payload, callback);
@@ -116,6 +118,20 @@ export const SocketContextProvider = ({
           refreshFeed();
         })
 
+        // countdown clock updates
+        socket.on('countdown', payload => {
+          console.log('Websocket: Received countdown message');
+          console.log(payload);
+          fetch(`${ server }api/turn`).then((res) => {
+            console.log(res.body);
+            !res.ok ? toaster.create({ type: 'error', description: `Failed to load Turn`, duration: 5000}) : undefined;
+            return res.json();
+          }).then(json => {
+            setCountdownDate(new Date(json.endTime))
+            setCurrentTurn(Number(json.number));
+          });
+        })
+
         socket.connect();
     };
 
@@ -142,3 +158,7 @@ export const SocketContext =
   createContext<InitialSocketStateProps>(initialSocketContext);
 
 export const useSocketContext = () => useContext(SocketContext);
+
+function setCurrentTurn(arg0: number) {
+  throw new Error("Function not implemented.");
+}

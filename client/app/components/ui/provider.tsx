@@ -11,22 +11,25 @@ import { SocketContextProvider } from "../context/SocketContext"
 import { AppContextProvider } from "../context/AppContext"
 import { MediaContextProvider } from "../context/MediaContext"
 import { NewsAlertContextProvider } from "../context/AlertContext"
+import { CountdownClockContextProvider } from "../context/CountdownClockContext"
 
 export function Provider(props: ColorModeProviderProps) {
   return (
     <ChakraProvider value={defaultSystem}>
       <AppContextProvider>
-        <SocketContextProvider>
-          <DrawerContextProvider>
-            <MediaContextProvider>
-              <NewsAlertContextProvider>
-                <TerrorContextProvider>
-                  <ColorModeProvider {...props} />
-                </TerrorContextProvider>
-              </NewsAlertContextProvider>
-            </MediaContextProvider>
-          </DrawerContextProvider>
-        </SocketContextProvider>
+        <CountdownClockContextProvider>
+          <SocketContextProvider>
+            <DrawerContextProvider>
+              <MediaContextProvider>
+                <NewsAlertContextProvider>
+                  <TerrorContextProvider>
+                    <ColorModeProvider {...props} />
+                  </TerrorContextProvider>
+                </NewsAlertContextProvider>
+              </MediaContextProvider>
+            </DrawerContextProvider>
+          </SocketContextProvider>
+        </CountdownClockContextProvider>
       </AppContextProvider>
     </ChakraProvider>
   )
