@@ -32,14 +32,14 @@ import { EditableComment } from '../EditableComment'
 import { useSocketContext } from '~/components/context/SocketContext'
 import { useMediaContext } from '~/components/context/MediaContext'
 
-export const PostCard = (props: { post: Post, mode?: 'view', onDelete: (post: Post) => void; onSave: (post: Post) => void }) => {
+export const PostCard = (props: { post: Post, mode?: 'view', onDelete: (post: Post) => void; onSave: () => void }) => {
 	const { post, mode, onDelete, onSave } = props;
 	const [activeMode, setMode] = useState<'view' | 'edit'>(mode ? mode : 'view');
 	const [editedPost, setEdit] = useState<Post>(post);
   const [ fakeComment, setFakeComment ] = useState<Comment | undefined>(); 
   const { user, team } = useAppContext();
   const { socketEmit } = useSocketContext();
-  const { addPost, refreshFeed } = useMediaContext();
+  const { refreshFeed } = useMediaContext();
 
 	useEffect(() => {
 		if (post.status === "New") setMode('edit');
@@ -75,8 +75,7 @@ export const PostCard = (props: { post: Post, mode?: 'view', onDelete: (post: Po
         const { status, description, data } = response;
         console.log(response)
         toaster.create({ type: status, description });
-        addPost(data);
-        refreshFeed();
+        onSave();
       })
     }
 	
@@ -161,20 +160,11 @@ return (
             </HStack>
 
             <Wrap>
-              {activeMode === "edit" && (
-                <WrapItem>
-                  <Button variant="ghost" onClick={ () => { onSave(editedPost); setMode('view'); }} >
-                    <BiSave /> Save
-                  </Button>
-                </WrapItem>
-              )}
-              {activeMode === "edit" && (
-                <WrapItem>
+                { (activeMode === "edit" || editedPost.status !== 'Published') && user?.name === editedPost.author.name && <WrapItem>
                   <Button variant="ghost" onClick={ () => handlePublish() }>
                     <MdPublish /> Publish
                   </Button>
-                </WrapItem>
-              )}
+                </WrapItem> }
               {activeMode === "edit" && editedPost.status === "New" && (
                 <WrapItem>
                   <Button variant="ghost" onClick={() => onDelete(editedPost)}>
@@ -182,14 +172,14 @@ return (
                   </Button>
                 </WrapItem>
               )}
-              {activeMode === "view" && (
+              {activeMode === "view" && user?.name === editedPost.author.name && (
                 <WrapItem>
                   <Button variant="ghost" onClick={() => setMode("edit")}>
                     <BsPencil /> Edit
                   </Button>
                 </WrapItem>
               )}
-              {activeMode === "view" && (
+              { activeMode === "view" && (user?.name === editedPost.author.name || team?.name === "Control") && (
                 <WrapItem>
                   <Button variant="ghost" color="red" onClick={() => onDelete(editedPost)}>
                     <BiTrash /> Delete

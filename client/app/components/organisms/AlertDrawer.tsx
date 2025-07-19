@@ -1,4 +1,4 @@
-import { Drawer, Portal, Text, Stack, CloseButton, Button } from "@chakra-ui/react"
+import { Drawer, Portal, Text, Stack, CloseButton, Button, Center, HStack, Avatar, Flex } from "@chakra-ui/react"
 import { useNewsAlertContext } from "../context/AlertContext";
 import { useEffect, useState } from "react";
 import useSound from "use-sound";
@@ -7,11 +7,14 @@ import sfx2 from '../../sounds/breaking-news-2.ogg'
 import sfx3 from '../../sounds/breaking-news-3.ogg'
 import sfx4 from '../../sounds/breaking-news-4.ogg'
 import sfx5 from '../../sounds/breaking-news-5.ogg'
+import { a3TOa2Converter, getFlag } from "~/scripts";
+import { useAppContext } from "../context/AppContext";
 
 
 export const AlertDrawer = () => {
     const [ triggered, setTriggered ] = useState<boolean>(false)
-    const { alertActive, stopAlert, startAlert } = useNewsAlertContext();
+    const { alertActive, stopAlert, alertQueue } = useNewsAlertContext();
+    const { displayMode } = useAppContext();
             const [ play1 ] = useSound(sfx1);
             const [ play2 ] = useSound(sfx2);
             const [ play3 ] = useSound(sfx3);
@@ -27,25 +30,39 @@ export const AlertDrawer = () => {
             setTriggered(true);
         }
 
+        console.log(alertQueue[0])
+
         const timer = setTimeout(() => {
             stopAlert();
             setTriggered(false);
-        }, 3000);
+        }, 8000);
 
         return () => clearTimeout(timer);
     }, [alertActive]);
 
     return (
-        <Drawer.Root open={alertActive} size="full" placement="top" >
-            <audio autoPlay>
-                <source src="breaking-news-1.ogg" type="audio/ogg" />
-            </audio>
+        <Drawer.Root open={alertActive && displayMode === 'projector'} size="full" placement="top" >
             <Portal>
                 <Drawer.Backdrop />
                 <Drawer.Positioner>
                 <Drawer.Content>
-                    <Drawer.Body pt="6" spaceY="3">
-                        <Text textStyle="3xl">Major News!</Text>
+                    <Drawer.Body >
+                        <Flex h="100vh" align="center" justify="center">
+                    {alertQueue[0] && <Stack>
+                                  <HStack>
+                                      <Avatar.Root size='2xl'>
+                                        <Avatar.Fallback />
+                                        <Avatar.Image src={getFlag(a3TOa2Converter(alertQueue[0].team?.code))} />
+                                      </Avatar.Root>
+                                      <Text textStyle="lg">
+                                        { alertQueue[0].team?.shortName } | { alertQueue[0].author?.name }
+                                      </Text>
+                                    </HStack>
+                        <Text textStyle="5xl">{alertQueue[0].headline}</Text>
+                        <Text textStyle="2xl">{alertQueue[0].body}</Text>
+                        
+                    </Stack>}
+                    </Flex>
                     </Drawer.Body>
                     <Drawer.Footer>
                     </Drawer.Footer>

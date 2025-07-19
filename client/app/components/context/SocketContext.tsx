@@ -6,6 +6,7 @@ import { server } from "../../config";
 import { toaster } from "../ui/toaster";
 import { useMediaContext } from "./MediaContext";
 import { useCountdownClockContext } from "./CountdownClockContext";
+import { useNewsAlertContext } from "./AlertContext";
 
   const URL = server;
   const socket = io(URL, { 
@@ -42,8 +43,9 @@ export const SocketContextProvider = ({
 }: SocketContextProviderProps) => {
     const [socketOnline, setSocketOnline] = useState<boolean>(false);
     const [clients, setClients] = useState<Client[]>([]);
-    const { addPost, refreshFeed } = useMediaContext();
+    const { refreshFeed } = useMediaContext();
     const { setCountdownDate } = useCountdownClockContext();
+    const { addAlert, startAlert } = useNewsAlertContext();
     
     // Socket Context functions
     const socketEmit = (data: SocketEmitPayload, callback: Function = () => {}) => {
@@ -114,7 +116,8 @@ export const SocketContextProvider = ({
         socket.on('newsflash', payload => {
           const { type, description, data } = payload;
           toaster.create({ type, description, duration: 4000 });
-          addPost(data);
+          addAlert(data);
+          startAlert();
           refreshFeed();
         })
 

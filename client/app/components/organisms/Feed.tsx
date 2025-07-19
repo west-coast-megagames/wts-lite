@@ -13,11 +13,9 @@ import { toaster } from '../ui/toaster'
 import type { Post } from '~/types/types'
 import { useEffect, useState } from 'react'
 import { FaDumpsterFire } from 'react-icons/fa'
-import { useSocketContext } from '../context/SocketContext'
 
 export const MediaFeed = () => {
-  const { deletePost, refreshFeed, wipeFeed, addPost, mediaFeed } = useMediaContext();
-  const { socketEmit } = useSocketContext();
+  const { deletePost, refreshFeed, wipeFeed, mediaFeed } = useMediaContext();
   const { team, user } = useAppContext();
   const [ newPost, setNewPost ] = useState<Post | undefined>(undefined);
 
@@ -50,17 +48,9 @@ export const MediaFeed = () => {
     else deletePost(post);
   }
 
-  const handleSave = (post: Post) => {
-    let data = {...post}
-    if (user) data.author = user?._id;
-    if (team) data.team = team?._id;
-
-    socketEmit({ event: 'media', payload: { action: 'post', data } }, (response: {status: string, description: string, data: any}) => {
-      const { status, description, data } = response;
-      toaster.create({ type: status, description });
+  const handleSave = () => {
       setNewPost(undefined);
       refreshFeed();
-    })
   }
   
   return (

@@ -11,8 +11,6 @@ type MediaContextProviderProps = {
 
 type InitialMediaStateProps = {
   mediaFeed: Post[];
-  setFeed: (payload: Post) => void;
-  addPost: (payload: Post) => void;
   deletePost: (post: Post) => void;
   refreshFeed: () => void;
   wipeFeed: () => void;
@@ -20,8 +18,6 @@ type InitialMediaStateProps = {
 
 const initialMediaContext: InitialMediaStateProps = {
   mediaFeed: [] as Post[],
-  setFeed: () => null,
-  addPost: () => null,
   deletePost: () => null,
   refreshFeed: () => null,
   wipeFeed: () => null
@@ -32,24 +28,6 @@ export const MediaContextProvider = ({
 }: MediaContextProviderProps) => {
     const [mediaFeed, setMediaFeed] = useState<Post[]>(feeds);
     
-    const setFeed = (payload: Post) => {
-        const newTrack: Post[] = []
-        let index = -1
-        mediaFeed.forEach((el, i) => {
-            if (el._id === payload._id) {
-              newTrack.push(payload)
-              index = i
-            }
-            else newTrack.push(el);
-        });
-        if (index === -1) newTrack.push(payload)
-        console.log(newTrack);
-        setMediaFeed(newTrack);
-    }
-
-    const addPost = (payload: Post) => {
-      refreshFeed();
-    }
 
     const deletePost = async (payload: Post) => {
       console.log(`Deleting Post ${ payload.headline }`);
@@ -104,8 +82,8 @@ export const MediaContextProvider = ({
       }
 
   const value = useMemo(
-    () => ({ mediaFeed, setFeed, addPost, deletePost, refreshFeed, wipeFeed }),
-    [mediaFeed, addPost, setFeed, deletePost, addPost, wipeFeed]
+    () => ({ mediaFeed, deletePost, refreshFeed, wipeFeed }),
+    [mediaFeed, deletePost, wipeFeed]
   )
 
   return (

@@ -23,9 +23,12 @@ import { useNavigate, useSearchParams } from 'react-router'
 import { RoleSelect } from './RoleSelect'
 import { toaster } from '../ui/toaster'
 import { server } from '~/config'
+import { useSocketContext } from '../context/SocketContext'
+import type { User } from '~/types/types'
 
 export const Login = () => {
-  const { team, role, user, selectTeam, selectUser, selectRole } = useAppContext();
+  	const { team, role, user, selectTeam, selectUser, selectRole } = useAppContext();
+	const { initConnection } = useSocketContext()
 	const navigate = useNavigate();
 	const [ pin, setPin ] = useState(["", "", "", ""]);
 	const [ mode, setMode ] = useState<'login' | 'reg'>('reg');
@@ -54,6 +57,8 @@ export const Login = () => {
 			selectUser(json);
 			selectRole(json.role._id);
 			selectTeam(json.role.team.code);
+			const me: User = json;
+			initConnection({ userID: me._id, username: me.name, role: me.role?.title, team: me.role?.team?.shortName });
           });
         } catch (err) {
           // Handle network errors or errors thrown from the response.ok check
@@ -76,10 +81,12 @@ export const Login = () => {
       	!res.ok ? toaster.create({ type: 'error', description: `Failed to load Teams`, duration: 5000}) : undefined;
 				return res.json();
 			}).then(json => {
+				const me: User = json
 				setLoginSuccess(true);
 				selectUser(json);
 				selectRole(json.role._id);
 				selectTeam(json.role.team.code);
+				initConnection({ userID: me._id, username: me.name, role: me.role?.title, team: me.role?.team?.shortName });
 			});
 		} catch (err) {
 			

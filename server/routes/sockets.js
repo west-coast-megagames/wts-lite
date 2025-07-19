@@ -69,14 +69,21 @@ module.exports = function(httpServer) {
                     break;
                 }
                 case ("publish"): {
-                    data = await Post.findOneAndUpdate({ headline: payloadData.headline }, { status: "Published" })
+                    data = await Post.findOneAndUpdate({ headline: payloadData.headline }, { 
+                        headline: payloadData.headline, 
+                        body:payloadData.body,
+                        team: payloadData.team,
+                        author: payloadData.author,
+                        tags: payloadData.tags,
+                        status: "Published" 
+                    }, { upsert: true })
                         .populate('team')
                         .populate('author');
 
-                    console.log(`Author populeted: ${data.populated('author')}`);
-                    console.log(`Team populeted: ${data.populated('team')}`);
-                    console.log(data)
-                    client.broadcast.emit('newsflash', { type: 'info', description: `${username} has published ${data.headline}`, data })
+                    // console.log(`Author populeted: ${data.populated('author')}`);
+                    // console.log(`Team populeted: ${data.populated('team')}`);
+                    // console.log(data)
+                    io.emit('newsflash', { type: 'info', description: `${username} has published ${payloadData.headline}`, data })
                     description = 'We did it!'
                     break;
                 }

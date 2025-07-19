@@ -33,10 +33,11 @@ export const NewsAlertContextProvider = ({
     removeAlert(0);
 };
   const addAlert = (data: Post) => {
+    console.log('Alert Triggered')
     const track = [...alertQueue];
     track.push(data);
     setAlertQueue(track);
-    if (!alertActive) setAlertActive(true);
+    startAlert();
   };
   const removeAlert = (i: number) => {
     const track = [...alertQueue];
@@ -46,7 +47,7 @@ export const NewsAlertContextProvider = ({
 
   const value = useMemo(
     () => ({ alertActive, alertQueue, startAlert, stopAlert, addAlert, removeAlert }),
-    [ alertActive, alertQueue ]
+    [ alertActive, alertQueue, startAlert, stopAlert, addAlert, removeAlert ]
   )
 
   return (

@@ -18,17 +18,17 @@ export function Provider(props: ColorModeProviderProps) {
     <ChakraProvider value={defaultSystem}>
       <AppContextProvider>
         <CountdownClockContextProvider>
-          <SocketContextProvider>
-            <DrawerContextProvider>
+          <NewsAlertContextProvider>
+            <TerrorContextProvider>
               <MediaContextProvider>
-                <NewsAlertContextProvider>
-                  <TerrorContextProvider>
+              <SocketContextProvider>
+                <DrawerContextProvider>
                     <ColorModeProvider {...props} />
-                  </TerrorContextProvider>
-                </NewsAlertContextProvider>
-              </MediaContextProvider>
             </DrawerContextProvider>
           </SocketContextProvider>
+          </MediaContextProvider>
+               </TerrorContextProvider>
+                </NewsAlertContextProvider>
         </CountdownClockContextProvider>
       </AppContextProvider>
     </ChakraProvider>

@@ -6,8 +6,6 @@ import { useNavigate } from "react-router";
 import logo from "../img/logos/wcm_logo.png"
 import { NotificationPopover, UserMenu } from "~/components/molecules";
 import { Login } from "~/components/molecules/Login";
-import { server } from "~/config";
-import { toaster } from "~/components/ui/toaster";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -17,9 +15,8 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
-  const { dataUplink, displayMode, teams,  } = useAppContext();
+  const { dataUplink, displayMode  } = useAppContext();
   const [ loadMessage, setMessage ] = useState<string>('Loading digital assests... so sit back and Watch the Skies.');
-  const navigate = useNavigate();
 
   useEffect(() => {
     console.log(displayMode);
