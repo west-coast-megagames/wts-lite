@@ -6,7 +6,7 @@ import { toaster } from "../ui/toaster";
 let clock: NodeJS.Timeout | null = null;
 
 export const CountdownClock = () => {
-    const { countdownDate, setCountdownDate } = useCountdownClockContext();
+    const { countdownDate, setCountdownDate, currentTurn, setCurrentTurn } = useCountdownClockContext();
     const [message, setMessage] = useState()
     const [seconds, setSeconds] = useState<number>(0);
     const [minutes, setMinutes] = useState<number>(0);
@@ -20,6 +20,7 @@ export const CountdownClock = () => {
             return res.json();
         }).then(json => {
             setCountdownDate(new Date(json.endTime))
+            setCurrentTurn(Number(json.number));
         });
     }, []);
 
@@ -59,5 +60,5 @@ export const CountdownClock = () => {
     )
 
 
-    return (<h1 id="time">{days}d {hours}h {minutes}m {seconds}s</h1>)
+    return (<h1 id="time">Turn {currentTurn} | {days}d {hours}h {minutes}m {seconds}s</h1>)
 }

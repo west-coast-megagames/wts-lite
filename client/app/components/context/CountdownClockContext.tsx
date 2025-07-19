@@ -12,20 +12,24 @@ type CountdownClockContextProviderProps = {
 type InitialCountdownClockStateProps = {
     countdownDate: Date,
     setCountdownDate: (arg: Date) => void;
+    currentTurn: number,
+    setCurrentTurn: (arg: number) => void;
 };
 
 const initialCountdownClockContext: InitialCountdownClockStateProps = {
     countdownDate: new Date("Jul 19, 2025 08:30:00"),
     setCountdownDate: () => null,
+    currentTurn: 1,
+    setCurrentTurn: () => null,
 };
 
 export const CountdownClockContextProvider = ({
     children,
 }: CountdownClockContextProviderProps) => {
-    1
     const [countdownDate, setCountdownDate] = useState<Date>(new Date("Jul 19, 2025 08:30:00"));
+    const [currentTurn, setCurrentTurn] = useState<number>(1);
 
-    const value = { countdownDate, setCountdownDate };
+    const value = { countdownDate, currentTurn, setCountdownDate, setCurrentTurn };
 
     return (
         <CountdownClockContext.Provider value={value}>{children}</CountdownClockContext.Provider>

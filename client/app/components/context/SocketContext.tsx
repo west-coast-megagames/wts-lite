@@ -128,6 +128,7 @@ export const SocketContextProvider = ({
             return res.json();
           }).then(json => {
             setCountdownDate(new Date(json.endTime))
+            setCurrentTurn(Number(json.number));
           });
         })
 
@@ -157,3 +158,7 @@ export const SocketContext =
   createContext<InitialSocketStateProps>(initialSocketContext);
 
 export const useSocketContext = () => useContext(SocketContext);
+
+function setCurrentTurn(arg0: number) {
+  throw new Error("Function not implemented.");
+}
