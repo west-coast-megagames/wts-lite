@@ -1,16 +1,29 @@
 import { useEffect, useRef, useState } from "react";
 import { useCountdownClockContext } from "../context/CountdownClockContext";
+import { server } from "~/config";
+import { toaster } from "../ui/toaster";
+
+let clock: NodeJS.Timeout | null = null;
 
 export const CountdownClock = () => {
-    const { countdownDate } = useCountdownClockContext();
+    const { countdownDate, setCountdownDate } = useCountdownClockContext();
     const [message, setMessage] = useState()
     const [seconds, setSeconds] = useState<number>(0);
     const [minutes, setMinutes] = useState<number>(0);
     const [hours, setHours] = useState<number>(0);
     const [days, setDays] = useState<number>(0);
 
+    useEffect(() => {
+        fetch(`${server}api/turn`).then((res) => {
+            console.log(res.body);
+            !res.ok ? toaster.create({ type: 'error', description: `Failed to load Turn`, duration: 5000 }) : undefined;
+            return res.json();
+        }).then(json => {
+            setCountdownDate(new Date(json.endTime))
+        });
+    }, []);
+
     // Update the count down every 1 second
-    let clock: NodeJS.Timeout | null = null;
     useEffect(
         () => {
             if (clock != null) {

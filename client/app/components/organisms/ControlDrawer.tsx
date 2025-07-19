@@ -6,6 +6,9 @@ import { useTerrorContext } from "../context/TerrorContext"
 import { GiCheckMark } from "react-icons/gi";
 import { useSocketContext } from "../context/SocketContext";
 import { useState } from "react";
+import { server } from "~/config";
+
+const MS_PER_MINUTE = 6e4;
 
 export const ControlDrawer = () => {
 	const { activeDrawer, closeDrawer } = useDrawerContext();
@@ -13,6 +16,7 @@ export const ControlDrawer = () => {
 	const { socketEmit } = useSocketContext();
 	const breakpoints = terrorBreakpoints;
 	const [minutes, setMinutes] = useState<number>(15);
+	const [turnNumber, setTurnNumber] = useState<number>(1);
 	return (
 		<Drawer.Root placement="end" open={activeDrawer === "dashboard"} onOpenChange={(e) => !e.open ? closeDrawer() : ""} onEscapeKeyDown={() => closeDrawer()} size='sm'>
 			<Portal>
@@ -39,8 +43,36 @@ export const ControlDrawer = () => {
 										<NumberInput.Input />
 									</InputGroup>
 								</NumberInput.Root>
-								<Button onClick={() => {
+							</HStack>
+							<HStack justifyContent="space-between">
+								<VStack alignItems='start' gap={0}>
+									<Text textStyle="md">Turn #</Text>
+								</VStack>
+								<NumberInput.Root value='1' size='md' w="3xs" onValueChange={(el) => {
+									setTurnNumber(Number.isNaN(el.valueAsNumber) ? 0 : el.valueAsNumber);
+								}}>
+									<NumberInput.Control />
+									<InputGroup
+										startElementProps={{ pointerEvents: "auto" }}
+										startElement={
+											<NumberInput.Scrubber>
+												<LuArrowRightLeft />
+											</NumberInput.Scrubber>
+										}>
+										<NumberInput.Input />
+									</InputGroup>
+								</NumberInput.Root>
+							</HStack>
+							<HStack justifyContent="space-between">
+								<Button onClick={async () => {
 									console.log(`client attempting to update with ${minutes}`);
+									await fetch(
+										`${server}api/turn`,
+										{
+											method: 'POST', headers: { 'Content-Type': 'application/json' },
+											body: JSON.stringify({ number: turnNumber, turnDuration: minutes, startTime: Date.now(), endTime: Date.now() + minutes * MS_PER_MINUTE, })
+										}
+									);
 									socketEmit(
 										{ event: 'countdown', payload: { action: 'update', minutes } },
 										(response: {}) => { console.log(response); }

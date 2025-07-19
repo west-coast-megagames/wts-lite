@@ -43,7 +43,7 @@ export const SocketContextProvider = ({
     const [socketOnline, setSocketOnline] = useState<boolean>(false);
     const [clients, setClients] = useState<Client[]>([]);
     const { addPost, refreshFeed } = useMediaContext();
-    const { setCountdownTime } = useCountdownClockContext();
+    const { setCountdownDate } = useCountdownClockContext();
     
     // Socket Context functions
     const socketEmit = (data: SocketEmitPayload, callback: Function = () => {}) => {
@@ -120,9 +120,15 @@ export const SocketContextProvider = ({
 
         // countdown clock updates
         socket.on('countdown', payload => {
-          const { data } = payload;
+          console.log('Websocket: Received countdown message');
           console.log(payload);
-          setCountdownTime(data);
+          fetch(`${ server }api/turn`).then((res) => {
+            console.log(res.body);
+            !res.ok ? toaster.create({ type: 'error', description: `Failed to load Turn`, duration: 5000}) : undefined;
+            return res.json();
+          }).then(json => {
+            setCountdownDate(new Date(json.endTime))
+          });
         })
 
         socket.connect();
