@@ -3,19 +3,18 @@ import { useState } from 'react';
 import { BsChat, BsChatHeart } from "react-icons/bs"
 import type { T } from '~/img/flags';
 import { getFlag } from '~/scripts';
-import type { Comment } from '~/types/types';
+import type { CommentType } from '~/types/types';
 import { Reply } from './Reply';
-import { useMediaContext } from '../context/MediaContext';
 import { toaster } from '../ui/toaster';
 import { useAppContext } from '../context/AppContext';
 import { EditableReply } from './EditableReply';
 
 
-export const Comment = (props: { comment: Comment }) => {
+export const Comment = (props: { comment: CommentType }) => {
   const { comment } = props;
   // const [liked, setliked] = useState<boolean>(false);
   const [expanded, setExpanded] = useState<boolean>(false);
-  const [ fakeComment, setFakeComment ] = useState<Comment | undefined>(); 
+  const [ fakeComment, setFakeComment ] = useState<CommentType | undefined>(); 
   const { user, team } = useAppContext();
 
    const handleNewReply = () => {

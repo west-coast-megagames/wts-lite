@@ -77,7 +77,7 @@ export type Post = {
     tags: string[],
 };
 
-export type Comment = {
+export type CommentType = {
     user: User,
     body: string,
     replies: Comment[],
