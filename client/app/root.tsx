@@ -16,6 +16,7 @@ import { TopBar } from "./components/organisms/TopBar";
 import { Toaster } from "./components/ui/toaster";
 import { ProfileDrawer } from "./components/organisms/ProfileDrawer";
 import { SettingDrawer } from "./components/organisms/SettingsDrawer";
+import { AlertDrawer } from "./components/organisms/AlertDrawer";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -44,6 +45,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <ControlDrawer  />
           <ProfileDrawer />
           <SettingDrawer />
+          <AlertDrawer />
           <div className="monitor">
             <TopBar />
             {children}

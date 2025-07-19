@@ -10,6 +10,7 @@ import { TerrorContextProvider } from "../context/TerrorContext"
 import { SocketContextProvider } from "../context/SocketContext"
 import { AppContextProvider } from "../context/AppContext"
 import { MediaContextProvider } from "../context/MediaContext"
+import { NewsAlertContextProvider } from "../context/AlertContext"
 
 export function Provider(props: ColorModeProviderProps) {
   return (
@@ -18,9 +19,11 @@ export function Provider(props: ColorModeProviderProps) {
         <SocketContextProvider>
           <DrawerContextProvider>
             <MediaContextProvider>
-            <TerrorContextProvider>
-              <ColorModeProvider {...props} />
-            </TerrorContextProvider>
+              <NewsAlertContextProvider>
+                <TerrorContextProvider>
+                  <ColorModeProvider {...props} />
+                </TerrorContextProvider>
+              </NewsAlertContextProvider>
             </MediaContextProvider>
           </DrawerContextProvider>
         </SocketContextProvider>
