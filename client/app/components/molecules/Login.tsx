@@ -31,6 +31,7 @@ export const Login = () => {
 	const [ mode, setMode ] = useState<'login' | 'reg'>('reg');
 	const [ searchParams, setSearchParams ] = useSearchParams();
 	const [ code, harvestCode ] = useState<string | null>("");
+	
 	const [ username, setUsername ] = useState<string | undefined>(undefined);
 	const [ loginSuccess, setLoginSuccess ] = useState<boolean>(false);
 
@@ -141,8 +142,8 @@ export const Login = () => {
 				{ mode === 'reg' && <TeamSelect disabled={team ? true : false} /> }
 				{ mode === 'reg' && <RoleSelect /> }
       </Stack>
-
       <VStack gap="6">
+				<Text>Enter pin below</Text>
         <PinInput.Root value={pin} onValueChange={ (e) => { 
 					console.log(e.value);
 					console.log(typeof e.value);
@@ -157,8 +158,9 @@ export const Login = () => {
           </PinInput.Control>
         </PinInput.Root>
       </VStack>
-
-      <Button onClick={ () => {
+      <Button
+				disabled={ pin.includes("") }
+				onClick={ () => {
 				if (mode === "login") handleLogin();
 				if (mode === "reg") handleReg();
 			}}>
