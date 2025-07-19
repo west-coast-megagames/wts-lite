@@ -56,7 +56,7 @@ export const CountdownClock = () => {
                 }
             }, 1000);
         },
-        [countdownDate]
+        [countdownDate, currentTurn]
     )
 
 

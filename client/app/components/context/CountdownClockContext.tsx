@@ -11,15 +11,15 @@ type CountdownClockContextProviderProps = {
 
 type InitialCountdownClockStateProps = {
     countdownDate: Date,
-    setCountdownDate: (arg: Date) => void;
     currentTurn: number,
+    setCountdownDate: (arg: Date) => void;
     setCurrentTurn: (arg: number) => void;
 };
 
 const initialCountdownClockContext: InitialCountdownClockStateProps = {
     countdownDate: new Date("Jul 19, 2025 08:30:00"),
-    setCountdownDate: () => null,
     currentTurn: 1,
+    setCountdownDate: () => null,
     setCurrentTurn: () => null,
 };
 
