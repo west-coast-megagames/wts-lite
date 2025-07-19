@@ -18,8 +18,14 @@ export function a3TOa2Converter (code: string) {
         case ('rmt'): return 'rmt' as T;
         case ('cgm'): return 'cgm' as T;
         case ('tcn'): return 'tcn' as T;
-        case ('bgc'): return 'bnc' as T;
+        case ('bnc'): return 'bnc' as T;
         case ('gnn'): return 'gnn' as T;
+        case ('hpw'): return 'hpw' as T;
+        case ('rsa'): return 'za' as T;
+        case ('irn'): return 'ir' as T;
+        case ('ept'): return 'eg' as T;
+        case ('brz'): return 'br' as T;
+        case ('dev'): return 'dev' as T;
         case ('hpw'): return 'hpw' as T;
         default: return code  as T;
     }

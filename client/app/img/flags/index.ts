@@ -56,6 +56,7 @@ import cx from "./cx.svg";
 import cy from "./cy.svg";
 import cz from "./cz.svg";
 import de from "./de.svg";
+import dev from "./dev.png"
 import dj from "./dj.svg";
 import dk from "./dk.svg";
 import dm from "./dm.svg";
@@ -86,6 +87,7 @@ import gi from "./gi.svg";
 import gl from "./gl.svg";
 import gm from "./gm.svg";
 import gn from "./gn.svg";
+import gnn from "./gnn.svg"
 import gp from "./gp.svg";
 import gq from "./gq.svg";
 import gr from "./gr.svg";
@@ -97,6 +99,7 @@ import gy from "./gy.svg";
 import hk from "./hk.svg";
 import hm from "./hm.svg";
 import hn from "./hn.svg";
+import hpw from "./hpw.svg";
 import hr from "./hr.svg";
 import ht from "./ht.svg";
 import hu from "./hu.svg";
@@ -222,7 +225,7 @@ import tk from "./tk.svg";
 import tl from "./tl.svg";
 import tm from "./tm.svg";
 import tn from "./tn.svg";
-import tnc from "./tcn.svg";
+import tcn from "./tcn.svg";
 import to from "./to.svg";
 import tr from "./tr.svg";
 import tt from "./tt.svg";
@@ -311,6 +314,7 @@ export type FlagObject = {
     cy: string,
     cz: string,
     de: string,
+    dev: string,
     dj: string,
     dk: string,
     dm: string,
@@ -341,6 +345,7 @@ export type FlagObject = {
     gl: string,
     gm: string,
     gn: string,
+    gnn: string,
     gp: string,
     gq: string,
     gr: string,
@@ -352,6 +357,7 @@ export type FlagObject = {
     hk: string,
     hm: string,
     hn: string,
+    hpw: string,
     hr: string,
     ht: string,
     hu: string,
@@ -477,7 +483,7 @@ export type FlagObject = {
     tl: string,
     tm: string,
     tn: string,
-    tnc: string,
+    tcn: string,
     to: string,
     tr: string,
     tt: string,
@@ -513,11 +519,11 @@ export const flagIcons: FlagObject = {
     ad, ae, af, ag, ai, al, am, ao, aq, ar, as, at, au, aw, ax, az,
     ba, bb, bd, be, bf, bg, bh, bi, bl, bm, bn, bnc, bo, bq, br, brl, bs, bt, bv, bw, by, bz,
     ca, cc, cd, cf, cg, ch, ci, ck, cl, cm, cn, co, cr, cu, cv, cw, cx, cy,cz,
-    de, dj, dk, dm, /*dom: do,*/ dz,
+    de, dev, dj, dk, dm, /*dom: do,*/ dz,
     ec, ee, eg, eh, er, es, et, eu,
     fi, fj, fk, fm, fo, fr,
-    ga, gb, gd, ge, gf, gg, gh, gi, gl, gm, gn, gp, gq, gr, gs, gt, gu, gw, gy,
-    hk, hm, hn, hr, ht, hu,
+    ga, gb, gd, ge, gf, gg, gh, gi, gl, gm, gn, gnn, gp, gq, gr, gs, gt, gu, gw, gy,
+    hk, hm, hn, hpw, hr, ht, hu,
     id, ie, il, im, ind, io, iq, ir, is, it,
     je, jm, jo, jp,
     ke, kg, kh, ki,
@@ -530,7 +536,7 @@ export const flagIcons: FlagObject = {
     qa,
     re, ro, rs, ru, rw,
     sa, sb, sc, sd, se, sg, sh, si, sj, sk, sl, sm, sn, so, sr, ss, st, sv, sx, sy, sz,
-    tc, td, tf, tg, th, tj, tk, tl, tm, tn, tnc, to, tr, tt, tv, tw, tz,
+    tc, td, tf, tg, th, tj, tk, tl, tm, tn, tcn, to, tr, tt, tv, tw, tz,
     ua, ug, um, us, uy, uz,
     va, vc, ve, vg, vi, vn, vu,
     wf, ws,
