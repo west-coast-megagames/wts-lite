@@ -30,7 +30,7 @@ module.exports = function(app) {
 	app.use('/api/posts', posts); // Route for inputing POSTS
 	app.use('/api/comments', comment); // Route for inputing Comments
 	app.use('/api/users', users); // Route for inputing users
-	app.use('/api/load', load)
+	app.use('/api/load', load);
 
 	logger.info('Routes Primed...');
 };

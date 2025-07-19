@@ -72,7 +72,6 @@ router.get('/:id', validateObjectId, async (req, res) => {
 // @access  Public
 router.post('/', async (req, res) => {
 	logger.info('POST Route: api/user call made...');
-
 	try {
 		console.log(req.body);
 
@@ -81,7 +80,12 @@ router.post('/', async (req, res) => {
 		newUser = new User(newUser);
 		
 		newUser = await newUser.save();
-		await newUser.populate('role');
+
+		newUser = await User.findOne({ name: newUser.name })
+			.populate('role')
+			.populate({ path: "role", populate: { path: 'team' }});
+
+		console.log(newUser);
 		logger.info(`user ${newUser.name} created...`);
 		res.status(200).json(newUser);
 	}
